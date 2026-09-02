@@ -1,0 +1,234 @@
+---
+import { getPosts } from '../../utils/api.js';
+
+// In Astro 4+, we can just fetch data at build time for the listing
+const posts = await getPosts(100); 
+---
+
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Berita & Pengumuman - Politeknik Baja Tegal</title>
+</head>
+<body class="bg-background text-text font-sans selection:bg-secondary selection:text-text">
+    <style is:global>
+        @keyframes scroll-text {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+        .ticker-animate {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-text 25s linear infinite;
+            will-change: transform;
+        }
+        .ticker-animate:hover {
+            animation-play-state: paused;
+        }
+    </style>
+    <!-- Top Announcement Ticker -->
+    <div class="bg-primary-dark text-secondary-light text-base font-semibold py-3 overflow-hidden whitespace-nowrap relative z-[60] border-b border-primary/20">
+        <div class="ticker-animate">
+            <span class="inline-flex items-center gap-3 px-4">
+                <span class="flex h-3 w-3 rounded-full bg-secondary animate-pulse shadow-[0_0_10px_rgba(245,158,11,1)]"></span>
+                Pengumuman: Penerimaan Mahasiswa Baru Tahun Ajaran 2026/2027 Telah Resmi Dibuka! Segera Daftarkan Dirimu, Gelombang Pertama Ditutup Bulan Ini!
+            </span>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="/logo-pbjt-s.png" alt="Logo PBJT" class="h-10 w-auto group-hover:scale-105 transition-transform" />
+                    <span class="font-bold text-xl text-primary-dark tracking-tight">Politeknik Baja Tegal</span>
+                </a>
+                <div class="hidden md:flex space-x-6 font-medium text-slate-600 items-center">
+                    <a href="/" class="hover:text-primary transition-colors">Beranda</a>
+                    
+                    <!-- Dropdown Profil -->
+                    <div class="relative group">
+                        <button class="hover:text-primary transition-colors flex items-center gap-1">
+                            Profil <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 flex flex-col">
+                                <a href="/tentang-pbjt" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Tentang PBJT</a>
+                                <a href="/profil-politeknik-baja-tegal" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Profil Kampus</a>
+                                <a href="/struktur-politeknik-baja-tegal" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Struktur Organisasi</a>
+                                <a href="/biro" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BIRO (BAAK)</a>
+                                <a href="/akreditasi" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Akreditasi</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown Akademik -->
+                    <div class="relative group">
+                        <button class="hover:text-primary transition-colors flex items-center gap-1">
+                            Akademik <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-60 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 flex flex-col">
+                                <a href="/program-studi" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Program Studi</a>
+                                <a href="/d3-teknik-informatika" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Informatika</a>
+                                <a href="/d3-teknik-mesin" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Mesin</a>
+                                <a href="/d3-teknik-otomotif" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Otomotif</a>
+                                <a href="/d3-teknik-elektronika-industri" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Elektronika</a>
+                                <a href="/mikrotik-academy" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Mikrotik Academy</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dropdown Kemahasiswaan -->
+                    <div class="relative group">
+                        <button class="hover:text-primary transition-colors flex items-center gap-1">
+                            Kemahasiswaan <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 flex flex-col">
+                                <a href="/bem" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BEM</a>
+                                <a href="/hmti" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">HMTI</a>
+                                <a href="/rohis" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">ROHIS</a>
+                                <a href="/racana" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">RACANA</a>
+                                <a href="/bajapala" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BAJAPALA</a>
+                                <a href="/badminton" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BADMINTON</a>
+                                <a href="/futsal" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">FUTSAL</a>
+                                <a href="/paduan-suara" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">PADUAN SUARA</a>
+                                <a href="/forum-studi-ilmiah-fosil" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">FOSIL</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dropdown PMB -->
+                    <div class="relative group">
+                        <button class="hover:text-primary transition-colors flex items-center gap-1">
+                            PMB <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-52 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2 flex flex-col">
+                                <a href="/pmb" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Info PMB</a>
+                                <a href="/alur-pendaftaran" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Alur Pendaftaran</a>
+                                <a href="/biaya-perkuliahan" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Biaya Perkuliahan</a>
+                                <a href="/beasiswa-kip-kuliah" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Beasiswa KIP Kuliah</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Link Eksternal -->
+                    <a href="https://siakad.pbjt.ac.id" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-all">Siakad ↗</a>
+                    <a href="https://edlink.id/login" target="_blank" rel="noopener" class="text-xs px-3 py-1.5 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-all">E-Learning ↗</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-16 bg-slate-50 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <header class="mb-12 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Berita & Pengumuman</h1>
+                <p class="text-lg text-slate-500 max-w-2xl mx-auto">Informasi terbaru seputar kegiatan kampus, pengumuman akademik, dan prestasi mahasiswa Politeknik Baja Tegal.</p>
+            </header>
+
+            {posts.length === 0 ? (
+                <div class="text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                    <p class="text-slate-500 text-lg">Belum ada berita yang dipublikasikan.</p>
+                </div>
+            ) : (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {posts.map((post, index) => (
+                        <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-2 transition-all duration-300 group" style={`animation-delay: ${index * 0.1}s`}>
+                            <a href={`/berita/${post.slug}`} class="block">
+                                <div class="h-56 overflow-hidden">
+                                    {post._embedded?.['wp:featuredmedia'] ? (
+                                        <img 
+                                            src={post._embedded['wp:featuredmedia'][0].source_url} 
+                                            alt={post.title.rendered}
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    ) : (
+                                        <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">
+                                            <svg class="w-12 h-12 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        </div>
+                                    )}
+                                </div>
+                                <div class="p-6">
+                                    <p class="text-xs font-semibold text-primary mb-3">
+                                        {new Date(post.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    </p>
+                                    <h2 class="text-xl font-bold text-slate-800 mb-3 leading-tight group-hover:text-primary transition-colors line-clamp-2" set:html={post.title.rendered} />
+                                    <div class="text-slate-500 text-sm line-clamp-3 mb-4" set:html={post.excerpt.rendered} />
+                                    <span class="inline-flex items-center font-semibold text-secondary-dark group-hover:text-primary transition-colors text-sm">
+                                        Baca Selengkapnya <span class="ml-1">›</span>
+                                    </span>
+                                </div>
+                            </a>
+                        </article>
+                    ))}
+                </div>
+            )}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Col 1 -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="/logo-pbjt-s.png" alt="Logo PBJT" class="h-12 w-auto bg-white/10 p-1 rounded-lg" />
+                        <span class="text-xl font-bold text-white">Politeknik Baja Tegal</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                        Kampus vokasi modern yang mencetak SDM unggul, profesional, dan berdaya saing global di era industri digital.
+                    </p>
+                    <div class="text-sm">
+                        <p class="mb-2"><strong class="text-slate-300">📍 Alamat:</strong><br/>Jl. Raya Tegal-Slawi, Jawa Tengah</p>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h3 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Profil & Akademik</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="/tentang-pbjt" class="hover:text-primary transition-colors">Tentang PBJT</a></li>
+                        <li><a href="/profil-politeknik-baja-tegal" class="hover:text-primary transition-colors">Profil Kampus</a></li>
+                        <li><a href="/struktur-politeknik-baja-tegal" class="hover:text-primary transition-colors">Struktur Organisasi</a></li>
+                        <li><a href="/program-studi" class="hover:text-primary transition-colors">Program Studi</a></li>
+                        <li><a href="/akreditasi" class="hover:text-primary transition-colors">Akreditasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h3 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Kemahasiswaan & PMB</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="/pmb" class="hover:text-primary transition-colors">Info Pendaftaran</a></li>
+                        <li><a href="/biaya-perkuliahan" class="hover:text-primary transition-colors">Biaya Perkuliahan</a></li>
+                        <li><a href="/beasiswa-kip-kuliah" class="hover:text-primary transition-colors">Beasiswa KIP Kuliah</a></li>
+                        <li><a href="/bem" class="hover:text-primary transition-colors">Unit Kegiatan Mahasiswa</a></li>
+                        <li><a href="/magang" class="hover:text-primary transition-colors">Info Magang</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h3 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Tautan Eksternal</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://siakad.pbjt.ac.id" target="_blank" rel="noopener" class="hover:text-primary transition-colors flex items-center gap-1">Sistem Informasi Akademik ↗</a></li>
+                        <li><a href="https://edlink.id/login" target="_blank" rel="noopener" class="hover:text-primary transition-colors flex items-center gap-1">E-Learning (Edlink) ↗</a></li>
+                        <li><a href="/berita" class="hover:text-primary transition-colors">Berita & Pengumuman</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <p>© 2026 Politeknik Baja Tegal. Hak Cipta Dilindungi.</p>
+                <p>Powered by Headless WordPress & Astro</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
