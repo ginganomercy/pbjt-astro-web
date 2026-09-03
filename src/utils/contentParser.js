@@ -27,13 +27,24 @@ export function parseProdiContent(html) {
         // Hapus judul "Prospek Kerja" dari dalam blok itu sendiri karena kita akan pakai judul buatan Astro
         chunk = chunk.replace(/<p[^>]*><strong>Prospek Kerja<\/strong>.*?<\/p>/is, '');
         
-        // Suntikkan class Tailwind Premium ke <ul> dan <li> bawaan WordPress
-        chunk = chunk.replace(/<ul/gi, '<ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"');
-        chunk = chunk.replace(/<li[^>]*>/gi, '<li class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col space-y-2"><div class="flex items-center text-blue-600 font-bold mb-1"><svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>');
-        chunk = chunk.replace(/<\/li>/gi, '</div></li>');
+        // 1. Ubah nested <ul><li> (deskripsi pekerjaan) menjadi tag <p> biasa agar tidak tumpang tindih
+        chunk = chunk.replace(/<ul[^>]*>\s*<li[^>]*>([\s\S]*?)<\/li>\s*<\/ul>/gi, '<p class="text-slate-600 text-base leading-relaxed">$1</p>');
         
-        // Bold the first italic job title for better structure
-        chunk = chunk.replace(/<em>([^<]+)<\/em>/gi, '<span class="text-lg font-bold text-slate-800">$1</span>');
+        // 2. Format tag <ul> terluar menjadi Grid
+        chunk = chunk.replace(/<ul[^>]*>/gi, '<ul class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">');
+        
+        // 3. Format tag <li> terluar menjadi desain Kartu (Card) dengan mengekstrak judul pekerjaannya
+        chunk = chunk.replace(/<li[^>]*>([\s\S]*?)<p/gi, (match, p1) => {
+            // p1 berisi judul pekerjaan (misal: <em>Software Engineer</em>)
+            let jobTitle = p1.replace(/<\/?[^>]+(>|$)/g, "").trim(); // Bersihkan dari tag <em> dll
+            
+            return `<li class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                <div class="flex items-start text-slate-900 font-extrabold mb-3 text-lg">
+                    <svg class="w-6 h-6 mr-3 text-blue-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span>${jobTitle}</span>
+                </div>
+                <p`;
+        });
         
         prospek = chunk;
     }
