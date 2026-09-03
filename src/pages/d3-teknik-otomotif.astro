@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { getPageBySlug } from '../utils/api.js';
-import { parseProdiContent } from '../utils/contentParser.js';
+import { parseOtomotifContent } from '../utils/contentParser.js';
 
 // Ambil teks asli dari WordPress berdasarkan slug halaman
 const page = await getPageBySlug('d3-teknik-otomotif');
@@ -9,7 +9,7 @@ const title = page?.title?.rendered || "D3 Teknik Otomotif";
 const rawContent = page?.content?.rendered || "";
 
 // Ekstrak data kotor menjadi bersih
-const { deskripsi, prospek, visi, misi, tujuan } = parseProdiContent(rawContent);
+const { deskripsi, prospek, visi, misi, tujuan } = parseOtomotifContent(rawContent);
 
 // Gambar sertifikat di-hardcode agar aman
 const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-otomotif.jpg";

@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { getPageBySlug } from '../utils/api.js';
-import { parseProdiContent } from '../utils/contentParser.js';
+import { parseElektronikaContent } from '../utils/contentParser.js';
 
 // Ambil teks asli dari WordPress berdasarkan slug halaman
 const page = await getPageBySlug('d3-teknik-elektronika-industri') || await getPageBySlug('d3-teknik-elektronika');
@@ -9,7 +9,7 @@ const title = page?.title?.rendered || "D3 Teknik Elektronika Industri";
 const rawContent = page?.content?.rendered || "";
 
 // Ekstrak data kotor menjadi bersih
-const { deskripsi, prospek, visi, misi, tujuan } = parseProdiContent(rawContent);
+const { deskripsi, prospek, visi, misi, strategi, sasaran, struktur } = parseElektronikaContent(rawContent);
 
 // Gambar sertifikat di-hardcode agar aman
 const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-elektronika.jpg";
@@ -66,12 +66,42 @@ const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akredita
                         )}
                         
                         {tujuan && (
-                        <div class="relative z-10">
+                        <div class="relative z-10 mb-8">
                             <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
                                 <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                                 Tujuan Program Studi
                             </h3>
-                            <div class="pl-2" set:html={tujuan}></div>
+                            <div class="pl-2 prose-li:mb-2 prose-ul:list-disc prose-ol:list-decimal" set:html={tujuan}></div>
+                        </div>
+                        )}
+
+                        {strategi && (
+                        <div class="relative z-10 mb-8">
+                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                Strategi
+                            </h3>
+                            <div class="pl-2 prose-li:mb-2 prose-ul:list-disc prose-ol:list-decimal" set:html={strategi}></div>
+                        </div>
+                        )}
+
+                        {sasaran && (
+                        <div class="relative z-10 mb-8">
+                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                Sasaran
+                            </h3>
+                            <div class="pl-2 prose-li:mb-2 prose-ul:list-disc prose-ol:list-decimal" set:html={sasaran}></div>
+                        </div>
+                        )}
+
+                        {struktur && (
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                Struktur Organisasi
+                            </h3>
+                            <div class="pl-2 prose-li:mb-2 prose-ul:list-disc prose-ol:list-decimal" set:html={struktur}></div>
                         </div>
                         )}
                     </div>
