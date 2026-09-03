@@ -24,8 +24,9 @@ export function parseProdiContent(html) {
     if (prospekIdx !== -1) {
         const endIdx = visiIdx !== -1 ? visiIdx : clean.length;
         let chunk = clean.substring(prospekIdx, endIdx);
-        // Hapus judul "Prospek Kerja" karena kita pakai judul dari Astro
-        chunk = chunk.replace(/<p[^>]*><strong>Prospek Kerja<\/strong>.*?<\/p>/is, '');
+        
+        // Hapus judul "Prospek Kerja" dari WordPress karena kita pakai judul dari Astro
+        chunk = chunk.replace(/<p[^>]*>(?:<strong>)?\s*Prospek Kerja\s*(?:<\/strong>)?.*?<\/p>/is, '');
         
         // FLAWLESS PARSER: Menangani ketidakkonsistenan tag <em> dan <strong> dari WordPress
         
