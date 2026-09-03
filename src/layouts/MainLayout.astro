@@ -2,13 +2,13 @@
 const { title = "Politeknik Baja Tegal" } = Astro.props;
 ---
 
-<html lang="id">
+<html lang="id" class="overflow-x-hidden">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
 </head>
-<body class="bg-background text-text font-sans selection:bg-secondary selection:text-text">
+<body class="bg-background text-text font-sans selection:bg-secondary selection:text-text overflow-x-hidden flex flex-col min-h-screen">
     <style is:global>
         @keyframes scroll-text {
             0% { transform: translateX(100vw); }
