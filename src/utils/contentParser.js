@@ -1,23 +1,55 @@
-// Parser Khusus untuk mengekstrak konten per prodi yang sangat amat tahan banting (Bulletproof)
+// Parser Khusus untuk mengekstrak konten per prodi tanpa regex backtracking
 
-// Helper: Membuang Label Visi/Misi/Tujuan yang Menempel di Awal String
-function stripLabel(text) {
-    // Membuang label "Visi :", "Misi", "Tujuan :" di awal string jika masih tertinggal
-    return text.replace(/^(?:<[^>]+>|\s)*(?:VISI\s*&amp;\s*MISI|VISI|MISI|TUJUAN|STRATEGI|SASARAN|STRUKTUR ORGANISASI)\s*(?::)?\s*(?:<\/[^>]+>|\s)*/i, '').trim();
+function findStartOfBlock(text, keywordIndex) {
+    if (keywordIndex === -1) return -1;
+    
+    // Potong string dari awal sampai keyword
+    const beforeKeyword = text.substring(0, keywordIndex);
+    
+    // Cari tag penutup terakhir sebelum keyword (</p>, </div>, </h2>, </h3>, </ul>, </ol>)
+    const matches = [...beforeKeyword.matchAll(/<\/(?:p|div|h\d|ul|ol|li)>/gi)];
+    
+    if (matches.length > 0) {
+        // Blok baru dimulai tepat setelah tag penutup terakhir
+        const lastMatch = matches[matches.length - 1];
+        return lastMatch.index + lastMatch[0].length;
+    }
+    
+    // Jika tidak ada tag penutup sebelumnya, berarti ini di awal dokumen
+    return 0;
 }
 
-function extractProspek(clean, prospekIdx) {
-    if (prospekIdx === -1) return '';
+// Helper: Membuang Label Visi/Misi/Tujuan yang Menempel di Awal String tanpa regex jahat
+function stripLabel(text) {
+    // Ambil sebagian awal untuk mencari label
+    const prefix = text.substring(0, 500);
+    const match = prefix.match(/\b(?:VISI\s*&amp;\s*MISI|VISI\s*DAN\s*MISI|VISI|MISI|TUJUAN|STRATEGI|SASARAN|STRUKTUR ORGANISASI)\s*(?::)?/i);
     
-    let chunk = clean.substring(prospekIdx);
+    if (match) {
+        // Hapus label persis yang ditemukan
+        let labelRegex = new RegExp(match[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+        text = text.replace(labelRegex, '');
+    }
     
-    // Hapus judul "Prospek Kerja" aslinya (beserta tag pembungkusnya seperti <h3> atau <strong>)
+    // Hapus <hr> berlebih di awal
+    text = text.replace(/^(?:\s*<hr[^>]*>\s*)+/i, '');
+    
+    // Hapus tag kosong seperti <h2></h2> atau <p><strong></strong></p> yang tertinggal
+    text = text.replace(/^(?:\s*<[^>]+>\s*<\/[^>]+>\s*)+/i, '');
+    
+    return text.trim();
+}
+
+function extractProspek(chunk) {
+    if (!chunk) return '';
+    
+    // Hapus judul "Prospek Kerja" aslinya (beserta tag pembungkusnya)
     chunk = chunk.replace(/^(?:<[^>]+>|\s)*(?:Prospek Kerja)\s*(?::)?\s*(?:<\/[^>]+>|\s)*/i, '');
     
-    // a. Bersihkan semua tag <em> dan <strong> agar judul menjadi teks polos murni
+    // Bersihkan semua tag <em> dan <strong> agar judul menjadi teks polos murni
     chunk = chunk.replace(/<\/?(?:em|strong)[^>]*>/gi, "");
     
-    // b. Desain UI Kartu Flex
+    // Desain UI Kartu Flex
     chunk = chunk.replace(/(<li[^>]*>)((?:(?!<li|<\/li>).)*?)(<ul)/gis, (match, p1, p2, p3) => {
         let cleanTitle = p2.trim();
         if (!cleanTitle) cleanTitle = "Pilihan Karir";
@@ -32,50 +64,83 @@ function extractProspek(clean, prospekIdx) {
     return chunk;
 }
 
-// Fungsi utama pemisah string menggunakan index regex murni (tanpa mempedulikan tag HTML)
 function parseGenericContent(html, keys) {
     let clean = html.replace(/<div class="wp-block-media-text[^>]*>.*?<\/div><\/div>/gis, '');
     let result = { deskripsi: '', prospek: '' };
     keys.forEach(k => result[k] = '');
 
-    const indices = {};
+    const keywordRegexes = {
+        'visi': /\b(?:VISI\s*&amp;\s*MISI|VISI\s*DAN\s*MISI|VISI)\b/i,
+        'misi': /\bMISI\b/i,
+        'tujuan': /\bTUJUAN\b/i,
+        'strategi': /\bSTRATEGI\b/i,
+        'sasaran': /\bSASARAN\b/i,
+        'struktur': /\bSTRUKTUR\s*ORGANISASI\b/i,
+        'prospek': /\bPROSPEK\s*KERJA\b/i
+    };
+
+    const blockStarts = {};
+    
+    // Khusus untuk menghindari Misi di dalam "VISI & MISI", kita cari secara berurutan atau hapus dulu
+    // Tapi karena kita mencari indeks aktual, jika MISI ditemukan dengan indeks yang sangat dekat dengan VISI,
+    // kita bisa mengabaikannya.
+    
     keys.forEach(key => {
-        let regex;
-        if (key === 'visi') regex = /(?:<[^>]+>|\s)*(?:VISI\s*&amp;\s*MISI|VISI)\s*(?::)?\s*(?:<[^>]+>|\s)*/i;
-        else if (key === 'struktur') regex = /(?:<[^>]+>|\s)*STRUKTUR\s*ORGANISASI\s*(?::)?\s*(?:<[^>]+>|\s)*/i;
-        else regex = new RegExp(`(?:<[^>]+>|\\s)*${key}\\s*(?::)?\\s*(?:<[^>]+>|\\s)*`, 'i');
+        let match = clean.match(keywordRegexes[key]);
+        if (match) {
+            // Jika ini 'misi', pastikan ia bukan bagian dari "VISI & MISI"
+            if (key === 'misi' && blockStarts['visi'] !== undefined) {
+                // Cek apakah MISI ini berada di dalam blok yang sama dengan VISI
+                let visiKeywordIdx = clean.match(keywordRegexes['visi']).index;
+                if (match.index > visiKeywordIdx && match.index < visiKeywordIdx + 20) {
+                    // Cari MISI berikutnya
+                    let nextMatch = clean.substring(match.index + 5).match(keywordRegexes['misi']);
+                    if (nextMatch) {
+                        match = { index: match.index + 5 + nextMatch.index };
+                    } else {
+                        match = null;
+                    }
+                }
+            }
+        }
         
-        let match = clean.match(regex);
-        indices[key] = match ? match.index : -1;
+        if (match) {
+            blockStarts[key] = findStartOfBlock(clean, match.index);
+        } else {
+            blockStarts[key] = -1;
+        }
     });
 
-    const prospekMatch = clean.match(/(?:<[^>]+>|\s)*PROSPEK\s*KERJA\s*(?::)?\s*(?:<[^>]+>|\s)*/i);
-    const prospekIdx = prospekMatch ? prospekMatch.index : -1;
+    let prospekMatch = clean.match(keywordRegexes['prospek']);
+    let prospekStart = prospekMatch ? findStartOfBlock(clean, prospekMatch.index) : -1;
 
-    // Dapatkan semua index yang valid (tidak -1)
-    let validIndices = Object.values(indices).filter(idx => idx !== -1);
-    if (prospekIdx !== -1) validIndices.push(prospekIdx);
+    let validStarts = Object.values(blockStarts).filter(idx => idx !== -1);
+    if (prospekStart !== -1) validStarts.push(prospekStart);
     
-    // Deskripsi adalah teks dari 0 sampai index valid terkecil
-    let firstCut = validIndices.length > 0 ? Math.min(...validIndices) : clean.length;
+    // Sort agar kita bisa memotong dari satu blok ke blok berikutnya
+    validStarts.sort((a, b) => a - b);
+    
+    // Deskripsi
+    let firstCut = validStarts.length > 0 ? validStarts[0] : clean.length;
     result.deskripsi = clean.substring(0, firstCut);
 
-    // Proses setiap key
     keys.forEach(key => {
-        const idx = indices[key];
-        if (idx !== -1) {
-            // Cari index berikutnya setelah idx ini
-            let nextIndices = validIndices.filter(i => i > idx);
-            let nextCut = nextIndices.length > 0 ? Math.min(...nextIndices) : clean.length;
+        const startIdx = blockStarts[key];
+        if (startIdx !== -1) {
+            // Cari potongan berikutnya
+            let nextStarts = validStarts.filter(idx => idx > startIdx);
+            let nextCut = nextStarts.length > 0 ? nextStarts[0] : clean.length;
             
-            let chunk = clean.substring(idx, nextCut);
+            let chunk = clean.substring(startIdx, nextCut);
             result[key] = stripLabel(chunk);
         }
     });
 
-    // Proses Prospek Kerja
-    if (prospekIdx !== -1) {
-        result.prospek = extractProspek(clean, prospekIdx);
+    if (prospekStart !== -1) {
+        let nextStarts = validStarts.filter(idx => idx > prospekStart);
+        let nextCut = nextStarts.length > 0 ? nextStarts[0] : clean.length;
+        let chunk = clean.substring(prospekStart, nextCut);
+        result.prospek = extractProspek(chunk);
     }
 
     return result;

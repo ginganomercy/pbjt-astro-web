@@ -1,0 +1,162 @@
+
+<h2 class="wp-block-heading"></h2>
+
+
+
+<div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img decoding="async" src="https://wp.pbjt.ac.id/wp-content/uploads/2025/02/Sertifikat-Teknik-Informatika_page-0001-1-1024x725.jpg" alt="" class="wp-image-366 size-full"/></figure><div class="wp-block-media-text__content">
+<p class="wp-block-paragraph">&#8211;<em>Sertifikat Akreditasi Program Studi Teknik Informatika</em></p>
+</div></div>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph"><strong>Teknik informatika</strong> merupakan disiplin ilmu yang menginduk pada ilmu komputer, yang pada dasarnya merupakan kumpulan disiplin ilmu dan teknik yang secara khusus menangani masalah transformasi atau pengolahan fakta-fakta simbolik (data) dengan memanfaatkan seoptimal mungkin teknologi komputer.&nbsp;<br>Transformasi itu berupa proses-proses logika dan sistematika untuk mendapatkan solusi dalam menyelesaikan berbagai masalah, sehingga dengan memilih program studi Teknik Informatika, kita menjadi terlatih berpikir secara logis dan sistematis untuk dapat dengan mudah menyesuaikan diri dengan pekerjaan apapun.</p>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph"><strong>Program Studi Teknik Informatika di Politeknik Baja Tegal</strong> dirancang untuk membekali mahasiswa dengan pengetahuan dan keterampilan dalam bidang teknologi informasi dan komunikasi. Kurikulum mencakup teori dasar komputer, pemrograman, jaringan, keamanan siber, pengembangan perangkat lunak, serta teknologi terbaru seperti kecerdasan buatan dan data science.</p>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph"><strong>Prospek Kerja</strong><br>Bidang yang dapat ditekuni seorang lulusan Teknik Informatika cukup beragam, antara lain:</p>
+
+
+
+<ul class="wp-block-list">
+<li class="has-medium-font-size"><em>Software Engineer</em>
+<ul class="wp-block-list">
+<li>Berperan dalam pengembangan perangkat lunak untuk berbagai keperluan. Misalnya perangkat lunak untuk pendidikan, telekomunikasi, bisnis, hiburan dan lain-lain, termasuk perangkat lunak untuk model dan simulasi.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>System Analyst </em>dan <em>System Integrator</em>
+<ul class="wp-block-list">
+<li>Berperan dalam melakukan analisis terhadap sistem dalam suatu instansi atau perusahaan dan membuat solusi yang integratif dengan memanfaatkan perang­kat lunak</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size">Konsultan IT
+<ul class="wp-block-list">
+<li>Berperan dalam perencanaan dan pengevaluasian penerapan IT pada sebuah organisasi.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Database Engineer / Database Administrator</em>
+<ul class="wp-block-list">
+<li>Berperan dalam perancangan dan pemeliharaan basis data (termasuk data <em>warehouse</em>) untuk suatu instansi atau perusahaan</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Web Engineer / Web Administrator</em>
+<ul class="wp-block-list">
+<li>Bertugas merancang dan membangun website beserta berbagai layanan dan fasilitas berjalan di atasnya. Ia juga bertugas melakukan pemeliharaan untuk website tersebut dan mengembangkannya.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Computer Network / Data Communication Engineer</em>
+<ul class="wp-block-list">
+<li>Bertugas merancang arsitektur jaringan, serta melakukan perawatan dan pen­gelolaan jaringan dalam suatu instansi atau perusahaan.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Programmer</em>
+<ul class="wp-block-list">
+<li>Baik sebagai <em>system programmer </em>atau <em>application developer</em>, sarjana informa­tika sangat dibutuhkan di berbagai bidang, misalnya bidang perbankan, teleko­munikasi, industri IT, media, instansi pemerintah, dan lain-lain.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Software Tester</em>
+<ul class="wp-block-list">
+<li>Terkait dengan ukuran perangkat lunak, sarjana informatika dapat juga berperan khusus sebagai penguji perangkat lunak yang bertanggung jawab atas kebenar-an fungsi dari sebuah perangkat lunak.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Game Developer</em>
+<ul class="wp-block-list">
+<li>Dengan berbagai bekal keinformatikaan yang diperolehnya termasuk <em>computer graphic</em>, <em>human computer interaction</em>, dll, seorang sarjana informatika juga dapat berperan sebagai pengembang perangkat lunak untuk multimedia game.</li>
+</ul>
+</li>
+
+
+
+<li class="has-medium-font-size"><em>Intelligent System Developer</em>
+<ul class="wp-block-list">
+<li>Dengan berbagai teknik <em>artificial intelligence </em>yang dipelajarinya, seorang sarjana informatika juga dapat berperan sebagai pengembang perangkat lunak yang intelejen seperti sistem pakar, image recognizer, prediction system, data miner, dll.  </li>
+</ul>
+</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading has-text-align-right has-text-color has-link-color has-medium-font-size wp-elements-1" style="color:#126595">VISI &amp; MISI</h2>
+
+
+
+<hr class="wp-block-separator has-text-color has-alpha-channel-opacity has-background" style="background-color:#134766;color:#134766"/>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph"><strong>Visi :</strong></p>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph">Menjadi Program Studi dengan lulusan yang berkualitas di bidang Teknologi Informasi serta&nbsp;memiliki kemampuan kreatif dan inovatif dan mampu berdaya saing global.</p>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph"><strong>Misi :</strong></p>
+
+
+
+<ol class="wp-block-list">
+<li class="has-medium-font-size">Melakukan peningkatan mutu Program Studi.</li>
+
+
+
+<li class="has-medium-font-size">Membekali mahasiswa sebagai calon ahli madya teknik Informatika yang mandiri dan terampil.</li>
+
+
+
+<li class="has-medium-font-size">Meningkatkan softskill mahasiswa di bidang teknik Informatika.</li>
+
+
+
+<li class="has-medium-font-size">Meningkatkan kerja sama dengan lembaga atau institusi lain dalam upaya meningkatkan mutu program studi dan kegiatan akademik.</li>
+</ol>
+
+
+
+<p class="has-medium-font-size wp-block-paragraph"><strong>Tujuan :</strong></p>
+
+
+
+<ol class="wp-block-list">
+<li class="has-medium-font-size">Menghasilkan lulusan vokasi yang unggul dalam bidang Teknik Informatika.</li>
+
+
+
+<li class="has-medium-font-size">Menghasilkan lulusan yang mampu menerapkan ilmu di bidang teknik informatika dalam menangani masalah yang dihadapi.</li>
+
+
+
+<li class="has-medium-font-size">Menghasilkan sumber daya manusia yang memiliki integritas, profesionalitas yang mampu bersaing.</li>
+
+
+
+<li class="has-medium-font-size">Memiliki mitra kerja sama dengan berbagai lembaga yang profesional dan kompeten dalam bidang teknologi informasi baik yang bersifat lokal, nasional dan internasional.</li>
+</ol>
