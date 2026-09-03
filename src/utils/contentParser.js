@@ -1,14 +1,18 @@
-// Parser Khusus untuk mengekstrak konten per prodi yang tahan banting (Bulletproof)
+// Parser Khusus untuk mengekstrak konten per prodi yang sangat amat tahan banting (Bulletproof)
 
-// Helper: Membersihkan tag judul Prospek Kerja agar hanya kotak CSS yang tersisa
-function extractProspek(clean) {
-    const prospekMatch = clean.match(/<p[^>]*>(?:<strong>|<em>)?\s*Prospek Kerja.*?(?:<\/strong>|<\/em>)?<\/p>/i);
-    if (!prospekMatch) return '';
-    const prospekIdx = clean.indexOf(prospekMatch[0]);
+// Helper: Membuang Label Visi/Misi/Tujuan yang Menempel di Awal String
+function stripLabel(text) {
+    // Membuang label "Visi :", "Misi", "Tujuan :" di awal string jika masih tertinggal
+    return text.replace(/^(?:<[^>]+>|\s)*(?:VISI\s*&amp;\s*MISI|VISI|MISI|TUJUAN|STRATEGI|SASARAN|STRUKTUR ORGANISASI)\s*(?::)?\s*(?:<\/[^>]+>|\s)*/i, '').trim();
+}
+
+function extractProspek(clean, prospekIdx) {
+    if (prospekIdx === -1) return '';
     
     let chunk = clean.substring(prospekIdx);
-    // Hapus judul aslinya
-    chunk = chunk.replace(/<p[^>]*>(?:<strong>|<em>)?\s*Prospek Kerja.*?(?:<\/strong>|<\/em>)?<\/p>/i, '');
+    
+    // Hapus judul "Prospek Kerja" aslinya (beserta tag pembungkusnya seperti <h3> atau <strong>)
+    chunk = chunk.replace(/^(?:<[^>]+>|\s)*(?:Prospek Kerja)\s*(?::)?\s*(?:<\/[^>]+>|\s)*/i, '');
     
     // a. Bersihkan semua tag <em> dan <strong> agar judul menjadi teks polos murni
     chunk = chunk.replace(/<\/?(?:em|strong)[^>]*>/gi, "");
@@ -28,191 +32,72 @@ function extractProspek(clean) {
     return chunk;
 }
 
-// Helper: Membuang Label Visi/Misi/Tujuan yang Menempel di Awal String
-function stripLabel(text) {
-    // Membuang label "Visi :", "Misi", "Tujuan :" di awal string jika masih tertinggal
-    return text.replace(/^(?:<[^>]+>)*\s*(?:VISI\s*&amp;\s*MISI|VISI|MISI|TUJUAN)\s*(?::)?\s*(?:<\/[^>]+>)*/i, '').trim();
+// Fungsi utama pemisah string menggunakan index regex murni (tanpa mempedulikan tag HTML)
+function parseGenericContent(html, keys) {
+    let clean = html.replace(/<div class="wp-block-media-text[^>]*>.*?<\/div><\/div>/gis, '');
+    let result = { deskripsi: '', prospek: '' };
+    keys.forEach(k => result[k] = '');
+
+    const indices = {};
+    keys.forEach(key => {
+        let regex;
+        if (key === 'visi') regex = /(?:<[^>]+>|\s)*(?:VISI\s*&amp;\s*MISI|VISI)\s*(?::)?\s*(?:<[^>]+>|\s)*/i;
+        else if (key === 'struktur') regex = /(?:<[^>]+>|\s)*STRUKTUR\s*ORGANISASI\s*(?::)?\s*(?:<[^>]+>|\s)*/i;
+        else regex = new RegExp(`(?:<[^>]+>|\\s)*${key}\\s*(?::)?\\s*(?:<[^>]+>|\\s)*`, 'i');
+        
+        let match = clean.match(regex);
+        indices[key] = match ? match.index : -1;
+    });
+
+    const prospekMatch = clean.match(/(?:<[^>]+>|\s)*PROSPEK\s*KERJA\s*(?::)?\s*(?:<[^>]+>|\s)*/i);
+    const prospekIdx = prospekMatch ? prospekMatch.index : -1;
+
+    // Dapatkan semua index yang valid (tidak -1)
+    let validIndices = Object.values(indices).filter(idx => idx !== -1);
+    if (prospekIdx !== -1) validIndices.push(prospekIdx);
+    
+    // Deskripsi adalah teks dari 0 sampai index valid terkecil
+    let firstCut = validIndices.length > 0 ? Math.min(...validIndices) : clean.length;
+    result.deskripsi = clean.substring(0, firstCut);
+
+    // Proses setiap key
+    keys.forEach(key => {
+        const idx = indices[key];
+        if (idx !== -1) {
+            // Cari index berikutnya setelah idx ini
+            let nextIndices = validIndices.filter(i => i > idx);
+            let nextCut = nextIndices.length > 0 ? Math.min(...nextIndices) : clean.length;
+            
+            let chunk = clean.substring(idx, nextCut);
+            result[key] = stripLabel(chunk);
+        }
+    });
+
+    // Proses Prospek Kerja
+    if (prospekIdx !== -1) {
+        result.prospek = extractProspek(clean, prospekIdx);
+    }
+
+    return result;
 }
 
 
-// 1. Parser D3 Teknik Informatika
 export function parseInformatikaContent(html) {
     if (!html) return { deskripsi: '', prospek: '', visi: '', misi: '', tujuan: '' };
-    
-    let clean = html.replace(/<div class="wp-block-media-text[^>]*>.*?<\/div><\/div>/gis, '');
-    let deskripsi = '', visi = '', misi = '', tujuan = '', prospek = '';
-
-    // Menjadi Toleran: Bisa <strong>Visi</strong> atau Visi : atau VISI &amp; MISI
-    const visiMatch = clean.match(/<p[^>]*>.*?(?:<strong>)?Visi(?:<\/strong>)?\s*:?.*?<\/p>|<h[^>]*>.*?VISI\s*&amp;\s*MISI.*?<\/h[^>]*>/i);
-    const misiMatch = clean.match(/<p[^>]*>.*?(?:<strong>)?Misi(?:<\/strong>)?\s*:?.*?<\/p>/i);
-    const tujuanMatch = clean.match(/<p[^>]*>.*?(?:<strong>)?Tujuan(?:<\/strong>)?\s*:?.*?<\/p>/i);
-    const prospekMatch = clean.match(/<p[^>]*>(?:<strong>)?Prospek Kerja(?:<\/strong>)?.*?<\/p>/i);
-
-    let vIdx = visiMatch ? clean.indexOf(visiMatch[0]) : clean.length;
-    let mIdx = misiMatch ? clean.indexOf(misiMatch[0]) : clean.length;
-    let tIdx = tujuanMatch ? clean.indexOf(tujuanMatch[0]) : clean.length;
-    let pIdx = prospekMatch ? clean.indexOf(prospekMatch[0]) : clean.length;
-
-    deskripsi = clean.substring(0, Math.min(vIdx, mIdx, tIdx, pIdx));
-    
-    if (visiMatch) {
-        visi = clean.substring(vIdx, Math.min(mIdx, tIdx, pIdx));
-        visi = visi.replace(/<p[^>]*>.*?(?:<strong>)?Visi(?:<\/strong>)?\s*:?.*?<\/p>|<h[^>]*>.*?VISI\s*&amp;\s*MISI.*?<\/h[^>]*>/i, '').trim();
-        visi = stripLabel(visi);
-    }
-    if (misiMatch) {
-        misi = clean.substring(mIdx, Math.min(tIdx, pIdx));
-        misi = misi.replace(/<p[^>]*>.*?(?:<strong>)?Misi(?:<\/strong>)?\s*:?.*?<\/p>/i, '').trim();
-        misi = stripLabel(misi);
-    }
-    if (tujuanMatch) {
-        tujuan = clean.substring(tIdx, pIdx);
-        tujuan = tujuan.replace(/<p[^>]*>.*?(?:<strong>)?Tujuan(?:<\/strong>)?\s*:?.*?<\/p>/i, '').trim();
-        tujuan = stripLabel(tujuan);
-    }
-    if (prospekMatch) {
-        prospek = extractProspek(clean);
-    }
-    return { deskripsi, prospek, visi, misi, tujuan };
+    return parseGenericContent(html, ['visi', 'misi', 'tujuan']);
 }
 
-
-// 2. Parser D3 Teknik Mesin
 export function parseMesinContent(html) {
     if (!html) return { deskripsi: '', prospek: '', visi: '', misi: '', tujuan: '' };
-    let clean = html.replace(/<div class="wp-block-media-text[^>]*>.*?<\/div><\/div>/gis, '');
-    let deskripsi = '', visi = '', misi = '', tujuan = '', prospek = '';
-
-    const visiMatch = clean.match(/<p[^>]*>(?:<strong>)?Visi(?:<\/strong>)?.*?<\/p>/i);
-    const misiMatch = clean.match(/<p[^>]*>(?:<strong>)?Misi(?:<\/strong>)?.*?<\/p>/i);
-    const tujuanMatch = clean.match(/<p[^>]*>(?:<strong>)?Tujuan(?:<\/strong>)?.*?<\/p>/i);
-    const prospekMatch = clean.match(/<p[^>]*>(?:<strong>)?Prospek Kerja(?:<\/strong>)?.*?<\/p>/i);
-
-    let vIdx = visiMatch ? clean.indexOf(visiMatch[0]) : clean.length;
-    let mIdx = misiMatch ? clean.indexOf(misiMatch[0]) : clean.length;
-    let tIdx = tujuanMatch ? clean.indexOf(tujuanMatch[0]) : clean.length;
-    let pIdx = prospekMatch ? clean.indexOf(prospekMatch[0]) : clean.length;
-
-    deskripsi = clean.substring(0, Math.min(vIdx, mIdx, tIdx, pIdx));
-    
-    if (visiMatch) {
-        visi = clean.substring(vIdx, Math.min(mIdx, tIdx, pIdx));
-        visi = visi.replace(/<p[^>]*>(?:<strong>)?Visi(?:<\/strong>)?.*?<\/p>/i, '').trim();
-        visi = stripLabel(visi);
-    }
-    if (misiMatch) {
-        misi = clean.substring(mIdx, Math.min(tIdx, pIdx));
-        misi = misi.replace(/<p[^>]*>(?:<strong>)?Misi(?:<\/strong>)?.*?<\/p>/i, '').trim();
-        misi = stripLabel(misi);
-    }
-    if (tujuanMatch) {
-        tujuan = clean.substring(tIdx, pIdx);
-        tujuan = tujuan.replace(/<p[^>]*>(?:<strong>)?Tujuan(?:<\/strong>)?.*?<\/p>/i, '').trim();
-        tujuan = stripLabel(tujuan);
-    }
-    if (prospekMatch) {
-        prospek = extractProspek(clean);
-    }
-    return { deskripsi, prospek, visi, misi, tujuan };
+    return parseGenericContent(html, ['visi', 'misi', 'tujuan']);
 }
 
-
-// 3. Parser D3 Teknik Otomotif (Menangani "Visi :")
 export function parseOtomotifContent(html) {
     if (!html) return { deskripsi: '', prospek: '', visi: '', misi: '', tujuan: '' };
-    let clean = html.replace(/<div class="wp-block-media-text[^>]*>.*?<\/div><\/div>/gis, '');
-    let deskripsi = '', visi = '', misi = '', tujuan = '', prospek = '';
-
-    const visiMatch = clean.match(/<p[^>]*>.*?Visi\s*:.*?<\/p>/i);
-    const misiMatch = clean.match(/<p[^>]*>.*?Misi\s*:.*?<\/p>/i);
-    const tujuanMatch = clean.match(/<p[^>]*>.*?Tujuan\s*:.*?<\/p>/i);
-    const prospekMatch = clean.match(/<p[^>]*>.*?Prospek Kerja.*?<\/p>/i);
-
-    let vIdx = visiMatch ? clean.indexOf(visiMatch[0]) : clean.length;
-    let mIdx = misiMatch ? clean.indexOf(misiMatch[0]) : clean.length;
-    let tIdx = tujuanMatch ? clean.indexOf(tujuanMatch[0]) : clean.length;
-    let pIdx = prospekMatch ? clean.indexOf(prospekMatch[0]) : clean.length;
-
-    deskripsi = clean.substring(0, Math.min(vIdx, mIdx, tIdx, pIdx));
-    
-    if (visiMatch) {
-        visi = clean.substring(vIdx, Math.min(mIdx, tIdx, pIdx));
-        visi = visi.replace(/<p[^>]*>.*?Visi\s*:.*?<\/p>/i, '').trim();
-        visi = stripLabel(visi);
-    }
-    if (misiMatch) {
-        misi = clean.substring(mIdx, Math.min(tIdx, pIdx));
-        misi = misi.replace(/<p[^>]*>.*?Misi\s*:.*?<\/p>/i, '').trim();
-        misi = stripLabel(misi);
-    }
-    if (tujuanMatch) {
-        tujuan = clean.substring(tIdx, pIdx);
-        tujuan = tujuan.replace(/<p[^>]*>.*?Tujuan\s*:.*?<\/p>/i, '').trim();
-        tujuan = stripLabel(tujuan);
-    }
-    if (prospekMatch) {
-        prospek = extractProspek(clean);
-    }
-    return { deskripsi, prospek, visi, misi, tujuan };
+    return parseGenericContent(html, ['visi', 'misi', 'tujuan']);
 }
 
-
-// 4. Parser D3 Teknik Elektronika Industri (Menangani format <br> dan blok ekstra)
 export function parseElektronikaContent(html) {
     if (!html) return { deskripsi: '', prospek: '', visi: '', misi: '', tujuan: '', strategi: '', sasaran: '', struktur: '' };
-    let clean = html.replace(/<div class="wp-block-media-text[^>]*>.*?<\/div><\/div>/gis, '');
-    let deskripsi = '', visi = '', misi = '', tujuan = '', strategi = '', sasaran = '', struktur = '', prospek = '';
-
-    const visiMatch = clean.match(/(?:<p[^>]*>.*?<strong>\s*VISI\s*<\/strong>\s*<br\s*\/?>|<p[^>]*>\s*<strong>\s*VISI\s*<\/strong>\s*<\/p>)/i);
-    const misiMatch = clean.match(/<p[^>]*>\s*<strong>\s*MISI\s*<\/strong>\s*<\/p>/i);
-    const tujuanMatch = clean.match(/<p[^>]*>\s*<strong>\s*TUJUAN\s*<\/strong>\s*<\/p>/i);
-    const strategiMatch = clean.match(/<p[^>]*>\s*<strong>\s*STRATEGI\s*<\/strong>\s*<\/p>/i);
-    const sasaranMatch = clean.match(/<p[^>]*>\s*<strong>\s*SASARAN\s*<\/strong>\s*<\/p>/i);
-    const strukturMatch = clean.match(/<p[^>]*>\s*<strong>\s*STRUKTUR ORGANISASI.*?<\/strong>\s*<\/p>/i);
-    const prospekMatch = clean.match(/<p[^>]*>(?:<strong>)?\s*Prospek Kerja.*?(?:<\/strong>)?<\/p>/i);
-
-    let vIdx = visiMatch ? clean.indexOf(visiMatch[0]) : clean.length;
-    let mIdx = misiMatch ? clean.indexOf(misiMatch[0]) : clean.length;
-    let tIdx = tujuanMatch ? clean.indexOf(tujuanMatch[0]) : clean.length;
-    let stIdx = strategiMatch ? clean.indexOf(strategiMatch[0]) : clean.length;
-    let saIdx = sasaranMatch ? clean.indexOf(sasaranMatch[0]) : clean.length;
-    let orIdx = strukturMatch ? clean.indexOf(strukturMatch[0]) : clean.length;
-    let pIdx = prospekMatch ? clean.indexOf(prospekMatch[0]) : clean.length;
-
-    deskripsi = clean.substring(0, Math.min(vIdx, mIdx, tIdx, stIdx, saIdx, orIdx, pIdx));
-
-    if (visiMatch) {
-        visi = clean.substring(vIdx, Math.min(mIdx, tIdx, stIdx, saIdx, orIdx, pIdx));
-        visi = visi.replace(/(?:<p[^>]*>.*?<strong>\s*VISI\s*<\/strong>\s*<br\s*\/?>|<p[^>]*>\s*<strong>\s*VISI\s*<\/strong>\s*<\/p>)/i, '').trim();
-        visi = stripLabel(visi);
-    }
-    if (misiMatch) {
-        misi = clean.substring(mIdx, Math.min(tIdx, stIdx, saIdx, orIdx, pIdx));
-        misi = misi.replace(/<p[^>]*>\s*<strong>\s*MISI\s*<\/strong>\s*<\/p>/i, '').trim();
-        misi = stripLabel(misi);
-    }
-    if (tujuanMatch) {
-        tujuan = clean.substring(tIdx, Math.min(stIdx, saIdx, orIdx, pIdx));
-        tujuan = tujuan.replace(/<p[^>]*>\s*<strong>\s*TUJUAN\s*<\/strong>\s*<\/p>/i, '').trim();
-        tujuan = stripLabel(tujuan);
-    }
-    if (strategiMatch) {
-        strategi = clean.substring(stIdx, Math.min(saIdx, orIdx, pIdx));
-        strategi = strategi.replace(/<p[^>]*>\s*<strong>\s*STRATEGI\s*<\/strong>\s*<\/p>/i, '').trim();
-        strategi = stripLabel(strategi);
-    }
-    if (sasaranMatch) {
-        sasaran = clean.substring(saIdx, Math.min(orIdx, pIdx));
-        sasaran = sasaran.replace(/<p[^>]*>\s*<strong>\s*SASARAN\s*<\/strong>\s*<\/p>/i, '').trim();
-        sasaran = stripLabel(sasaran);
-    }
-    if (strukturMatch) {
-        struktur = clean.substring(orIdx, pIdx);
-        struktur = struktur.replace(/<p[^>]*>\s*<strong>\s*STRUKTUR ORGANISASI.*?<\/strong>\s*<\/p>/i, '').trim();
-        struktur = stripLabel(struktur);
-    }
-    if (prospekMatch) {
-        prospek = extractProspek(clean);
-    }
-    return { deskripsi, prospek, visi, misi, tujuan, strategi, sasaran, struktur };
+    return parseGenericContent(html, ['visi', 'misi', 'tujuan', 'strategi', 'sasaran', 'struktur']);
 }
