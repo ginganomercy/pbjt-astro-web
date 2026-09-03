@@ -84,7 +84,7 @@ const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akredita
                             <svg class="w-7 h-7 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             Prospek Kerja (Karir)
                         </h3>
-                        <div set:html={prospek}></div>
+                        <div class="prospek-premium" set:html={prospek}></div>
                     </div>
                     )}
                 </div>
@@ -121,3 +121,71 @@ const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akredita
         </div>
     </main>
 </MainLayout>
+
+<style is:global>
+    /* 
+      HIERARCHICAL CSS INJECTION
+      Mengubah tag murni bawaan WordPress menjadi desain Premium tanpa menyentuh HTML menggunakan Regex 
+    */
+    .prospek-premium > ul {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+        list-style: none;
+        padding: 0;
+    }
+    
+    @media (min-width: 768px) {
+        .prospek-premium > ul {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    .prospek-premium > ul > li {
+        background-color: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 1.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        transition: box-shadow 0.2s;
+    }
+
+    .prospek-premium > ul > li:hover {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    /* Judul Pekerjaan (Outer List Text or em tag) */
+    .prospek-premium > ul > li > em,
+    .prospek-premium > ul > li > strong {
+        display: flex;
+        align-items: flex-start;
+        font-size: 1.125rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 0.75rem;
+        font-style: normal;
+    }
+    
+    /* Ikon Centang Virtual */
+    .prospek-premium > ul > li > em::before,
+    .prospek-premium > ul > li > strong::before {
+        content: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 20 20" fill="%232563eb" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>');
+        margin-right: 0.75rem;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+    }
+
+    /* Deskripsi (Inner List) */
+    .prospek-premium > ul > li ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .prospek-premium > ul > li ul li {
+        color: #475569;
+        font-size: 1rem;
+        line-height: 1.625;
+    }
+</style>
