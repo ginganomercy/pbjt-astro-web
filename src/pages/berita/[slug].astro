@@ -36,7 +36,7 @@ const { post } = Astro.props;
                 )}
             </header>
 
-            <div class="prose prose-lg prose-slate prose-a:text-primary hover:prose-a:text-primary-dark prose-headings:text-slate-800 mx-auto" set:html={post.content.rendered} />
+            <div class="prose prose-lg prose-slate prose-a:text-primary hover:prose-a:text-primary-dark prose-headings:text-slate-800 mx-auto break-words overflow-x-auto" set:html={post.content.rendered} />
             
         </article>
     </main>
