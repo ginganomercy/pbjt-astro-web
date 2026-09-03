@@ -9,7 +9,7 @@ const title = page?.title?.rendered || "D3 Teknik Elektronika Industri";
 const rawContent = page?.content?.rendered || "";
 
 // Ekstrak data kotor menjadi bersih
-const { deskripsi, prospek, visi, misi, strategi, sasaran, struktur } = parseElektronikaContent(rawContent);
+const { deskripsi, prospek, visi, misi, tujuan, strategi, sasaran, struktur } = parseElektronikaContent(rawContent);
 
 // Gambar sertifikat di-hardcode agar aman
 const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-elektronika.jpg";
