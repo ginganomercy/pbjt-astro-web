@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getDosen, getDosenBySlug } from '../../utils/api.js';
+
+// 1. Dapatkan daftar semua rute (slug) saat build time
+export async function getStaticPaths() {
+    const dosenList = await getDosen(100);
+    
+    // Kembalikan array parameter untuk masing-masing dosen
+    return dosenList.map((dosen) => ({
+        params: { slug: dosen.slug },
+        props: { dosen },
+    }));
+}
+
+// 2. Akses data dosen yang di-pass dari getStaticPaths
+const { slug } = Astro.params;
+let { dosen } = Astro.props;
+
+// Jika untuk alasan tertentu dosen prop tidak ada, kita fetch manual berdasarkan slug
+if (!dosen) {
+    dosen = await getDosenBySlug(slug);
+}
+
+// Jika tetap tidak ditemukan, arahkan ke 404
+if (!dosen) {
+    return Astro.redirect('/404');
+}
+
+const title = dosen.title.rendered;
+const content = dosen.content.rendered;
+
+// Cari gambar
+const mediaArray = dosen._embedded?.['wp:featuredmedia'];
+const imageUrl = mediaArray && mediaArray.length > 0 
+  ? mediaArray[0].source_url 
+  : '/placeholder-dosen.jpg';
+---
+
+<Layout title={`${title} - Profil Dosen PBJT`}>
+    <main class="min-h-screen bg-slate-50 pt-24 pb-16">
+        
+        <!-- Header Profil -->
+        <div class="relative bg-slate-900 py-24 mb-16 overflow-hidden">
+            <div class="absolute inset-0 bg-blue-900/20"></div>
+            
+            <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <a href="/dosen" class="inline-flex items-center text-sm font-medium text-blue-300 hover:text-white transition-colors mb-8 group">
+                    <svg class="mr-2 h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali ke Daftar Dosen
+                </a>
+            </div>
+        </div>
+
+        <!-- Konten Utama -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden flex flex-col md:flex-row">
+                
+                <!-- Sisi Kiri (Foto Profil) -->
+                <div class="md:w-1/3 bg-slate-100 relative">
+                    <div class="aspect-[3/4] md:aspect-auto md:h-full relative">
+                        <img 
+                            src={imageUrl} 
+                            alt={title}
+                            class="absolute inset-0 w-full h-full object-cover object-top"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent md:hidden"></div>
+                    </div>
+                </div>
+
+                <!-- Sisi Kanan (Detail) -->
+                <div class="md:w-2/3 p-8 md:p-12">
+                    <div class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+                        Tenaga Pendidik
+                    </div>
+                    
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6" set:html={title}></h1>
+                    
+                    <!-- Konten dari WordPress -->
+                    <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-500">
+                        {content ? (
+                            <div set:html={content} />
+                        ) : (
+                            <p class="text-slate-500 italic">Belum ada biografi atau detail profil untuk dosen ini.</p>
+                        )}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </main>
+</Layout>

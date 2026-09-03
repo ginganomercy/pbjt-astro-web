@@ -1,0 +1,46 @@
+---
+import { getFeaturedImage } from '../utils/api.js';
+
+const { dosen } = Astro.props;
+
+// Safely extract data
+const title = dosen?.title?.rendered || 'Nama Tidak Tersedia';
+const slug = dosen?.slug || '#';
+// Jika WordPress menyimpan data khusus seperti NIDN, Jabatan dll, biasanya ada di meta atau ACF.
+// Untuk sekarang kita hanya ambil basic data
+const excerpt = dosen?.excerpt?.rendered?.replace(/<[^>]+>/g, '') || 'Dosen Politeknik Baja Tegal';
+
+// Cari gambar
+const mediaArray = dosen?._embedded?.['wp:featuredmedia'];
+const imageUrl = mediaArray && mediaArray.length > 0 
+  ? mediaArray[0].source_url 
+  : '/placeholder-dosen.jpg'; // Pastikan Anda menambahkan placeholder di folder public/
+---
+
+<a href={`/dosen/${slug}`} class="group block h-full">
+    <div class="relative h-full rounded-2xl overflow-hidden bg-white shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-slate-100 flex flex-col group">
+        
+        <!-- Image Container -->
+        <div class="relative w-full aspect-[3/4] overflow-hidden bg-slate-100">
+            <img 
+                src={imageUrl} 
+                alt={title} 
+                loading="lazy"
+                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+            />
+            <!-- Gradient Overlay for aesthetics -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+            
+            <!-- Floating Name -->
+            <div class="absolute bottom-0 left-0 w-full p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <h3 class="text-white font-bold text-lg md:text-xl leading-tight drop-shadow-md" set:html={title}></h3>
+                <div class="h-1 w-12 bg-blue-500 rounded-full mt-2 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+            </div>
+        </div>
+        
+    </div>
+</a>
+
+<style>
+    /* Styling tambahan untuk estetika jika belum ada Tailwind utility yang cocok */
+</style>
