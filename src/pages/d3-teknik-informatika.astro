@@ -1,16 +1,15 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { getPageBySlug } from '../utils/api.js';
+import { parseProdiContent } from '../utils/contentParser.js';
 
 // Ambil teks asli dari WordPress berdasarkan slug halaman
 const page = await getPageBySlug('d3-teknik-informatika');
 const title = page?.title?.rendered || "D3 Teknik Informatika";
-const rawContent = page?.content?.rendered || "<p>Sedang memuat data dari WordPress...</p>";
+const rawContent = page?.content?.rendered || "";
 
-// Hapus tag <img> lama (yang rusak) dari teks WordPress menggunakan Regex
-const cleanContent = rawContent.replace(/<img[^>]*>/g, '');
-
-
+// Ekstrak data kotor menjadi bersih
+const { deskripsi, prospek, visi, misi, tujuan } = parseProdiContent(rawContent);
 
 // Gambar sertifikat di-hardcode agar aman
 const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-informatika.jpg";
@@ -22,6 +21,9 @@ const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akredita
         <div class="relative bg-slate-900 py-24 mb-16 overflow-hidden">
             <div class="absolute inset-0 bg-blue-900/20"></div>
             <div class="relative max-w-7xl mx-auto px-4 text-center">
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold mb-6 border border-blue-500/30">
+                    Program Studi
+                </span>
                 <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6" set:html={title}></h1>
             </div>
         </div>
@@ -29,20 +31,62 @@ const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akredita
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <!-- Kiri: Teks Asli WordPress -->
-                <div class="lg:col-span-2">
-                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 md:p-12 transition-shadow hover:shadow-md">
-                        <div class="flex items-center space-x-4 mb-8 pb-6 border-b border-slate-100">
-                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                            </div>
-                            <div>
-                                <h2 class="text-2xl font-bold text-slate-900">Profil Program Studi</h2>
-                                <p class="text-slate-500 text-sm">Informasi resmi dari Politeknik Baja Tegal</p>
-                            </div>
-                        </div>
-                        <div class="prose prose-slate prose-lg max-w-none prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-headings:text-slate-900 prose-p:leading-relaxed prose-li:marker:text-blue-500" set:html={cleanContent}></div>
+                <!-- Kiri: Konten -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Deskripsi -->
+                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 md:p-10 transition-shadow hover:shadow-md">
+                        <div class="prose prose-slate prose-lg max-w-none prose-p:leading-relaxed" set:html={deskripsi}></div>
                     </div>
+
+                    <!-- Visi & Misi Box -->
+                    {(visi || misi) && (
+                    <div class="bg-gradient-to-br from-blue-50 to-white rounded-[2rem] shadow-sm border border-blue-100 p-8 md:p-10 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-8 opacity-5">
+                            <svg class="w-32 h-32 text-blue-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        
+                        {visi && (
+                        <div class="mb-8 relative z-10">
+                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                Visi Program Studi
+                            </h3>
+                            <p class="text-lg text-slate-700 italic border-l-4 border-blue-400 pl-4 py-1">{visi}</p>
+                        </div>
+                        )}
+
+                        {misi && (
+                        <div class="relative z-10 mb-8">
+                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                                Misi Program Studi
+                            </h3>
+                            <div class="pl-2" set:html={misi}></div>
+                        </div>
+                        )}
+                        
+                        {tujuan && (
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                                Tujuan Program Studi
+                            </h3>
+                            <div class="pl-2" set:html={tujuan}></div>
+                        </div>
+                        )}
+                    </div>
+                    )}
+
+                    <!-- Prospek Kerja -->
+                    {prospek && (
+                    <div class="pt-4">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                            <svg class="w-7 h-7 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            Prospek Kerja (Karir)
+                        </h3>
+                        <div set:html={prospek}></div>
+                    </div>
+                    )}
                 </div>
 
                 <!-- Kanan: Sertifikat Akreditasi (Hardcode) -->
