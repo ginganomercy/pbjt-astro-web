@@ -1,0 +1,85 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const akreditasiData = [
+  {
+    title: "Akreditasi Institusi (PBJT)",
+    image: "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-poltek.jpg",
+    desc: "Sertifikat Akreditasi Perguruan Tinggi Politeknik Baja Tegal"
+  },
+  {
+    title: "D3 Teknik Informatika",
+    image: "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-informatika.jpg",
+    desc: "Sertifikat Akreditasi Program Studi D3 Teknik Informatika"
+  },
+  {
+    title: "D3 Teknik Mesin",
+    image: "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-mesin.jpg",
+    desc: "Sertifikat Akreditasi Program Studi D3 Teknik Mesin"
+  },
+  {
+    title: "D3 Teknik Otomotif",
+    image: "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-otomotif.jpg",
+    desc: "Sertifikat Akreditasi Program Studi D3 Teknik Otomotif"
+  },
+  {
+    title: "D3 Teknik Elektronika",
+    image: "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-elektronika.jpg",
+    desc: "Sertifikat Akreditasi Program Studi D3 Teknik Elektronika Industri"
+  }
+];
+---
+
+<MainLayout title="Akreditasi - Politeknik Baja Tegal">
+    <main class="min-h-screen bg-slate-50 pt-24 pb-16">
+        
+        <!-- Hero Section -->
+        <div class="relative bg-slate-900 py-20 px-4 mb-16 overflow-hidden">
+            <div class="absolute inset-0 bg-blue-900/20"></div>
+            <div class="relative max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
+                    Akreditasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Institusi & Program Studi</span>
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto">
+                    Bukti komitmen Politeknik Baja Tegal dalam menjaga kualitas mutu pendidikan dan lulusan sesuai standar nasional.
+                </p>
+            </div>
+        </div>
+
+        <!-- Akreditasi Grid -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {akreditasiData.map((item) => (
+                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden flex flex-col group transform hover:-translate-y-1">
+                        <!-- Image Container with Modal Trigger Capability (Clickable visual) -->
+                        <div class="relative w-full aspect-[3/4] bg-slate-100 overflow-hidden cursor-pointer" onclick={`window.open('${item.image}', '_blank')`}>
+                            <img 
+                                src={item.image} 
+                                alt={item.title}
+                                loading="lazy"
+                                class="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors duration-300 flex items-center justify-center">
+                                <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 text-slate-900 px-4 py-2 rounded-lg font-medium text-sm flex items-center shadow-lg backdrop-blur-sm">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                                    Perbesar
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-6 flex flex-col flex-grow text-center">
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                            <p class="text-slate-500 text-sm">{item.desc}</p>
+                            
+                            <a href={item.image} download target="_blank" class="mt-6 inline-flex justify-center items-center px-4 py-2 border border-slate-200 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 hover:text-blue-600 focus:outline-none transition-colors w-full">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Unduh Sertifikat
+                            </a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </main>
+</MainLayout>
