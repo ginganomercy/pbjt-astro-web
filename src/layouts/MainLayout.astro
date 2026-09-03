@@ -134,75 +134,75 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                 </button>
             </div>
         </div>
+    </nav>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 lg:hidden overflow-y-auto pt-20 pb-6 px-6">
-            <div class="flex flex-col space-y-4">
-                <a href="/" class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2">Beranda</a>
-                
-                <details class="group">
-                    <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
-                        Profil <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </summary>
-                    <div class="flex flex-col pl-4 pt-2 space-y-3">
-                        <a href="/tentang-pbjt" class="text-slate-600 text-sm">Tentang PBJT</a>
-                        <a href="/profil-politeknik-baja-tegal" class="text-slate-600 text-sm">Profil Kampus</a>
-                        <a href="/struktur-politeknik-baja-tegal" class="text-slate-600 text-sm">Struktur Organisasi</a>
-                        <a href="/biro" class="text-slate-600 text-sm">BIRO (BAAK)</a>
-                        <a href="/akreditasi" class="text-slate-600 text-sm">Akreditasi</a>
-                    </div>
-                </details>
-
-                <details class="group">
-                    <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
-                        Akademik <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </summary>
-                    <div class="flex flex-col pl-4 pt-2 space-y-3">
-                        <a href="/program-studi" class="text-slate-600 text-sm">Program Studi</a>
-                        <a href="/d3-teknik-informatika" class="text-slate-600 text-sm">D3 Teknik Informatika</a>
-                        <a href="/d3-teknik-mesin" class="text-slate-600 text-sm">D3 Teknik Mesin</a>
-                        <a href="/d3-teknik-otomotif" class="text-slate-600 text-sm">D3 Teknik Otomotif</a>
-                        <a href="/d3-teknik-elektronika-industri" class="text-slate-600 text-sm">D3 Teknik Elektronika</a>
-                        <a href="/mikrotik-academy" class="text-slate-600 text-sm font-semibold text-primary">Mikrotik Academy</a>
-                    </div>
-                </details>
-                
-                <details class="group">
-                    <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
-                        Kemahasiswaan <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </summary>
-                    <div class="flex flex-col pl-4 pt-2 space-y-3">
-                        <a href="/bem" class="text-slate-600 text-sm">BEM</a>
-                        <a href="/hmti" class="text-slate-600 text-sm">HMTI</a>
-                        <a href="/rohis" class="text-slate-600 text-sm">ROHIS</a>
-                        <a href="/racana" class="text-slate-600 text-sm">RACANA</a>
-                        <a href="/bajapala" class="text-slate-600 text-sm">BAJAPALA</a>
-                        <a href="/badminton" class="text-slate-600 text-sm">BADMINTON</a>
-                        <a href="/futsal" class="text-slate-600 text-sm">FUTSAL</a>
-                        <a href="/paduan-suara" class="text-slate-600 text-sm">PADUAN SUARA</a>
-                        <a href="/forum-studi-ilmiah-fosil" class="text-slate-600 text-sm">FOSIL</a>
-                    </div>
-                </details>
-
-                <details class="group">
-                    <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
-                        PMB <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </summary>
-                    <div class="flex flex-col pl-4 pt-2 space-y-3">
-                        <a href="/pmb" class="text-slate-600 text-sm">Info PMB</a>
-                        <a href="/alur-pendaftaran" class="text-slate-600 text-sm">Alur Pendaftaran</a>
-                        <a href="/biaya-perkuliahan" class="text-slate-600 text-sm">Biaya Perkuliahan</a>
-                        <a href="/beasiswa-kip-kuliah" class="text-slate-600 text-sm">Beasiswa KIP Kuliah</a>
-                    </div>
-                </details>
-
-                <div class="flex flex-col gap-3 pt-4">
-                    <a href="https://siakad.pbjt.ac.id" target="_blank" rel="noopener" class="text-center px-4 py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all">Siakad ↗</a>
-                    <a href="https://edlink.id/login" target="_blank" rel="noopener" class="text-center px-4 py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all">E-Learning ↗</a>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 lg:hidden overflow-y-auto pt-24 pb-6 px-6">
+        <div class="flex flex-col space-y-4">
+            <a href="/" class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2">Beranda</a>
+            
+            <details class="group">
+                <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
+                    Profil <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </summary>
+                <div class="flex flex-col pl-4 pt-2 space-y-3">
+                    <a href="/tentang-pbjt" class="text-slate-600 text-sm">Tentang PBJT</a>
+                    <a href="/profil-politeknik-baja-tegal" class="text-slate-600 text-sm">Profil Kampus</a>
+                    <a href="/struktur-politeknik-baja-tegal" class="text-slate-600 text-sm">Struktur Organisasi</a>
+                    <a href="/biro" class="text-slate-600 text-sm">BIRO (BAAK)</a>
+                    <a href="/akreditasi" class="text-slate-600 text-sm">Akreditasi</a>
                 </div>
+            </details>
+
+            <details class="group">
+                <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
+                    Akademik <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </summary>
+                <div class="flex flex-col pl-4 pt-2 space-y-3">
+                    <a href="/program-studi" class="text-slate-600 text-sm">Program Studi</a>
+                    <a href="/d3-teknik-informatika" class="text-slate-600 text-sm">D3 Teknik Informatika</a>
+                    <a href="/d3-teknik-mesin" class="text-slate-600 text-sm">D3 Teknik Mesin</a>
+                    <a href="/d3-teknik-otomotif" class="text-slate-600 text-sm">D3 Teknik Otomotif</a>
+                    <a href="/d3-teknik-elektronika-industri" class="text-slate-600 text-sm">D3 Teknik Elektronika</a>
+                    <a href="/mikrotik-academy" class="text-slate-600 text-sm font-semibold text-primary">Mikrotik Academy</a>
+                </div>
+            </details>
+            
+            <details class="group">
+                <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
+                    Kemahasiswaan <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </summary>
+                <div class="flex flex-col pl-4 pt-2 space-y-3">
+                    <a href="/bem" class="text-slate-600 text-sm">BEM</a>
+                    <a href="/hmti" class="text-slate-600 text-sm">HMTI</a>
+                    <a href="/rohis" class="text-slate-600 text-sm">ROHIS</a>
+                    <a href="/racana" class="text-slate-600 text-sm">RACANA</a>
+                    <a href="/bajapala" class="text-slate-600 text-sm">BAJAPALA</a>
+                    <a href="/badminton" class="text-slate-600 text-sm">BADMINTON</a>
+                    <a href="/futsal" class="text-slate-600 text-sm">FUTSAL</a>
+                    <a href="/paduan-suara" class="text-slate-600 text-sm">PADUAN SUARA</a>
+                    <a href="/forum-studi-ilmiah-fosil" class="text-slate-600 text-sm">FOSIL</a>
+                </div>
+            </details>
+
+            <details class="group">
+                <summary class="flex justify-between items-center text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 cursor-pointer list-none">
+                    PMB <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </summary>
+                <div class="flex flex-col pl-4 pt-2 space-y-3">
+                    <a href="/pmb" class="text-slate-600 text-sm">Info PMB</a>
+                    <a href="/alur-pendaftaran" class="text-slate-600 text-sm">Alur Pendaftaran</a>
+                    <a href="/biaya-perkuliahan" class="text-slate-600 text-sm">Biaya Perkuliahan</a>
+                    <a href="/beasiswa-kip-kuliah" class="text-slate-600 text-sm">Beasiswa KIP Kuliah</a>
+                </div>
+            </details>
+
+            <div class="flex flex-col gap-3 pt-4">
+                <a href="https://siakad.pbjt.ac.id" target="_blank" rel="noopener" class="text-center px-4 py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all">Siakad ↗</a>
+                <a href="https://edlink.id/login" target="_blank" rel="noopener" class="text-center px-4 py-3 bg-primary/10 text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all">E-Learning ↗</a>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- MAIN CONTENT INJECTION POINT -->
     <slot />
