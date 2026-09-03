@@ -77,11 +77,22 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                         </button>
                         <div class="absolute left-0 mt-2 w-60 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                             <div class="py-2 flex flex-col">
-                                <a href="/program-studi" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Program Studi</a>
-                                <a href="/d3-teknik-informatika" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Informatika</a>
-                                <a href="/d3-teknik-mesin" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Mesin</a>
-                                <a href="/d3-teknik-otomotif" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Otomotif</a>
-                                <a href="/d3-teknik-elektronika-industri" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Elektronika</a>
+                                <!-- Nested Group untuk Program Studi -->
+                                <div class="relative group/sub">
+                                    <a href="/program-studi" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex justify-between items-center w-full">
+                                        Program Studi
+                                        <svg class="w-4 h-4 -rotate-90 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </a>
+                                    <!-- Nested Dropdown Menu -->
+                                    <div class="absolute left-full top-0 ml-1 w-56 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300 z-50">
+                                        <div class="py-2 flex flex-col">
+                                            <a href="/d3-teknik-informatika" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Informatika</a>
+                                            <a href="/d3-teknik-mesin" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Mesin</a>
+                                            <a href="/d3-teknik-otomotif" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Otomotif</a>
+                                            <a href="/d3-teknik-elektronika-industri" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Elektronika</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <a href="/mikrotik-academy" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Mikrotik Academy</a>
                             </div>
                         </div>
@@ -160,11 +171,19 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                     Akademik <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="flex flex-col pl-4 pt-2 space-y-3">
-                    <a href="/program-studi" class="text-slate-600 text-sm">Program Studi</a>
-                    <a href="/d3-teknik-informatika" class="text-slate-600 text-sm">D3 Teknik Informatika</a>
-                    <a href="/d3-teknik-mesin" class="text-slate-600 text-sm">D3 Teknik Mesin</a>
-                    <a href="/d3-teknik-otomotif" class="text-slate-600 text-sm">D3 Teknik Otomotif</a>
-                    <a href="/d3-teknik-elektronika-industri" class="text-slate-600 text-sm">D3 Teknik Elektronika</a>
+                    <details class="group/sub">
+                        <summary class="flex justify-between items-center text-slate-600 text-sm cursor-pointer list-none">
+                            Program Studi
+                            <svg class="w-4 h-4 transform group-open/sub:rotate-180 transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="flex flex-col pl-4 pt-2 space-y-3 border-l-2 border-slate-100 ml-1 mt-2">
+                            <a href="/program-studi" class="text-primary text-sm font-semibold">Beranda Program Studi</a>
+                            <a href="/d3-teknik-informatika" class="text-slate-600 text-sm">D3 Teknik Informatika</a>
+                            <a href="/d3-teknik-mesin" class="text-slate-600 text-sm">D3 Teknik Mesin</a>
+                            <a href="/d3-teknik-otomotif" class="text-slate-600 text-sm">D3 Teknik Otomotif</a>
+                            <a href="/d3-teknik-elektronika-industri" class="text-slate-600 text-sm">D3 Teknik Elektronika</a>
+                        </div>
+                    </details>
                     <a href="/mikrotik-academy" class="text-slate-600 text-sm font-semibold text-primary">Mikrotik Academy</a>
                 </div>
             </details>
