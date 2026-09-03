@@ -1,0 +1,47 @@
+---
+/**
+ * Komponen CardGeneric
+ * Menerima sembarang payload dari WordPress REST API dan menampilkannya dengan UI modern.
+ */
+const { item, basePath = '/post' } = Astro.props;
+
+// Ekstrak data standar
+const title = item?.title?.rendered || 'Tanpa Judul';
+const slug = item?.slug || '#';
+const excerpt = item?.excerpt?.rendered?.replace(/<[^>]+>/g, '').substring(0, 100) + '...' || '';
+
+// Ekstrak gambar (jika ada)
+const mediaArray = item?._embedded?.['wp:featuredmedia'];
+const imageUrl = mediaArray && mediaArray.length > 0 
+  ? mediaArray[0].source_url 
+  : '/placeholder-generic.jpg'; // Pastikan gambar fallback tersedia
+---
+
+<a href={`${basePath}/${slug}`} class="group block h-full">
+    <div class="h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden flex flex-col transform hover:-translate-y-1">
+        
+        <!-- Image Area -->
+        <div class="relative w-full aspect-video bg-slate-100 overflow-hidden">
+            <img 
+                src={imageUrl} 
+                alt={title}
+                loading="lazy"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors" set:html={title}></h3>
+            <p class="text-slate-500 text-sm line-clamp-3 mb-4 flex-grow" set:html={excerpt}></p>
+            
+            <div class="mt-auto pt-4 border-t border-slate-50 flex items-center text-sm font-medium text-blue-600 group-hover:text-blue-500">
+                Baca Selengkapnya
+                <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</a>

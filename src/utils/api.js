@@ -87,3 +87,36 @@ export async function getDosenBySlug(slug) {
         return null;
     }
 }
+
+/**
+ * Super Fetcher: Mengambil daftar data untuk sembarang Custom Post Type
+ * @param {string} postType - Slug dari tipe pos (misal: 'fasilitas', 'ukm')
+ * @param {number} limit - Batas jumlah data yang diambil
+ */
+export async function getDynamicPosts(postType, limit = 100) {
+    try {
+        const response = await fetch(`${API_URL}/${postType}?_embed&per_page=${limit}`);
+        if (!response.ok) throw new Error(`Gagal menarik data ${postType}`);
+        return await response.json();
+    } catch (error) {
+        console.error(`Error fetching ${postType}:`, error);
+        return [];
+    }
+}
+
+/**
+ * Super Fetcher: Mengambil detail satu pos dari sembarang Custom Post Type
+ * @param {string} postType - Slug dari tipe pos
+ * @param {string} slug - Slug URL spesifik item
+ */
+export async function getDynamicPostBySlug(postType, slug) {
+    try {
+        const response = await fetch(`${API_URL}/${postType}?_embed&slug=${slug}`);
+        if (!response.ok) throw new Error(`Gagal menarik detail ${postType}`);
+        const items = await response.json();
+        return items.length > 0 ? items[0] : null;
+    } catch (error) {
+        console.error(`Error fetching ${postType} by slug:`, error);
+        return null;
+    }
+}
