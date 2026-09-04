@@ -176,6 +176,9 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             margin-top: 2rem;
             margin-bottom: 2rem;
+            max-width: 100%;
+            height: auto !important; /* Mencegah gambar gepeng */
+            object-fit: contain;
         }
         
         .prose .wp-block-image figcaption {
