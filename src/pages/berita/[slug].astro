@@ -182,11 +182,11 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
             object-fit: contain;
         }
         
-        /* Galeri LDKK: Harus lebih spesifik dari .prose img agar "Lebih Full" (Cover) */
+        /* Galeri LDKK: Bebas Geometri (Tidak Memotong Gambar) */
         .prose .wp-block-gallery img {
             width: 100%;
-            object-fit: cover !important; /* Memaksa gambar mengisi penuh ruangnya */
-            aspect-ratio: 4/3;
+            height: auto !important; /* Biarkan tinggi menyesuaikan secara alami */
+            object-fit: contain !important; /* Pastikan tidak ada bagian yang terpotong */
             margin: 0 !important;
             display: block;
             border-radius: 0.75rem;
