@@ -182,7 +182,17 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
             object-fit: contain;
         }
         
-        /* Styling tambahan khusus wp-block-image */
+        /* Galeri LDKK: Harus lebih spesifik dari .prose img agar "Lebih Full" (Cover) */
+        .prose .wp-block-gallery img {
+            width: 100%;
+            object-fit: cover !important; /* Memaksa gambar mengisi penuh ruangnya */
+            aspect-ratio: 4/3;
+            margin: 0 !important;
+            display: block;
+            border-radius: 0.75rem;
+        }
+
+        /* Styling tambahan khusus wp-block-image (bukan galeri) */
         .prose .wp-block-image img {
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
@@ -197,17 +207,19 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
             margin-top: 0.5rem;
         }
 
-        /* WordPress Alignment Classes */
+        /* WordPress Alignment Classes (Sablon Digital) */
         .aligncenter {
             display: block;
             margin-left: auto !important;
             margin-right: auto !important;
             text-align: center;
+            max-width: 450px; /* Mengecilkan gambar sablon secara otomatis */
         }
         
         figure.aligncenter img {
             margin-left: auto !important;
             margin-right: auto !important;
+            width: 100%;
         }
     </style>
 </MainLayout>
