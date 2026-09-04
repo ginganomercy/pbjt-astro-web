@@ -85,10 +85,50 @@ import MainLayout from '../layouts/MainLayout.astro';
         });
     </script>
 
-    <style>
+    <style is:global>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Memastikan gambar standar tampil proporsional dan tidak kerdil */
+        .prose img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+        }
+        
+        /* Perbaikan khusus untuk blok Media & Teks Gutenberg */
+        .prose .wp-block-media-text {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .prose .wp-block-media-text.has-media-on-the-right {
+                grid-template-columns: 1fr 1fr;
+            }
+            .prose .wp-block-media-text:not(.has-media-on-the-right) {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .prose .wp-block-media-text figure {
+            margin: 0;
+        }
+        .prose .wp-block-media-text img {
+            width: 100%;
+            max-width: 100%;
+            object-fit: cover;
+        }
+        
+        /* Perbaikan khusus untuk Gambar yang di-Align Center */
+        .prose .aligncenter {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
     </style>
 </MainLayout>
