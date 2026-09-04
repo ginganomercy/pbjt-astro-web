@@ -1,11 +1,17 @@
 const API_URL = 'https://wp.pbjt.ac.id/wp-json/wp/v2';
+const FETCH_OPTIONS = {
+    headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json'
+    }
+};
 
 /**
  * Mengambil daftar berita terbaru (Posts)
  */
 export async function getPosts(limit = 6) {
     try {
-        const response = await fetch(`${API_URL}/posts?_embed&per_page=${limit}`);
+        const response = await fetch(`${API_URL}/posts?_embed&per_page=${limit}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error('Gagal menarik data berita');
         return await response.json();
     } catch (error) {
@@ -28,7 +34,7 @@ export function extractFirstImage(htmlString) {
  */
 export async function getPostBySlug(slug) {
     try {
-        const response = await fetch(`${API_URL}/posts?_embed&slug=${slug}`);
+        const response = await fetch(`${API_URL}/posts?_embed&slug=${slug}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error('Gagal menarik detail berita');
         const posts = await response.json();
         return posts.length > 0 ? posts[0] : null;
@@ -44,7 +50,7 @@ export async function getPostBySlug(slug) {
 export async function getPages() {
     try {
         // Fetch up to 100 pages
-        const response = await fetch(`${API_URL}/pages?_embed&per_page=100`);
+        const response = await fetch(`${API_URL}/pages?_embed&per_page=100`, FETCH_OPTIONS);
         if (!response.ok) throw new Error('Gagal menarik halaman');
         return await response.json();
     } catch (error) {
@@ -58,7 +64,7 @@ export async function getPages() {
  */
 export async function getPageBySlug(slug) {
     try {
-        const response = await fetch(`${API_URL}/pages?_embed&slug=${slug}`);
+        const response = await fetch(`${API_URL}/pages?_embed&slug=${slug}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error('Gagal menarik detail halaman');
         const pages = await response.json();
         return pages.length > 0 ? pages[0] : null;
@@ -73,7 +79,7 @@ export async function getPageBySlug(slug) {
  */
 export async function getDosen(limit = 100) {
     try {
-        const response = await fetch(`${API_URL}/dosen?_embed&per_page=${limit}`);
+        const response = await fetch(`${API_URL}/dosen?_embed&per_page=${limit}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error('Gagal menarik data dosen');
         return await response.json();
     } catch (error) {
@@ -87,7 +93,7 @@ export async function getDosen(limit = 100) {
  */
 export async function getDosenBySlug(slug) {
     try {
-        const response = await fetch(`${API_URL}/dosen?_embed&slug=${slug}`);
+        const response = await fetch(`${API_URL}/dosen?_embed&slug=${slug}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error('Gagal menarik detail dosen');
         const dosenList = await response.json();
         return dosenList.length > 0 ? dosenList[0] : null;
@@ -104,7 +110,7 @@ export async function getDosenBySlug(slug) {
  */
 export async function getDynamicPosts(postType, limit = 100) {
     try {
-        const response = await fetch(`${API_URL}/${postType}?_embed&per_page=${limit}`);
+        const response = await fetch(`${API_URL}/${postType}?_embed&per_page=${limit}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error(`Gagal menarik data ${postType}`);
         return await response.json();
     } catch (error) {
@@ -120,7 +126,7 @@ export async function getDynamicPosts(postType, limit = 100) {
  */
 export async function getDynamicPostBySlug(postType, slug) {
     try {
-        const response = await fetch(`${API_URL}/${postType}?_embed&slug=${slug}`);
+        const response = await fetch(`${API_URL}/${postType}?_embed&slug=${slug}`, FETCH_OPTIONS);
         if (!response.ok) throw new Error(`Gagal menarik detail ${postType}`);
         const items = await response.json();
         return items.length > 0 ? items[0] : null;
