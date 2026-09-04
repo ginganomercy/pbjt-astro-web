@@ -1,9 +1,19 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
-import CardGeneric from '../../components/CardGeneric.astro';
-import { getDynamicPosts } from '../../utils/api.js';
 
-const ukmList = await getDynamicPosts('ukm', 100);
+// Hardcoded data UKM agar mengarah langsung ke Laman (Pages) buatan User
+// dan menggunakan gambar teroptimasi di public/image/kemahasiswaan/optimized/
+const ukmList = [
+    { title: 'Badan Eksekutif Mahasiswa (BEM)', slug: 'bem', image: '/image/kemahasiswaan/optimized/bem.jpg', desc: 'Organisasi eksekutif tertinggi di tingkat mahasiswa.' },
+    { title: 'Himpunan Mahasiswa Teknik Industri (HMTI)', slug: 'hmti', image: '/image/kemahasiswaan/optimized/hmti.jpg', desc: 'Wadah aspirasi dan kreasi mahasiswa Teknik Industri.' },
+    { title: 'ROHIS', slug: 'rohis', image: '/image/kemahasiswaan/optimized/rohis.jpg', desc: 'Kerohanian Islam Politeknik Baja Tegal.' },
+    { title: 'Pramuka RACANA', slug: 'racana', image: '/image/kemahasiswaan/optimized/racana.jpg', desc: 'Gerakan kepanduan Pramuka tingkat perguruan tinggi.' },
+    { title: 'Mahasiswa Pecinta Alam (BAJAPALA)', slug: 'bajapala', image: '/image/kemahasiswaan/optimized/bajapala.jpg', desc: 'Organisasi mahasiswa pecinta alam dan pelestarian lingkungan.' },
+    { title: 'Badminton', slug: 'badminton', image: '/image/kemahasiswaan/optimized/badminton.jpg', desc: 'Unit Kegiatan Mahasiswa di bidang olahraga bulutangkis.' },
+    { title: 'Futsal', slug: 'futsal', image: '/image/kemahasiswaan/optimized/futsal.jpg', desc: 'Menyalurkan bakat dan minat di bidang olahraga futsal.' },
+    { title: 'Paduan Suara', slug: 'paduan-suara', image: '/image/kemahasiswaan/optimized/paduan-suara.jpg', desc: 'Wadah kesenian dan olah vokal paduan suara mahasiswa.' },
+    { title: 'Forum Studi Ilmiah (FOSIL)', slug: 'forum-studi-ilmiah-fosil', image: '/image/kemahasiswaan/optimized/forum-studi-ilmiah.jpg', desc: 'Forum pengembangan nalar, riset, dan karya tulis ilmiah.' },
+];
 ---
 
 <MainLayout title="Unit Kegiatan Mahasiswa - Politeknik Baja Tegal">
@@ -22,17 +32,38 @@ const ukmList = await getDynamicPosts('ukm', 100);
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {ukmList.length === 0 ? (
-                <div class="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
-                    <h3 class="text-lg font-medium text-slate-900">Belum ada data UKM</h3>
-                </div>
-            ) : (
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {ukmList.map((item) => (
-                        <CardGeneric item={item} basePath="/ukm" />
-                    ))}
-                </div>
-            )}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {ukmList.map((ukm) => (
+                    <a href={`/${ukm.slug}`} class="group block h-full">
+                        <div class="h-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 overflow-hidden flex flex-col transform hover:-translate-y-1">
+                            
+                            <!-- Image Area: Aspect Square agar gambar UKM tidak terpotong (cover tapi proporsional) -->
+                            <div class="relative w-full aspect-square bg-slate-100 overflow-hidden p-4 flex items-center justify-center">
+                                <img 
+                                    src={ukm.image} 
+                                    alt={ukm.title}
+                                    loading="lazy"
+                                    class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-300"></div>
+                            </div>
+
+                            <!-- Content Area -->
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">{ukm.title}</h3>
+                                <p class="text-slate-500 text-sm line-clamp-3 mb-4 flex-grow">{ukm.desc}</p>
+                                
+                                <div class="mt-auto pt-4 border-t border-slate-50 flex items-center text-sm font-medium text-blue-600 group-hover:text-blue-500">
+                                    Baca Selengkapnya
+                                    <svg class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
         </div>
     </main>
 </MainLayout>
