@@ -91,27 +91,29 @@ import MainLayout from '../layouts/MainLayout.astro';
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Memastikan gambar standar tampil proporsional dan tidak kerdil */
+        /* Memastikan gambar standar tampil proporsional, elegan, dan tidak kerdil */
         .prose img {
             max-width: 100%;
             height: auto;
             border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* Tambahkan efek shadow elegan */
         }
         
-        /* Perbaikan khusus untuk blok Media & Teks Gutenberg */
+        /* Perbaikan khusus untuk blok Media & Teks Gutenberg agar gambar berukuran 'Sedang' */
         .prose .wp-block-media-text {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem;
-            align-items: center;
-            margin-bottom: 2rem;
+            gap: 2.5rem;
+            align-items: start; /* Gambar dan teks rata atas agar lebih rapi */
+            margin-bottom: 3rem;
         }
         @media (min-width: 768px) {
+            /* Rasio 33% Gambar : 67% Teks */
             .prose .wp-block-media-text.has-media-on-the-right {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 2fr 1fr; 
             }
             .prose .wp-block-media-text:not(.has-media-on-the-right) {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 2fr; 
             }
         }
         .prose .wp-block-media-text figure {
@@ -121,14 +123,16 @@ import MainLayout from '../layouts/MainLayout.astro';
             width: 100%;
             max-width: 100%;
             object-fit: cover;
+            border-radius: 1rem;
         }
         
-        /* Perbaikan khusus untuk Gambar yang di-Align Center */
+        /* Perbaikan khusus untuk Gambar yang di-Align Center agar tidak Raksasa */
         .prose .aligncenter {
             text-align: center;
             margin-left: auto;
             margin-right: auto;
             display: block;
+            max-width: 450px !important; /* Paksa gambar menjadi berukuran 'Sedang' */
         }
     </style>
 </MainLayout>
