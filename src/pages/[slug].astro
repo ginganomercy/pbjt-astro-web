@@ -129,14 +129,44 @@ import MainLayout from '../layouts/MainLayout.astro';
             border-radius: 0.5rem;
         }
         
-        /* Pembebasan Gambar Tengah (BEM): Boleh merentang 100% penuh */
-        .prose .aligncenter {
-            text-align: center;
+        /* =========================================
+           OPTIMASI GAMBAR STANDALONE (SPRINT 21)
+           ========================================= */
+        
+        /* 1. Targetkan Blok Gambar Bawaan Gutenberg */
+        .prose .wp-block-image {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+        
+        /* 2. Targetkan Gambar yang sekadar ditaruh di dalam teks (Paragraf) */
+        .prose > p > img {
+            display: block;
             margin-left: auto;
             margin-right: auto;
-            display: block;
-            width: 100%; /* Paksa merentang agar foto grup landscape raksasa */
-            max-width: none !important; /* Hapus semua batasan ukuran sebelumnya */
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 3. Aturan Ukuran (Mobile vs Desktop) */
+        .prose .wp-block-image img, 
+        .prose > p > img,
+        .prose .aligncenter {
+            width: 100%; /* Default Mobile: Rentang Penuh */
+            height: auto;
+            max-width: none !important;
+        }
+        
+        @media (min-width: 768px) {
+            .prose .wp-block-image img, 
+            .prose > p > img,
+            .prose .aligncenter {
+                width: 80%; /* Desktop: Dibesarkan Proporsional (Digedein Dikit) tapi tidak pecah */
+                max-width: 900px; 
+            }
         }
     </style>
 </MainLayout>
