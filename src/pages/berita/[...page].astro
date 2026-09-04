@@ -1,0 +1,113 @@
+---
+import { getPosts, extractFirstImage } from '../../utils/api.js';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+export async function getStaticPaths({ paginate }) {
+    // Fetch all posts (up to 100 for static generation)
+    const posts = await getPosts(100);
+    
+    // Generate pages with 9 posts per page
+    return paginate(posts, { pageSize: 9 });
+}
+
+const { page } = Astro.props;
+---
+
+<MainLayout title="Berita & Pengumuman - Politeknik Baja Tegal">
+
+    <main class="py-16 bg-slate-50 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <header class="mb-12 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Berita & Pengumuman</h1>
+                <p class="text-lg text-slate-500 max-w-2xl mx-auto">Informasi terbaru seputar kegiatan kampus, pengumuman akademik, dan prestasi mahasiswa Politeknik Baja Tegal.</p>
+            </header>
+
+            {page.data.length === 0 ? (
+                <div class="text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                    <p class="text-slate-500 text-lg">Belum ada berita yang dipublikasikan.</p>
+                </div>
+            ) : (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    {page.data.map((post, index) => {
+                        // Cek apakah punya featured image
+                        const hasFeatured = post._embedded?.['wp:featuredmedia'];
+                        // Ekstrak gambar fallback dari isi berita jika featured image kosong
+                        const fallbackImage = !hasFeatured ? extractFirstImage(post.content.rendered) : null;
+                        
+                        return (
+                        <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full" style={`animation-delay: ${index * 0.1}s`}>
+                            <a href={`/berita/${post.slug}`} class="block flex-grow flex flex-col">
+                                <div class="h-56 overflow-hidden bg-slate-100 relative">
+                                    {hasFeatured ? (
+                                        <img 
+                                            src={post._embedded['wp:featuredmedia'][0].source_url} 
+                                            alt={post.title.rendered}
+                                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    ) : fallbackImage ? (
+                                        <img 
+                                            src={fallbackImage} 
+                                            alt={post.title.rendered}
+                                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    ) : (
+                                        <div class="absolute inset-0 w-full h-full flex items-center justify-center text-slate-400">
+                                            <svg class="w-12 h-12 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        </div>
+                                    )}
+                                </div>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <p class="text-xs font-semibold text-primary mb-3">
+                                        {new Date(post.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    </p>
+                                    <h2 class="text-xl font-bold text-slate-800 mb-3 leading-tight group-hover:text-primary transition-colors line-clamp-2 flex-shrink-0" set:html={post.title.rendered} />
+                                    <div class="text-slate-500 text-sm line-clamp-3 mb-6 flex-grow" set:html={post.excerpt.rendered} />
+                                    <div class="mt-auto">
+                                        <span class="inline-flex items-center font-semibold text-secondary-dark group-hover:text-primary transition-colors text-sm">
+                                            Baca Selengkapnya <span class="ml-1 group-hover:translate-x-1 transition-transform">›</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                        );
+                    })}
+                </div>
+            )}
+
+            <!-- Pagination Navigation -->
+            {page.lastPage > 1 && (
+                <div class="flex justify-center items-center space-x-4 mt-8">
+                    {page.url.prev ? (
+                        <a href={page.url.prev} class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:text-primary font-medium transition-colors shadow-sm flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            Sebelumnya
+                        </a>
+                    ) : (
+                        <span class="px-5 py-2.5 rounded-xl border border-slate-100 text-slate-400 bg-slate-50 font-medium cursor-not-allowed flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            Sebelumnya
+                        </span>
+                    )}
+
+                    <span class="text-slate-600 font-medium px-4">
+                        Halaman {page.currentPage} dari {page.lastPage}
+                    </span>
+
+                    {page.url.next ? (
+                        <a href={page.url.next} class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:text-primary font-medium transition-colors shadow-sm flex items-center gap-2">
+                            Selanjutnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </a>
+                    ) : (
+                        <span class="px-5 py-2.5 rounded-xl border border-slate-100 text-slate-400 bg-slate-50 font-medium cursor-not-allowed flex items-center gap-2">
+                            Selanjutnya
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </span>
+                    )}
+                </div>
+            )}
+        </div>
+    </main>
+
+</MainLayout>

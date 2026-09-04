@@ -1,44 +1,140 @@
 ---
-import { getPosts } from '../../utils/api.js';
+import { getPosts, extractFirstImage } from '../../utils/api.js';
 import MainLayout from '../../layouts/MainLayout.astro';
 
 export async function getStaticPaths() {
-    // In Astro 4+, we fetch all possible routes at build time
     const posts = await getPosts(100); 
     return posts.map(post => ({
         params: { slug: post.slug },
-        props: { post },
+        props: { post, allPosts: posts },
     }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
+
+// Filter out the current post to get recent posts for the "Baca Juga" section
+const recentPosts = allPosts.filter(p => p.id !== post.id).slice(0, 3);
+
+const hasFeatured = post._embedded?.['wp:featuredmedia'];
+const fallbackImage = !hasFeatured ? extractFirstImage(post.content.rendered) : null;
+const authorName = post._embedded?.author?.[0]?.name || 'Admin PBJT';
+const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
+
+// Bersihkan gambar dari konten artikel jika sudah dipakai sebagai fallback thumbnail 
+// (Optional, agar gambar tidak muncul dobel. Tapi biarkan saja dulu karena butuh regex kompleks)
 ---
 
 <MainLayout title={`${post.title.rendered} - Politeknik Baja Tegal`}>
 
-    <main class="py-12 bg-white min-h-screen">
-        <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="py-12 bg-slate-50 min-h-screen">
+        <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
             
-            <header class="mb-10 text-center">
-                <p class="text-secondary-dark font-semibold uppercase tracking-widest text-sm mb-4">
-                    {new Date(post.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-8" set:html={post.title.rendered} />
+            <header class="p-8 md:p-12 border-b border-slate-100">
+                <div class="flex flex-wrap items-center gap-3 mb-6">
+                    <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider">
+                        {category}
+                    </span>
+                    <span class="text-slate-400 text-sm font-medium">
+                        {new Date(post.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                    </span>
+                </div>
                 
-                {post._embedded?.['wp:featuredmedia'] && (
-                    <div class="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10 border border-slate-100 mb-12">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-8" set:html={post.title.rendered} />
+                
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold">
+                        {authorName.charAt(0)}
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-800">{authorName}</p>
+                        <p class="text-xs text-slate-500">Humas PBJT</p>
+                    </div>
+                </div>
+                
+                {hasFeatured ? (
+                    <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-100 mb-2">
                         <img 
                             src={post._embedded['wp:featuredmedia'][0].source_url} 
                             alt={post.title.rendered}
-                            class="w-full h-auto object-cover"
+                            class="w-full h-auto max-h-[600px] object-cover"
                         />
                     </div>
-                )}
+                ) : fallbackImage ? (
+                    <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-100 mb-2">
+                        <img 
+                            src={fallbackImage} 
+                            alt={post.title.rendered}
+                            class="w-full h-auto max-h-[600px] object-cover"
+                        />
+                    </div>
+                ) : null}
             </header>
 
-            <div class="prose prose-lg prose-slate prose-a:text-primary hover:prose-a:text-primary-dark prose-headings:text-slate-800 mx-auto break-words overflow-x-auto" set:html={post.content.rendered} />
-            
+            <div class="p-8 md:p-12 pt-8">
+                <!-- Styling Prose WordPress -->
+                <div class="prose prose-lg prose-slate max-w-none 
+                            prose-a:text-primary hover:prose-a:text-primary-dark 
+                            prose-headings:text-slate-800 prose-headings:font-bold
+                            prose-img:rounded-xl prose-img:shadow-md mx-auto break-words overflow-x-auto" 
+                     set:html={post.content.rendered} />
+                     
+                <!-- Share Button -->
+                <div class="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <span class="font-semibold text-slate-700">Bagikan artikel ini:</span>
+                    <div class="flex gap-3">
+                        <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title.rendered + ' - https://pbjt.ac.id/berita/' + post.slug)}`} target="_blank" rel="noopener" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2 text-sm font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                            WhatsApp
+                        </a>
+                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://pbjt.ac.id/berita/' + post.slug)}`} target="_blank" rel="noopener" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
         </article>
+
+        <!-- Baca Juga Section -->
+        {recentPosts.length > 0 && (
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-16 border-t border-slate-200">
+                <h3 class="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    Berita Terbaru Lainnya
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {recentPosts.map((rPost, index) => {
+                        const hasFeat = rPost._embedded?.['wp:featuredmedia'];
+                        const fallImg = !hasFeat ? extractFirstImage(rPost.content.rendered) : null;
+                        
+                        return (
+                            <article class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full">
+                                <a href={`/berita/${rPost.slug}`} class="block flex-grow flex flex-col">
+                                    <div class="h-48 overflow-hidden bg-slate-100 relative">
+                                        {hasFeat ? (
+                                            <img src={rPost._embedded['wp:featuredmedia'][0].source_url} alt={rPost.title.rendered} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        ) : fallImg ? (
+                                            <img src={fallImg} alt={rPost.title.rendered} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        ) : (
+                                            <div class="absolute inset-0 w-full h-full flex items-center justify-center text-slate-400">
+                                                <svg class="w-10 h-10 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div class="p-5 flex flex-col flex-grow">
+                                        <p class="text-xs font-semibold text-primary mb-2">
+                                            {new Date(rPost.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                        </p>
+                                        <h4 class="text-lg font-bold text-slate-800 mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2" set:html={rPost.title.rendered} />
+                                    </div>
+                                </a>
+                            </article>
+                        );
+                    })}
+                </div>
+            </section>
+        )}
     </main>
 
 </MainLayout>

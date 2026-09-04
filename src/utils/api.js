@@ -15,6 +15,15 @@ export async function getPosts(limit = 6) {
 }
 
 /**
+ * Ekstrak URL gambar pertama dari string HTML (digunakan sebagai fallback thumbnail)
+ */
+export function extractFirstImage(htmlString) {
+    if (!htmlString) return null;
+    const match = htmlString.match(/<img[^>]+src="([^">]+)"/i);
+    return match ? match[1] : null;
+}
+
+/**
  * Mengambil detail satu berita berdasarkan Slug
  */
 export async function getPostBySlug(slug) {
