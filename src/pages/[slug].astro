@@ -88,6 +88,11 @@ import MainLayout from '../layouts/MainLayout.astro';
                 content.innerHTML = cleanContent;
                 content.classList.add('animate-[fadeIn_0.5s_ease-out_forwards]');
                 
+                // 3. Tampilkan PDF (Hapus atribut hidden dari File Block)
+                content.querySelectorAll('.wp-block-file__embed').forEach(pdf => {
+                    pdf.removeAttribute('hidden');
+                });
+                
             } catch(e) {
                 console.error(e);
                 header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4 border-l-4 border-red-500 pl-4">Gagal Memuat</h1>`;
