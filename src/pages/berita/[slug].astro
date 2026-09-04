@@ -141,11 +141,16 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
         /* Styling untuk WordPress Gallery Block */
         .wp-block-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(1, 1fr);
             gap: 1.5rem;
             margin: 2rem 0;
             padding: 0;
             list-style: none;
+        }
+        @media (min-width: 640px) {
+            .wp-block-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         .wp-block-gallery .wp-block-image {
