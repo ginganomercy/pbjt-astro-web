@@ -1,0 +1,39 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import CardGeneric from '../../components/CardGeneric.astro';
+import { getDynamicPosts } from '../../utils/api.js';
+
+// Mengambil data dari endpoint baru 'kegiatan-ukm' di WordPress
+const kegiatanList = await getDynamicPosts('kegiatan-ukm', 100);
+---
+
+<MainLayout title="Berita Kegiatan UKM - Politeknik Baja Tegal">
+    <main class="min-h-screen bg-slate-50 pt-24 pb-16">
+        
+        <div class="relative bg-slate-900 py-20 px-4 mb-16 overflow-hidden">
+            <div class="absolute inset-0 bg-blue-900/20"></div>
+            <div class="relative max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
+                    Berita Kegiatan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">UKM</span>
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto">
+                    Kumpulan berita, event, dan aktivitas terbaru dari seluruh Unit Kegiatan Mahasiswa PBJT.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {kegiatanList.length === 0 ? (
+                <div class="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-medium text-slate-900">Belum ada berita kegiatan UKM</h3>
+                </div>
+            ) : (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {kegiatanList.map((item) => (
+                        <CardGeneric item={item} basePath="/kegiatan-ukm" />
+                    ))}
+                </div>
+            )}
+        </div>
+    </main>
+</MainLayout>
