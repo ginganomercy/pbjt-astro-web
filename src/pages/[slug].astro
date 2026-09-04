@@ -23,31 +23,25 @@ import MainLayout from '../layouts/MainLayout.astro';
 
 <MainLayout title="Memuat... - Politeknik Baja Tegal">
 
-    <main class="min-h-screen bg-slate-50 pb-24">
-        
-        <!-- Hero Banner Latar Gelap -->
-        <div class="relative bg-slate-900 pt-32 pb-32 overflow-hidden">
-            <div class="absolute inset-0 bg-blue-900/20"></div>
-            <div class="relative max-w-5xl mx-auto px-4 text-center z-10" id="page-header">
-                <!-- Skeleton Header -->
-                <div class="h-12 bg-slate-700/50 rounded-xl w-2/3 md:w-1/2 mx-auto animate-pulse mb-4"></div>
-                <div class="h-4 bg-slate-700/50 rounded w-1/4 mx-auto animate-pulse"></div>
-            </div>
-        </div>
-
-        <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-20">
+    <!-- Latar Belakang Putih Bersih Penuh -->
+    <main class="py-16 bg-white min-h-screen">
+        <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- White Card Container -->
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 p-8 md:p-12 lg:p-16">
+            <!-- Header Judul Elegan (Rata Kiri, Bersih) -->
+            <header id="page-header" class="mb-12 border-b border-slate-100 pb-8">
+                <!-- Skeleton Header -->
+                <div class="h-12 bg-slate-200 rounded w-2/3 md:w-1/2 animate-pulse"></div>
+            </header>
+
+            <!-- Area Konten Tanpa Bingkai (Seamless) -->
+            <div id="page-content" class="prose prose-lg prose-slate prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-headings:text-slate-900 mx-auto max-w-none break-words overflow-x-auto leading-relaxed prose-hr:my-10 prose-hr:border-slate-200 prose-hr:border-t-2">
                 <!-- Skeleton Content -->
-                <div id="page-content" class="prose prose-lg prose-slate prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-headings:text-slate-900 prose-img:rounded-2xl prose-img:shadow-lg mx-auto max-w-none break-words overflow-x-auto leading-relaxed prose-hr:my-12 prose-hr:border-slate-200 prose-hr:border-t-2">
-                    <div class="space-y-6">
-                        <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
-                        <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
-                        <div class="h-4 bg-slate-200 rounded w-4/5 animate-pulse"></div>
-                        <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
-                        <div class="h-4 bg-slate-200 rounded w-3/4 animate-pulse"></div>
-                    </div>
+                <div class="space-y-6">
+                    <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
+                    <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
+                    <div class="h-4 bg-slate-200 rounded w-4/5 animate-pulse"></div>
+                    <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
+                    <div class="h-4 bg-slate-200 rounded w-3/4 animate-pulse"></div>
                 </div>
             </div>
             
@@ -69,9 +63,8 @@ import MainLayout from '../layouts/MainLayout.astro';
                 
                 if (pages.length === 0) {
                     document.title = "Halaman Tidak Ditemukan - PBJT";
-                    header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4">404</h1>
-                                        <div class="w-24 h-1 bg-red-500 mx-auto rounded-full"></div>`;
-                    content.innerHTML = `<p class="text-center text-slate-600">Maaf, halaman dengan URL '/${slug}' belum dibuat di WordPress Anda. Silakan buat Page baru di Dashboard WP dengan judul tersebut.</p>`;
+                    header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4 border-l-4 border-red-500 pl-4">404 - Halaman Tidak Ditemukan</h1>`;
+                    content.innerHTML = `<p class="text-slate-600 text-lg">Maaf, halaman dengan URL '/${slug}' belum dibuat di WordPress Anda. Silakan buat Page baru di Dashboard WP dengan judul tersebut.</p>`;
                     return;
                 }
                 
@@ -80,9 +73,8 @@ import MainLayout from '../layouts/MainLayout.astro';
                 // Update Title
                 document.title = `${page.title.rendered} - Politeknik Baja Tegal`;
                 
-                // Update Header (Teks Putih Rata Tengah)
-                header.innerHTML = `<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">${page.title.rendered}</h1>
-                                    <div class="w-24 h-1.5 bg-gradient-to-r from-blue-400 to-cyan-300 mx-auto rounded-full shadow-lg"></div>`;
+                // Update Header (Teks Biru Megah Rata Kiri dengan Aksen Garis)
+                header.innerHTML = `<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight">${page.title.rendered}</h1>`;
                 
                 // Update Content
                 content.innerHTML = page.content.rendered;
@@ -90,9 +82,8 @@ import MainLayout from '../layouts/MainLayout.astro';
                 
             } catch(e) {
                 console.error(e);
-                header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4">Gagal Memuat</h1>
-                                    <div class="w-24 h-1 bg-red-500 mx-auto rounded-full"></div>`;
-                content.innerHTML = `<p class="text-center text-red-500">Terjadi kesalahan saat menarik data dari server. Pastikan API tidak terblokir.</p>`;
+                header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4 border-l-4 border-red-500 pl-4">Gagal Memuat</h1>`;
+                content.innerHTML = `<p class="text-red-500 text-lg">Terjadi kesalahan saat menarik data dari server. Pastikan API tidak terblokir.</p>`;
             }
         });
     </script>
@@ -103,15 +94,15 @@ import MainLayout from '../layouts/MainLayout.astro';
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Memastikan gambar standar tampil proporsional, elegan, dan tidak kerdil */
+        /* Gambar Standar: Sedikit Radius dan Shadow yang Sangat Lembut agar tidak mencolok */
         .prose img {
             max-width: 100%;
             height: auto;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); 
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
         }
         
-        /* Perbaikan khusus untuk blok Media & Teks Gutenberg agar gambar berukuran Ideal (50:50 di layar lebar) */
+        /* Blok Media & Teks Gutenberg: Memperbesar Porsi Gambar Menjadi 60% */
         .prose .wp-block-media-text {
             display: grid;
             grid-template-columns: 1fr;
@@ -120,12 +111,12 @@ import MainLayout from '../layouts/MainLayout.astro';
             margin-bottom: 3.5rem;
         }
         @media (min-width: 768px) {
-            /* Rasio Emas: 50% Gambar : 50% Teks (Karena Kontainer Sudah Lebar 1024px) */
+            /* Rasio Baru: 60% Gambar : 40% Teks (Gambar Lebih Besar & Dominan) */
             .prose .wp-block-media-text.has-media-on-the-right {
-                grid-template-columns: 1fr 1fr; 
+                grid-template-columns: 2fr 3fr; /* Teks 2 bagian, Gambar 3 bagian (kanan) */
             }
             .prose .wp-block-media-text:not(.has-media-on-the-right) {
-                grid-template-columns: 1fr 1fr; 
+                grid-template-columns: 3fr 2fr; /* Gambar 3 bagian (kiri), Teks 2 bagian */
             }
         }
         .prose .wp-block-media-text figure {
@@ -135,16 +126,17 @@ import MainLayout from '../layouts/MainLayout.astro';
             width: 100%;
             max-width: 100%;
             object-fit: cover;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
         }
         
-        /* Perbaikan khusus untuk Gambar yang di-Align Center (BEM) agar bisa lebih lebar */
+        /* Pembebasan Gambar Tengah (BEM): Boleh merentang 100% penuh */
         .prose .aligncenter {
             text-align: center;
             margin-left: auto;
             margin-right: auto;
             display: block;
-            max-width: 700px !important; /* Diperbesar dari 450px agar foto lanskap terlihat gagah */
+            width: 100%; /* Paksa merentang agar foto grup landscape raksasa */
+            max-width: none !important; /* Hapus semua batasan ukuran sebelumnya */
         }
     </style>
 </MainLayout>
