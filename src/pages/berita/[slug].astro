@@ -168,22 +168,26 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
 
         .wp-block-gallery img {
             width: 100%;
-            height: 100%;
             object-fit: cover;
             aspect-ratio: 4/3;
             margin: 0 !important;
             display: block;
+            border-radius: 0.75rem;
         }
 
-        /* Default wp-block-image styling */
+        /* Memaksa semua gambar di artikel agar proporsional */
+        .prose img {
+            max-width: 100%;
+            height: auto !important; 
+            object-fit: contain;
+        }
+        
+        /* Styling tambahan khusus wp-block-image */
         .prose .wp-block-image img {
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             margin-top: 2rem;
             margin-bottom: 2rem;
-            max-width: 100%;
-            height: auto !important; /* Mencegah gambar gepeng */
-            object-fit: contain;
         }
         
         .prose .wp-block-image figcaption {
