@@ -196,5 +196,18 @@ const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Berita Umum';
             color: #64748b;
             margin-top: 0.5rem;
         }
+
+        /* WordPress Alignment Classes */
+        .aligncenter {
+            display: block;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: center;
+        }
+        
+        figure.aligncenter img {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
     </style>
 </MainLayout>
