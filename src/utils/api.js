@@ -6,14 +6,29 @@ const FETCH_OPTIONS = {
     }
 };
 
+// IN-MEMORY CACHE: Mencegah Astro membombardir server WordPress dengan request berulang saat build
+const apiCache = new Map();
+
+async function fetchWithCache(url) {
+    if (apiCache.has(url)) {
+        return apiCache.get(url);
+    }
+    
+    // Fallback sederhana jika WordPress butuh waktu lama
+    const response = await fetch(url, FETCH_OPTIONS);
+    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+    
+    const data = await response.json();
+    apiCache.set(url, data);
+    return data;
+}
+
 /**
  * Mengambil daftar berita terbaru (Posts)
  */
 export async function getPosts(limit = 6) {
     try {
-        const response = await fetch(`${API_URL}/posts?_embed&per_page=${limit}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error('Gagal menarik data berita');
-        return await response.json();
+        return await fetchWithCache(`${API_URL}/posts?_embed&per_page=${limit}`);
     } catch (error) {
         console.error('Error fetching posts:', error);
         return [];
@@ -34,9 +49,8 @@ export function extractFirstImage(htmlString) {
  */
 export async function getPostBySlug(slug) {
     try {
-        const response = await fetch(`${API_URL}/posts?_embed&slug=${slug}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error('Gagal menarik detail berita');
-        const posts = await response.json();
+        const response = await fetchWithCache(`${API_URL}/posts?_embed&slug=${slug}`);
+        const posts = response;
         return posts.length > 0 ? posts[0] : null;
     } catch (error) {
         console.error('Error fetching post by slug:', error);
@@ -50,9 +64,7 @@ export async function getPostBySlug(slug) {
 export async function getPages() {
     try {
         // Fetch up to 100 pages
-        const response = await fetch(`${API_URL}/pages?_embed&per_page=100`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error('Gagal menarik halaman');
-        return await response.json();
+        return await fetchWithCache(`${API_URL}/pages?_embed&per_page=100`);
     } catch (error) {
         console.error('Error fetching pages:', error);
         return [];
@@ -64,9 +76,8 @@ export async function getPages() {
  */
 export async function getPageBySlug(slug) {
     try {
-        const response = await fetch(`${API_URL}/pages?_embed&slug=${slug}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error('Gagal menarik detail halaman');
-        const pages = await response.json();
+        const response = await fetchWithCache(`${API_URL}/pages?_embed&slug=${slug}`);
+        const pages = response;
         return pages.length > 0 ? pages[0] : null;
     } catch (error) {
         console.error('Error fetching page by slug:', error);
@@ -79,9 +90,7 @@ export async function getPageBySlug(slug) {
  */
 export async function getDosen(limit = 100) {
     try {
-        const response = await fetch(`${API_URL}/dosen?_embed&per_page=${limit}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error('Gagal menarik data dosen');
-        return await response.json();
+        return await fetchWithCache(`${API_URL}/dosen?_embed&per_page=${limit}`);
     } catch (error) {
         console.error('Error fetching dosen:', error);
         return [];
@@ -93,9 +102,8 @@ export async function getDosen(limit = 100) {
  */
 export async function getDosenBySlug(slug) {
     try {
-        const response = await fetch(`${API_URL}/dosen?_embed&slug=${slug}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error('Gagal menarik detail dosen');
-        const dosenList = await response.json();
+        const response = await fetchWithCache(`${API_URL}/dosen?_embed&slug=${slug}`);
+        const dosenList = response;
         return dosenList.length > 0 ? dosenList[0] : null;
     } catch (error) {
         console.error('Error fetching dosen by slug:', error);
@@ -110,9 +118,7 @@ export async function getDosenBySlug(slug) {
  */
 export async function getDynamicPosts(postType, limit = 100) {
     try {
-        const response = await fetch(`${API_URL}/${postType}?_embed&per_page=${limit}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error(`Gagal menarik data ${postType}`);
-        return await response.json();
+        return await fetchWithCache(`${API_URL}/${postType}?_embed&per_page=${limit}`);
     } catch (error) {
         console.error(`Error fetching ${postType}:`, error);
         return [];
@@ -126,9 +132,8 @@ export async function getDynamicPosts(postType, limit = 100) {
  */
 export async function getDynamicPostBySlug(postType, slug) {
     try {
-        const response = await fetch(`${API_URL}/${postType}?_embed&slug=${slug}`, FETCH_OPTIONS);
-        if (!response.ok) throw new Error(`Gagal menarik detail ${postType}`);
-        const items = await response.json();
+        const response = await fetchWithCache(`${API_URL}/${postType}?_embed&slug=${slug}`);
+        const items = response;
         return items.length > 0 ? items[0] : null;
     } catch (error) {
         console.error(`Error fetching ${postType} by slug:`, error);
