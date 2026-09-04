@@ -77,7 +77,15 @@ import MainLayout from '../layouts/MainLayout.astro';
                 header.innerHTML = `<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight">${page.title.rendered}</h1>`;
                 
                 // Update Content
-                content.innerHTML = page.content.rendered;
+                // SPRINT 22: Resolusi Gambar Anti-Blur (HD)
+                // 1. Hapus akhiran dimensi (misal -300x200) dari nama file agar mengambil gambar master
+                let cleanContent = page.content.rendered.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
+                
+                // 2. Musnahkan atribut srcset dan sizes bawaan WP yang menyuruh browser download gambar kecil
+                cleanContent = cleanContent.replace(/srcset="[^"]*"/gi, '');
+                cleanContent = cleanContent.replace(/sizes="[^"]*"/gi, '');
+                
+                content.innerHTML = cleanContent;
                 content.classList.add('animate-[fadeIn_0.5s_ease-out_forwards]');
                 
             } catch(e) {
