@@ -74,19 +74,19 @@ import MainLayout from '../layouts/MainLayout.astro';
                 let altText = page.title.rendered; // Default alt text
                 let rawContent = page.content.rendered;
                 
-                // Cari teks yang diawali dengan strip (misal: -Sertifikat Akreditasi Perguruan Tinggi)
-                // Asumsi: teks berada di dalam tag <p> atau berdiri sendiri
-                const captionRegex = /<p>\s*-(.*?)\s*<\/p>/i;
+                // Cari teks yang diawali dengan strip, en-dash, atau em-dash
+                // Menangani variasi strip: - (hyphen), – (en-dash), — (em-dash)
+                const captionRegex = /<p>\s*[-–—](.*?)\s*<\/p>/i;
                 const match = rawContent.match(captionRegex);
                 if (match && match[1]) {
-                    altText = match[1].trim(); // Gunakan sebagai Alt Text
+                    altText = match[1].replace(/<[^>]*>?/gm, '').trim(); // Bersihkan dari tag HTML jika ada
                     rawContent = rawContent.replace(captionRegex, ''); // Hapus tulisan dari konten visual
                 } else {
-                    // Coba regex tanpa tag <p> jika dibuat tanpa format paragraf
-                    const rawCaptionRegex = /-\s*(Sertifikat Akreditasi.*?)(?=<|$)/i;
+                    // Fallback jika tidak ada tag <p>
+                    const rawCaptionRegex = /[-–—]\s*(Sertifikat Akreditasi.*?)(?=<|$)/i;
                     const rawMatch = rawContent.match(rawCaptionRegex);
                     if (rawMatch && rawMatch[1]) {
-                        altText = rawMatch[1].trim();
+                        altText = rawMatch[1].replace(/<[^>]*>?/gm, '').trim();
                         rawContent = rawContent.replace(rawCaptionRegex, '');
                     }
                 }
@@ -95,10 +95,10 @@ import MainLayout from '../layouts/MainLayout.astro';
                 let featuredImageHtml = '';
                 if (page._embedded && page._embedded['wp:featuredmedia'] && page._embedded['wp:featuredmedia'].length > 0) {
                     const imgUrl = page._embedded['wp:featuredmedia'][0].source_url;
-                    // SPRINT 27: Gunakan object-contain agar gambar sertifikat/logo tidak terpotong
+                    // Gunakan w-fit mx-auto agar bingkai abu-abu pas memeluk ukuran gambar (tidak melebar)
                     featuredImageHtml = `
-                    <div class="mt-10 rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-slate-50 flex justify-center p-4">
-                        <img src="${imgUrl}" alt="${altText}" title="${altText}" class="max-w-full h-auto max-h-[600px] object-contain hover:scale-105 transition-transform duration-700" />
+                    <div class="mt-10 mb-8 rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-3 w-fit mx-auto">
+                        <img src="${imgUrl}" alt="${altText}" title="${altText}" class="max-w-full h-auto max-h-[600px] object-contain hover:scale-105 transition-transform duration-700 rounded-2xl" />
                     </div>`;
                 }
 
