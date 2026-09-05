@@ -1,5 +1,40 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+
+// SPRINT 25: Fetch Dynamic Content for Mikrotik Academy
+let pdfUrl = "#";
+let galleryImages = [];
+
+try {
+    const res = await fetch("https://wp.pbjt.ac.id/wp-json/wp/v2/pages?slug=mikrotik-academy");
+    const data = await res.json();
+    
+    if (data && data.length > 0) {
+        const content = data[0].content.rendered;
+        
+        // 1. Ekstrak Tautan PDF
+        const pdfMatch = content.match(/wp-block-file.*?href="([^"]+)"/);
+        if (pdfMatch && pdfMatch[1]) {
+            pdfUrl = pdfMatch[1];
+        }
+
+        // 2. Ekstrak URL Gambar Galeri
+        const imgRegex = /<img[^>]+src="([^"]+)"/g;
+        let match;
+        while ((match = imgRegex.exec(content)) !== null) {
+            // Hapus resolusi (misal: -1024x768) agar mendapat versi HD master
+            const fullUrl = match[1].replace(/-\d+x\d+(?=\.[a-zA-Z]+$)/, '');
+            galleryImages.push(fullUrl);
+        }
+    }
+} catch (error) {
+    console.error("Failed to fetch Mikrotik Academy data:", error);
+}
+
+// Pastikan selalu ada 9 slot terisi agar skeleton grid tidak rusak
+while (galleryImages.length < 9) {
+    galleryImages.push("/placeholder.jpg");
+}
 ---
 
 <MainLayout title="MikroTik Academy - Politeknik Baja Tegal">
@@ -68,15 +103,9 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <div id="galeri" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100">
                         <h2 class="text-3xl font-bold text-primary-dark mb-8">Galeri Training MikroTik</h2>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/10-1024x1024.png" alt="Galeri 1" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/9-1024x1024.png" alt="Galeri 2" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/8-1024x1024.png" alt="Galeri 3" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/7-1024x1024.png" alt="Galeri 4" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/5-1024x1024.png" alt="Galeri 5" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/4-1024x1024.png" alt="Galeri 6" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/3-1024x1024.png" alt="Galeri 7" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/2-1024x1024.png" alt="Galeri 8" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
-                            <img src="https://pbjt.ac.id/wp-content/uploads/2025/02/1-1024x1024.png" alt="Galeri 9" class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
+                            {galleryImages.slice(0, 9).map((url, index) => (
+                                <img src={url} alt={`Galeri ${index + 1}`} class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -136,7 +165,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                         </div>
                         <h3 class="font-bold text-xl text-slate-800 mb-2">Silabus Resmi</h3>
                         <p class="text-sm text-slate-500 mb-6">Unduh dan pelajari silabus sertifikasi MikroTik Academy MTCNA</p>
-                        <a href="https://pbjt.ac.id/wp-content/uploads/2025/02/MikroTikAcademy_EN.pdf" target="_blank" download class="block w-full py-3 px-4 bg-slate-900 text-white font-semibold rounded-xl hover:bg-primary transition-colors text-center">
+                        <a href={pdfUrl} target="_blank" download class="block w-full py-3 px-4 bg-slate-900 text-white font-semibold rounded-xl hover:bg-primary transition-colors text-center">
                             Unduh PDF
                         </a>
                     </div>
