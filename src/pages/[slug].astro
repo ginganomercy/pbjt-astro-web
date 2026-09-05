@@ -73,8 +73,21 @@ import MainLayout from '../layouts/MainLayout.astro';
                 // Update Title
                 document.title = `${page.title.rendered} - Politeknik Baja Tegal`;
                 
-                // Update Header (Teks Biru Megah Rata Kiri dengan Aksen Garis)
-                header.innerHTML = `<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight">${page.title.rendered}</h1>`;
+                // Ekstrak Gambar Unggulan (Featured Image) jika ada
+                let featuredImageHtml = '';
+                if (page._embedded && page._embedded['wp:featuredmedia'] && page._embedded['wp:featuredmedia'].length > 0) {
+                    const imgUrl = page._embedded['wp:featuredmedia'][0].source_url;
+                    featuredImageHtml = `
+                    <div class="mt-10 rounded-3xl overflow-hidden shadow-xl border border-slate-100">
+                        <img src="${imgUrl}" alt="${page.title.rendered}" class="w-full h-auto max-h-[500px] object-cover hover:scale-105 transition-transform duration-700" />
+                    </div>`;
+                }
+
+                // Update Header (Teks Biru Megah Rata Kiri dengan Aksen Garis + Gambar Unggulan)
+                header.innerHTML = `
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight">${page.title.rendered}</h1>
+                    ${featuredImageHtml}
+                `;
                 
                 // Update Content
                 // SPRINT 22: Resolusi Gambar Anti-Blur (HD)
