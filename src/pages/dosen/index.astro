@@ -20,13 +20,25 @@ import Layout from '../../layouts/MainLayout.astro';
             </div>
         </div>
 
-        <!-- Grid Section (Diisi oleh Javascript) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div id="dosen-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        <!-- Slider Section (Diisi oleh Javascript) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative group">
+            
+            <!-- Tombol Navigasi Slider Kiri -->
+            <button id="slider-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-blue-900 w-14 h-14 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-slate-100 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 disabled:opacity-0 hidden md:flex focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+            <!-- Container Slider (Scroll Snap) -->
+            <div id="dosen-container" class="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-10 pt-4 px-2">
                 <!-- Skeletons will be rendered here -->
             </div>
             
-            <div id="dosen-empty" class="hidden text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
+            <!-- Tombol Navigasi Slider Kanan -->
+            <button id="slider-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white text-blue-900 w-14 h-14 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-slate-100 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 z-10 opacity-0 group-hover:opacity-100 disabled:opacity-0 hidden md:flex focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            
+            <div id="dosen-empty" class="hidden text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100 w-full">
                 <svg class="mx-auto h-16 w-16 text-slate-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
@@ -34,7 +46,7 @@ import Layout from '../../layouts/MainLayout.astro';
                 <p class="mt-2 text-slate-500">Data dosen sedang diperbarui atau API tidak dapat diakses.</p>
             </div>
             
-            <p id="dosen-error" class="hidden text-center text-red-500 py-12 bg-red-50 rounded-2xl border border-red-100">
+            <p id="dosen-error" class="hidden text-center text-red-500 py-12 bg-red-50 rounded-2xl border border-red-100 w-full">
                 Gagal memuat daftar dosen. Pastikan koneksi API tidak terblokir.
             </p>
         </div>
@@ -42,33 +54,39 @@ import Layout from '../../layouts/MainLayout.astro';
 
     <!-- Template Kartu Dosen -->
     <template id="dosen-template">
-        <a href="#" class="group block h-full dosen-link animate-[fadeIn_0.5s_ease-out_forwards] opacity-0">
-            <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-slate-100 group-hover:border-blue-100 group-hover:-translate-y-2 flex flex-col">
+        <a href="#" class="group block h-full dosen-link animate-[fadeIn_0.5s_ease-out_forwards] opacity-0 flex-none w-72 md:w-80 snap-start snap-always">
+            <div class="bg-white rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 h-[420px] border border-slate-100 flex flex-col relative group-hover:-translate-y-2">
                 <!-- Foto Dosen -->
-                <div class="aspect-[3/4] overflow-hidden bg-slate-100 relative">
-                    <img src="" alt="" class="dosen-img absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <!-- Gradient overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="h-64 overflow-hidden relative bg-gradient-to-br from-slate-100 to-slate-200">
+                    <div class="dosen-fallback absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+                        <svg class="w-24 h-24 text-blue-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <img src="" alt="" class="dosen-img absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-10 hidden" />
+                    <!-- Gradient overlay for text legibility if needed later -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"></div>
                 </div>
                 
                 <!-- Info Text -->
-                <div class="p-6 flex-grow flex flex-col justify-center text-center">
-                    <h3 class="text-lg md:text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight mb-2 dosen-title">
+                <div class="p-6 flex-grow flex flex-col justify-center text-center bg-white z-30 relative -mt-4 rounded-t-3xl shadow-[0_-10px_20px_rgba(255,255,255,1)]">
+                    <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight mb-2 dosen-title font-sans">
                         Nama Dosen
                     </h3>
                     <p class="text-sm text-slate-500 font-medium dosen-excerpt line-clamp-2">
                         Dosen Politeknik Baja Tegal
                     </p>
                 </div>
+                
+                <!-- Hover Decoration -->
+                <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-cyan-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-30"></div>
             </div>
         </a>
     </template>
     
     <template id="dosen-skeleton">
-        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
-            <div class="aspect-[3/4] bg-slate-200 animate-pulse"></div>
-            <div class="p-6 flex flex-col items-center">
-                <div class="h-6 bg-slate-200 rounded w-3/4 mb-3 animate-pulse"></div>
+        <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 flex-none w-72 md:w-80 h-[420px] snap-start">
+            <div class="h-64 bg-slate-200 animate-pulse"></div>
+            <div class="p-6 flex flex-col items-center bg-white -mt-4 rounded-t-3xl relative z-10">
+                <div class="h-6 bg-slate-200 rounded w-3/4 mb-4 animate-pulse mt-2"></div>
                 <div class="h-4 bg-slate-200 rounded w-1/2 animate-pulse"></div>
             </div>
         </div>
@@ -81,10 +99,34 @@ import Layout from '../../layouts/MainLayout.astro';
             const errorEl = document.getElementById('dosen-error');
             const tpl = document.getElementById('dosen-template');
             const skeletonTpl = document.getElementById('dosen-skeleton');
+            const prevBtn = document.getElementById('slider-prev');
+            const nextBtn = document.getElementById('slider-next');
 
-            // Render 4 Skeletons initially
-            for(let i=0; i<4; i++) {
+            // Render 5 Skeletons initially for the slider
+            for(let i=0; i<5; i++) {
                 container.appendChild(skeletonTpl.content.cloneNode(true));
+            }
+
+            // Slider Navigation Logic
+            const scrollAmount = 350; // Lebar kartu + gap
+            
+            if(prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+                
+                nextBtn.addEventListener('click', () => {
+                    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+                
+                // Sembunyikan tombol jika tidak bisa di-scroll
+                const updateButtons = () => {
+                    prevBtn.disabled = container.scrollLeft <= 0;
+                    nextBtn.disabled = container.scrollLeft >= (container.scrollWidth - container.clientWidth - 10);
+                };
+                
+                container.addEventListener('scroll', updateButtons);
+                window.addEventListener('resize', updateButtons);
             }
 
             try {
@@ -119,21 +161,34 @@ import Layout from '../../layouts/MainLayout.astro';
                     }
                     clone.querySelector('.dosen-excerpt').innerHTML = excerptText;
                     
-                    // Image
+                    // Image or Fallback
                     const img = clone.querySelector('.dosen-img');
+                    const fallback = clone.querySelector('.dosen-fallback');
+                    
                     if (dosen._embedded && dosen._embedded['wp:featuredmedia'] && dosen._embedded['wp:featuredmedia'].length > 0) {
                         img.src = dosen._embedded['wp:featuredmedia'][0].source_url;
+                        img.classList.remove('hidden');
+                        fallback.classList.add('hidden');
                     } else {
-                        img.src = '/placeholder-dosen.jpg';
+                        // Jika tidak ada gambar, biarkan fallback (icon default) yang muncul
+                        img.classList.add('hidden');
+                        fallback.classList.remove('hidden');
                     }
                     
                     container.appendChild(clone);
                 });
+                
+                // Initialize button states
+                if(prevBtn && nextBtn) {
+                    setTimeout(() => container.dispatchEvent(new Event('scroll')), 100);
+                }
 
             } catch(e) {
                 console.error(e);
                 container.innerHTML = '';
                 errorEl.classList.remove('hidden');
+                if(prevBtn) prevBtn.style.display = 'none';
+                if(nextBtn) nextBtn.style.display = 'none';
             }
         });
     </script>
@@ -141,6 +196,17 @@ import Layout from '../../layouts/MainLayout.astro';
     <style>
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </Layout>
