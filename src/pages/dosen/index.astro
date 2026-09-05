@@ -1,10 +1,5 @@
 ---
 import Layout from '../../layouts/MainLayout.astro';
-import DosenCard from '../../components/DosenCard.astro';
-import { getDosen } from '../../utils/api.js';
-
-// Ambil data dosen dari REST API
-const dosenList = await getDosen(100);
 ---
 
 <Layout title="Profil Dosen - Politeknik Baja Tegal">
@@ -25,23 +20,127 @@ const dosenList = await getDosen(100);
             </div>
         </div>
 
-        <!-- Grid Section -->
+        <!-- Grid Section (Diisi oleh Javascript) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {dosenList.length === 0 ? (
-                <div class="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
-                    <svg class="mx-auto h-16 w-16 text-slate-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <h3 class="text-lg font-medium text-slate-900">Belum ada data Dosen</h3>
-                    <p class="mt-2 text-slate-500">Data dosen sedang diperbarui atau API tidak dapat diakses.</p>
-                </div>
-            ) : (
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-                    {dosenList.map((dosen) => (
-                        <DosenCard dosen={dosen} />
-                    ))}
-                </div>
-            )}
+            <div id="dosen-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Skeletons will be rendered here -->
+            </div>
+            
+            <div id="dosen-empty" class="hidden text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
+                <svg class="mx-auto h-16 w-16 text-slate-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <h3 class="text-lg font-medium text-slate-900">Belum ada data Dosen</h3>
+                <p class="mt-2 text-slate-500">Data dosen sedang diperbarui atau API tidak dapat diakses.</p>
+            </div>
+            
+            <p id="dosen-error" class="hidden text-center text-red-500 py-12 bg-red-50 rounded-2xl border border-red-100">
+                Gagal memuat daftar dosen. Pastikan koneksi API tidak terblokir.
+            </p>
         </div>
     </main>
+
+    <!-- Template Kartu Dosen -->
+    <template id="dosen-template">
+        <a href="#" class="group block h-full dosen-link animate-[fadeIn_0.5s_ease-out_forwards] opacity-0">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-slate-100 group-hover:border-blue-100 group-hover:-translate-y-2 flex flex-col">
+                <!-- Foto Dosen -->
+                <div class="aspect-[3/4] overflow-hidden bg-slate-100 relative">
+                    <img src="" alt="" class="dosen-img absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <!-- Gradient overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <!-- Info Text -->
+                <div class="p-6 flex-grow flex flex-col justify-center text-center">
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight mb-2 dosen-title">
+                        Nama Dosen
+                    </h3>
+                    <p class="text-sm text-slate-500 font-medium dosen-excerpt line-clamp-2">
+                        Dosen Politeknik Baja Tegal
+                    </p>
+                </div>
+            </div>
+        </a>
+    </template>
+    
+    <template id="dosen-skeleton">
+        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+            <div class="aspect-[3/4] bg-slate-200 animate-pulse"></div>
+            <div class="p-6 flex flex-col items-center">
+                <div class="h-6 bg-slate-200 rounded w-3/4 mb-3 animate-pulse"></div>
+                <div class="h-4 bg-slate-200 rounded w-1/2 animate-pulse"></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('dosen-container');
+            const emptyEl = document.getElementById('dosen-empty');
+            const errorEl = document.getElementById('dosen-error');
+            const tpl = document.getElementById('dosen-template');
+            const skeletonTpl = document.getElementById('dosen-skeleton');
+
+            // Render 4 Skeletons initially
+            for(let i=0; i<4; i++) {
+                container.appendChild(skeletonTpl.content.cloneNode(true));
+            }
+
+            try {
+                // Fetch data dosen dari API WordPress
+                const response = await fetch('https://wp.pbjt.ac.id/wp-json/wp/v2/dosen?_embed&per_page=100');
+                if(!response.ok) throw new Error('API Error');
+                const dosenList = await response.json();
+
+                container.innerHTML = ''; // Hapus skeleton
+
+                if (dosenList.length === 0) {
+                    emptyEl.classList.remove('hidden');
+                    return;
+                }
+
+                dosenList.forEach((dosen, index) => {
+                    const clone = tpl.content.cloneNode(true);
+                    
+                    // Link to Dynamic Profil Page
+                    clone.querySelector('.dosen-link').href = `/dosen/profil?id=${dosen.slug}`;
+                    clone.querySelector('.dosen-link').style.animationDelay = `${index * 0.1}s`;
+                    
+                    // Title
+                    clone.querySelector('.dosen-title').innerHTML = dosen.title.rendered || 'Nama Tidak Tersedia';
+                    
+                    // Excerpt
+                    let excerptText = 'Dosen Politeknik Baja Tegal';
+                    if (dosen.excerpt && dosen.excerpt.rendered) {
+                        excerptText = dosen.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                    } else if (dosen.content && dosen.content.rendered) {
+                         excerptText = dosen.content.rendered.replace(/<[^>]+>/g, '').substring(0, 100).trim() + '...';
+                    }
+                    clone.querySelector('.dosen-excerpt').innerHTML = excerptText;
+                    
+                    // Image
+                    const img = clone.querySelector('.dosen-img');
+                    if (dosen._embedded && dosen._embedded['wp:featuredmedia'] && dosen._embedded['wp:featuredmedia'].length > 0) {
+                        img.src = dosen._embedded['wp:featuredmedia'][0].source_url;
+                    } else {
+                        img.src = '/placeholder-dosen.jpg';
+                    }
+                    
+                    container.appendChild(clone);
+                });
+
+            } catch(e) {
+                console.error(e);
+                container.innerHTML = '';
+                errorEl.classList.remove('hidden');
+            }
+        });
+    </script>
+    
+    <style>
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </Layout>
