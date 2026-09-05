@@ -70,31 +70,46 @@ import MainLayout from '../layouts/MainLayout.astro';
                 
                 const page = pages[0];
                 
-                // Update Title
-                document.title = `${page.title.rendered} - Politeknik Baja Tegal`;
+                // SPRINT 27: Ekstrak Caption dari konten untuk dijadikan Alt Text
+                let altText = page.title.rendered; // Default alt text
+                let rawContent = page.content.rendered;
+                
+                // Cari teks yang diawali dengan strip (misal: -Sertifikat Akreditasi Perguruan Tinggi)
+                // Asumsi: teks berada di dalam tag <p> atau berdiri sendiri
+                const captionRegex = /<p>\s*-(.*?)\s*<\/p>/i;
+                const match = rawContent.match(captionRegex);
+                if (match && match[1]) {
+                    altText = match[1].trim(); // Gunakan sebagai Alt Text
+                    rawContent = rawContent.replace(captionRegex, ''); // Hapus tulisan dari konten visual
+                } else {
+                    // Coba regex tanpa tag <p> jika dibuat tanpa format paragraf
+                    const rawCaptionRegex = /-\s*(Sertifikat Akreditasi.*?)(?=<|$)/i;
+                    const rawMatch = rawContent.match(rawCaptionRegex);
+                    if (rawMatch && rawMatch[1]) {
+                        altText = rawMatch[1].trim();
+                        rawContent = rawContent.replace(rawCaptionRegex, '');
+                    }
+                }
                 
                 // Ekstrak Gambar Unggulan (Featured Image) jika ada
                 let featuredImageHtml = '';
                 if (page._embedded && page._embedded['wp:featuredmedia'] && page._embedded['wp:featuredmedia'].length > 0) {
                     const imgUrl = page._embedded['wp:featuredmedia'][0].source_url;
+                    // SPRINT 27: Gunakan object-contain agar gambar sertifikat/logo tidak terpotong
                     featuredImageHtml = `
-                    <div class="mt-10 rounded-3xl overflow-hidden shadow-xl border border-slate-100">
-                        <img src="${imgUrl}" alt="${page.title.rendered}" class="w-full h-auto max-h-[500px] object-cover hover:scale-105 transition-transform duration-700" />
+                    <div class="mt-10 rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-slate-50 flex justify-center p-4">
+                        <img src="${imgUrl}" alt="${altText}" title="${altText}" class="w-full h-auto max-h-[600px] object-contain hover:scale-105 transition-transform duration-700" />
                     </div>`;
                 }
 
-                // Update Header (Teks Biru Megah Rata Kiri dengan Aksen Garis + Gambar Unggulan)
+                // Update Header
                 header.innerHTML = `
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight">${page.title.rendered}</h1>
                     ${featuredImageHtml}
                 `;
                 
                 // Update Content
-                // SPRINT 22: Resolusi Gambar Anti-Blur (HD)
-                // 1. Hapus akhiran dimensi (misal -300x200) dari nama file agar mengambil gambar master
-                let cleanContent = page.content.rendered.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
-                
-                // 2. Musnahkan atribut srcset dan sizes bawaan WP yang menyuruh browser download gambar kecil
+                let cleanContent = rawContent.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
                 cleanContent = cleanContent.replace(/srcset="[^"]*"/gi, '');
                 cleanContent = cleanContent.replace(/sizes="[^"]*"/gi, '');
                 
