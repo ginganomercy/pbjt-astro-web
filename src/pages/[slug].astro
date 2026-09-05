@@ -56,7 +56,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             const content = document.getElementById('page-content');
             
             try {
-                const response = await fetch(`https://pbjt.ac.id/wp-json/wp/v2/pages?_embed&slug=${slug}`);
+                const response = await fetch(`https://wp.pbjt.ac.id/wp-json/wp/v2/pages?_embed&slug=${slug}`);
                 if(!response.ok) throw new Error('API Error');
                 
                 const pages = await response.json();
