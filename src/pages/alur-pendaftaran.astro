@@ -1,0 +1,145 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Alur Pendaftaran - Politeknik Baja Tegal">
+    <main class="bg-slate-50 min-h-screen py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <header class="text-center mb-12">
+                <a href="/pmb" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors mb-6 group">
+                    <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Kembali ke Info PMB
+                </a>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Alur Pendaftaran</h1>
+                <p class="text-xl text-slate-500">Panduan Lengkap Pendaftaran Mahasiswa Baru</p>
+            </header>
+
+            <!-- Skeleton Loader -->
+            <div id="alur-skeleton" class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-2/3 h-[500px] bg-slate-200 rounded-3xl animate-pulse"></div>
+                <div class="w-full md:w-1/3 h-[200px] bg-slate-200 rounded-3xl animate-pulse"></div>
+            </div>
+
+            <!-- Kontainer Utama -->
+            <div id="alur-container" class="hidden flex-col lg:flex-row gap-8 items-start">
+                
+                <!-- Kolom Kiri: Diagram Alur -->
+                <div class="w-full lg:w-2/3 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex flex-col group">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-l-4 border-blue-500 pl-4">Diagram Pendaftaran</h3>
+                    <div id="alur-diagram" class="w-full flex justify-center bg-slate-50 rounded-2xl overflow-hidden p-4 relative">
+                        <!-- Image goes here -->
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Panduan PDF & Bantuan -->
+                <div class="w-full lg:w-1/3 flex flex-col gap-6 sticky top-24">
+                    
+                    <!-- Box Unduh Panduan -->
+                    <div class="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-blue-500 opacity-20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                        
+                        <h3 class="text-2xl font-bold mb-2 relative z-10">Buku Panduan</h3>
+                        <p class="text-blue-200 mb-8 relative z-10 leading-relaxed text-sm">Unduh dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
+                        
+                        <div id="alur-pdf-container" class="relative z-10">
+                            <!-- Download button goes here -->
+                        </div>
+                    </div>
+
+                    <!-- Box Bantuan -->
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            Butuh Bantuan?
+                        </h3>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Jika Anda mengalami kendala teknis saat pendaftaran, jangan ragu untuk menghubungi admin kami.</p>
+                        <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl transition-colors shadow-sm">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.551 4.135 1.517 5.918L.003 24l6.22-1.633a11.968 11.968 0 005.808 1.495h.005c6.645 0 12.031-5.386 12.031-12.031C24.062 5.385 18.676 0 12.031 0zm0 21.84c-1.782 0-3.535-.48-5.068-1.39l-.364-.216-3.766.988.998-3.67-.236-.375A9.976 9.976 0 012.052 12.03c0-5.512 4.485-9.997 9.98-9.997 2.671 0 5.184 1.04 7.07 2.928 1.888 1.888 2.928 4.4 2.928 7.07 0 5.51-4.486 9.998-9.998 9.998zm5.485-7.493c-.302-.15-1.782-.88-2.058-.98-.277-.1-.48-.15-.68.15-.203.3-.78 1.05-.956 1.25-.175.2-.35.225-.652.075-1.385-.674-2.45-1.55-3.376-2.91-.237-.346.035-.526.336-.83.15-.15.3-.3.45-.45.15-.15.225-.225.3-.375.075-.15.038-.3-.038-.45-.076-.15-.68-1.65-.933-2.25-.245-.59-.493-.51-.68-.52-.176-.01-.38-.01-.58-.01-.2 0-.527.075-.803.375C4.264 6.84 3.51 7.542 3.51 8.97c0 1.428 1.053 2.805 1.2 3.006.15.203 2.052 3.136 4.972 4.394 1.83.792 2.673.863 3.655.727.848-.117 2.45-1 2.8-1.96.35-.96.35-1.78.246-1.96-.103-.18-.302-.275-.603-.425z"/></svg>
+                            Hubungi via WhatsApp
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+            <!-- Error State -->
+            <div id="alur-error" class="hidden text-center py-20 bg-red-50 rounded-3xl border border-red-100">
+                <h3 class="text-2xl font-bold text-red-500 mb-2">Gagal Memuat Informasi</h3>
+                <p class="text-slate-600">Terjadi kesalahan saat memuat data alur pendaftaran.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const skeleton = document.getElementById('alur-skeleton');
+            const container = document.getElementById('alur-container');
+            const diagramContainer = document.getElementById('alur-diagram');
+            const pdfContainer = document.getElementById('alur-pdf-container');
+            const errorEl = document.getElementById('alur-error');
+
+            try {
+                const response = await fetch('https://wp.pbjt.ac.id/wp-json/wp/v2/pages?_embed&slug=alur-pendaftaran');
+                if (!response.ok) throw new Error('API Error');
+                
+                const pages = await response.json();
+                if (pages.length === 0) throw new Error('Page not found');
+                
+                const page = pages[0];
+                let rawHtml = page.content.rendered;
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = rawHtml;
+                
+                // 1. Ekstrak Gambar Diagram
+                const img = tempDiv.querySelector('img');
+                if (img) {
+                    img.removeAttribute('srcset');
+                    img.removeAttribute('sizes');
+                    img.src = img.src.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
+                    img.className = 'w-full h-auto max-h-[800px] object-contain drop-shadow-sm hover:scale-[1.03] transition-transform duration-500 cursor-zoom-in';
+                    diagramContainer.appendChild(img);
+                } else {
+                    diagramContainer.innerHTML = '<p class="text-slate-500 py-10">Diagram alur belum diunggah.</p>';
+                }
+                
+                // 2. Ekstrak Link PDF
+                // WordPress menyimpan PDF di dalam <object> atau tag <a>
+                const pdfLink = tempDiv.querySelector('a[href$=".pdf"]');
+                if (pdfLink) {
+                    const pdfUrl = pdfLink.href;
+                    pdfContainer.innerHTML = `
+                        <a href="${pdfUrl}" target="_blank" download class="w-full flex items-center justify-center gap-3 py-4 bg-white text-blue-900 hover:bg-blue-50 font-bold rounded-xl shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            Unduh File PDF
+                        </a>
+                    `;
+                } else {
+                    pdfContainer.innerHTML = `
+                        <div class="w-full flex items-center justify-center py-4 bg-blue-800/50 text-blue-300 rounded-xl text-sm italic border border-blue-700/50">
+                            File PDF belum tersedia
+                        </div>
+                    `;
+                }
+
+                skeleton.classList.add('hidden');
+                container.classList.remove('hidden');
+                container.classList.add('animate-[fadeIn_0.5s_ease-out_forwards]');
+
+            } catch (e) {
+                console.error(e);
+                skeleton.classList.add('hidden');
+                errorEl.classList.remove('hidden');
+            }
+        });
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</MainLayout>
