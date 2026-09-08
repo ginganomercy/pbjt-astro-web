@@ -81,6 +81,10 @@ import MainLayout from '../layouts/MainLayout.astro';
                 // Hilangkan tag H1 ganda jika pengguna telanjur mengetik judul di dalam konten
                 rawHtml = rawHtml.replace(/<h1[^>]*>.*?<\/h1>/gi, '');
                 
+                // FIX TEKS TEMBUS: Ganti Non-Breaking Space (&nbsp;) dengan spasi biasa
+                // WordPress kadang menghasilkan &nbsp; berantai yang membuat teks dianggap sebagai satu kata super panjang sehingga menabrak batas layar.
+                rawHtml = rawHtml.replace(/&nbsp;/g, ' ');
+                
                 content.innerHTML = rawHtml;
 
                 // Animasi masuk
@@ -113,6 +117,8 @@ import MainLayout from '../layouts/MainLayout.astro';
             color: #334155;
             line-height: 1.8;
             font-size: 1.125rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         /* ----- HEADINGS (H2, H3) ----- */
