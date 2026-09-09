@@ -89,10 +89,54 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                                     <!-- Nested Dropdown Menu -->
                                     <div class="absolute left-full top-0 ml-1 w-56 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-300 z-50">
                                         <div class="py-2 flex flex-col">
-                                            <a href="/d3-teknik-informatika" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Informatika</a>
-                                            <a href="/d3-teknik-mesin" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Mesin</a>
-                                            <a href="/d3-teknik-otomotif" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Otomotif</a>
-                                            <a href="/d3-teknik-elektronika-industri" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">D3 Teknik Elektronika</a>
+                                            <!-- TI -->
+                                            <div class="relative group/lvl3">
+                                                <a href="/d3-teknik-informatika" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex justify-between items-center w-full">
+                                                    D3 Teknik Informatika <svg class="w-4 h-4 -rotate-90 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                </a>
+                                                <div class="absolute left-full top-0 ml-1 w-48 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover/lvl3:opacity-100 group-hover/lvl3:visible transition-all duration-300 z-50">
+                                                    <div class="py-2 flex flex-col">
+                                                        <a href="/d3-teknik-informatika/rps" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">RPS</a>
+                                                        <a href="/d3-teknik-informatika/modul" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Modul</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Mesin -->
+                                            <div class="relative group/lvl3">
+                                                <a href="/d3-teknik-mesin" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex justify-between items-center w-full">
+                                                    D3 Teknik Mesin <svg class="w-4 h-4 -rotate-90 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                </a>
+                                                <div class="absolute left-full top-0 ml-1 w-48 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover/lvl3:opacity-100 group-hover/lvl3:visible transition-all duration-300 z-50">
+                                                    <div class="py-2 flex flex-col">
+                                                        <a href="/d3-teknik-mesin/rps" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">RPS</a>
+                                                        <a href="/d3-teknik-mesin/modul" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Modul</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Otomotif -->
+                                            <div class="relative group/lvl3">
+                                                <a href="/d3-teknik-otomotif" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex justify-between items-center w-full">
+                                                    D3 Teknik Otomotif <svg class="w-4 h-4 -rotate-90 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                </a>
+                                                <div class="absolute left-full top-0 ml-1 w-48 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover/lvl3:opacity-100 group-hover/lvl3:visible transition-all duration-300 z-50">
+                                                    <div class="py-2 flex flex-col">
+                                                        <a href="/d3-teknik-otomotif/rps" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">RPS</a>
+                                                        <a href="/d3-teknik-otomotif/modul" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Modul</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Elektronika -->
+                                            <div class="relative group/lvl3">
+                                                <a href="/d3-teknik-elektronika-industri" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex justify-between items-center w-full">
+                                                    D3 T. Elektronika <svg class="w-4 h-4 -rotate-90 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                </a>
+                                                <div class="absolute left-full top-0 ml-1 w-48 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover/lvl3:opacity-100 group-hover/lvl3:visible transition-all duration-300 z-50">
+                                                    <div class="py-2 flex flex-col">
+                                                        <a href="/d3-teknik-elektronika-industri/rps" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">RPS</a>
+                                                        <a href="/d3-teknik-elektronika-industri/modul" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">Modul</a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -108,15 +152,15 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                         </button>
                         <div class="absolute left-0 mt-2 w-56 bg-white border border-slate-100 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                             <div class="py-2 flex flex-col">
-                                <a href="/bem" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BEM</a>
-                                <a href="/hmti" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">HMTI</a>
-                                <a href="/rohis" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">ROHIS</a>
-                                <a href="/racana" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">RACANA</a>
-                                <a href="/bajapala" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BAJAPALA</a>
-                                <a href="/badminton" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">BADMINTON</a>
-                                <a href="/futsal" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">FUTSAL</a>
-                                <a href="/paduan-suara" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">PADUAN SUARA</a>
-                                <a href="/forum-studi-ilmiah-fosil" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm">FOSIL</a>
+                                <a href="/bem" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-bem.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> BEM</a>
+                                <a href="/hmti" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-polbaja.png" class="w-5 h-5 object-contain"/> HMTI</a>
+                                <a href="/rohis" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-polbaja.png" class="w-5 h-5 object-contain"/> ROHIS</a>
+                                <a href="/racana" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-racana.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> RACANA</a>
+                                <a href="/bajapala" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-bajapala.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> BAJAPALA</a>
+                                <a href="/badminton" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-badminton.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> BADMINTON</a>
+                                <a href="/futsal" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-polbaja.png" class="w-5 h-5 object-contain"/> FUTSAL</a>
+                                <a href="/paduan-suara" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-padus.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> PADUAN SUARA</a>
+                                <a href="/forum-studi-ilmiah-fosil" class="px-4 py-2 hover:bg-slate-50 hover:text-primary text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-fosil.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> FOSIL</a>
                                 <div class="border-t border-slate-100 my-1"></div>
                                 <a href="/kegiatan-ukm" class="px-4 py-2 hover:bg-blue-50 text-blue-600 hover:text-blue-700 text-sm font-semibold flex items-center justify-between group/link">
                                     Berita Kegiatan UKM
@@ -188,10 +232,42 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                         </summary>
                         <div class="flex flex-col pl-4 pt-2 space-y-3 border-l-2 border-slate-100 ml-1 mt-2">
                             <a href="/program-studi" class="text-primary text-sm font-semibold">Beranda Program Studi</a>
-                            <a href="/d3-teknik-informatika" class="text-slate-600 text-sm">D3 Teknik Informatika</a>
-                            <a href="/d3-teknik-mesin" class="text-slate-600 text-sm">D3 Teknik Mesin</a>
-                            <a href="/d3-teknik-otomotif" class="text-slate-600 text-sm">D3 Teknik Otomotif</a>
-                            <a href="/d3-teknik-elektronika-industri" class="text-slate-600 text-sm">D3 Teknik Elektronika</a>
+                            
+                            <details class="group/lvl3">
+                                <summary class="flex justify-between items-center text-slate-600 text-sm cursor-pointer list-none">D3 Teknik Informatika <svg class="w-4 h-4 transform group-open/lvl3:rotate-180 transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                                <div class="flex flex-col pl-4 pt-2 space-y-2 border-l-2 border-slate-100 ml-1 mt-1">
+                                    <a href="/d3-teknik-informatika" class="text-primary text-xs font-semibold">Beranda Prodi</a>
+                                    <a href="/d3-teknik-informatika/rps" class="text-slate-500 text-xs hover:text-primary">RPS</a>
+                                    <a href="/d3-teknik-informatika/modul" class="text-slate-500 text-xs hover:text-primary">Modul</a>
+                                </div>
+                            </details>
+                            
+                            <details class="group/lvl3">
+                                <summary class="flex justify-between items-center text-slate-600 text-sm cursor-pointer list-none">D3 Teknik Mesin <svg class="w-4 h-4 transform group-open/lvl3:rotate-180 transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                                <div class="flex flex-col pl-4 pt-2 space-y-2 border-l-2 border-slate-100 ml-1 mt-1">
+                                    <a href="/d3-teknik-mesin" class="text-primary text-xs font-semibold">Beranda Prodi</a>
+                                    <a href="/d3-teknik-mesin/rps" class="text-slate-500 text-xs hover:text-primary">RPS</a>
+                                    <a href="/d3-teknik-mesin/modul" class="text-slate-500 text-xs hover:text-primary">Modul</a>
+                                </div>
+                            </details>
+
+                            <details class="group/lvl3">
+                                <summary class="flex justify-between items-center text-slate-600 text-sm cursor-pointer list-none">D3 Teknik Otomotif <svg class="w-4 h-4 transform group-open/lvl3:rotate-180 transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                                <div class="flex flex-col pl-4 pt-2 space-y-2 border-l-2 border-slate-100 ml-1 mt-1">
+                                    <a href="/d3-teknik-otomotif" class="text-primary text-xs font-semibold">Beranda Prodi</a>
+                                    <a href="/d3-teknik-otomotif/rps" class="text-slate-500 text-xs hover:text-primary">RPS</a>
+                                    <a href="/d3-teknik-otomotif/modul" class="text-slate-500 text-xs hover:text-primary">Modul</a>
+                                </div>
+                            </details>
+
+                            <details class="group/lvl3">
+                                <summary class="flex justify-between items-center text-slate-600 text-sm cursor-pointer list-none">D3 T. Elektronika <svg class="w-4 h-4 transform group-open/lvl3:rotate-180 transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                                <div class="flex flex-col pl-4 pt-2 space-y-2 border-l-2 border-slate-100 ml-1 mt-1">
+                                    <a href="/d3-teknik-elektronika-industri" class="text-primary text-xs font-semibold">Beranda Prodi</a>
+                                    <a href="/d3-teknik-elektronika-industri/rps" class="text-slate-500 text-xs hover:text-primary">RPS</a>
+                                    <a href="/d3-teknik-elektronika-industri/modul" class="text-slate-500 text-xs hover:text-primary">Modul</a>
+                                </div>
+                            </details>
                         </div>
                     </details>
                     <a href="/mikrotik-academy" class="text-slate-600 text-sm font-semibold text-primary">Mikrotik Academy</a>
@@ -203,15 +279,15 @@ const { title = "Politeknik Baja Tegal" } = Astro.props;
                     Kemahasiswaan <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="flex flex-col pl-4 pt-2 space-y-3">
-                    <a href="/bem" class="text-slate-600 text-sm">BEM</a>
-                    <a href="/hmti" class="text-slate-600 text-sm">HMTI</a>
-                    <a href="/rohis" class="text-slate-600 text-sm">ROHIS</a>
-                    <a href="/racana" class="text-slate-600 text-sm">RACANA</a>
-                    <a href="/bajapala" class="text-slate-600 text-sm">BAJAPALA</a>
-                    <a href="/badminton" class="text-slate-600 text-sm">BADMINTON</a>
-                    <a href="/futsal" class="text-slate-600 text-sm">FUTSAL</a>
-                    <a href="/paduan-suara" class="text-slate-600 text-sm">PADUAN SUARA</a>
-                    <a href="/forum-studi-ilmiah-fosil" class="text-slate-600 text-sm">FOSIL</a>
+                    <a href="/bem" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-bem.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> BEM</a>
+                    <a href="/hmti" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-polbaja.png" class="w-5 h-5 object-contain"/> HMTI</a>
+                    <a href="/rohis" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-polbaja.png" class="w-5 h-5 object-contain"/> ROHIS</a>
+                    <a href="/racana" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-racana.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> RACANA</a>
+                    <a href="/bajapala" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-bajapala.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> BAJAPALA</a>
+                    <a href="/badminton" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-badminton.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> BADMINTON</a>
+                    <a href="/futsal" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-polbaja.png" class="w-5 h-5 object-contain"/> FUTSAL</a>
+                    <a href="/paduan-suara" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-padus.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> PADUAN SUARA</a>
+                    <a href="/forum-studi-ilmiah-fosil" class="text-slate-600 text-sm flex items-center gap-3"><img src="/image/logo-ukm/logo-fosil.png" class="w-5 h-5 object-contain" onerror="this.src='/image/logo-ukm/logo-polbaja.png'"/> FOSIL</a>
                 </div>
             </details>
 
