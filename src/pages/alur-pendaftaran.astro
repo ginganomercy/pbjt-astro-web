@@ -22,26 +22,36 @@ import MainLayout from '../layouts/MainLayout.astro';
             </div>
 
             <!-- Kontainer Utama -->
-            <div id="alur-container" class="hidden flex-col lg:flex-row gap-8 items-start">
+            <div id="alur-container" class="hidden grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 
                 <!-- Kolom Kiri: Diagram Alur -->
-                <div class="w-full lg:w-2/3 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex flex-col group">
-                    <h3 class="text-xl font-bold text-slate-800 mb-6 border-l-4 border-blue-500 pl-4">Diagram Pendaftaran</h3>
-                    <div id="alur-diagram" class="w-full flex justify-center bg-slate-50 rounded-2xl overflow-hidden p-4 relative">
+                <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                    
+                    <h3 class="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-3 relative z-10">
+                        <span class="w-2 h-8 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full"></span>
+                        Diagram Pendaftaran
+                    </h3>
+                    
+                    <div id="alur-diagram" class="w-full flex justify-center bg-slate-50/50 rounded-3xl overflow-hidden p-6 md:p-10 relative z-10 border border-slate-100 min-h-[300px] items-center">
                         <!-- Image goes here -->
                     </div>
                 </div>
 
                 <!-- Kolom Kanan: Panduan PDF & Bantuan -->
-                <div class="w-full lg:w-1/3 flex flex-col gap-6 sticky top-24">
+                <div class="lg:col-span-1 flex flex-col gap-6 sticky top-24">
                     
                     <!-- Box Unduh Panduan -->
-                    <div class="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                        <div class="absolute bottom-0 left-0 w-24 h-24 bg-blue-500 opacity-20 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                    <div class="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700"></div>
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-500 opacity-20 rounded-full translate-y-1/2 -translate-x-1/2 group-hover:scale-110 transition-transform duration-700"></div>
                         
-                        <h3 class="text-2xl font-bold mb-2 relative z-10">Buku Panduan</h3>
-                        <p class="text-blue-200 mb-8 relative z-10 leading-relaxed text-sm">Unduh dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
+                        <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20">
+                            <svg class="w-7 h-7 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-3 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Buku Panduan</h3>
+                        <p class="text-blue-100/80 mb-8 relative z-10 leading-relaxed text-sm">Unduh dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
                         
                         <div id="alur-pdf-container" class="relative z-10">
                             <!-- Download button goes here -->
@@ -49,14 +59,14 @@ import MainLayout from '../layouts/MainLayout.astro';
                     </div>
 
                     <!-- Box Bantuan -->
-                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                            Butuh Bantuan?
-                        </h3>
-                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Jika Anda mengalami kendala teknis saat pendaftaran, jangan ragu untuk menghubungi admin kami.</p>
-                        <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl transition-colors shadow-sm">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.551 4.135 1.517 5.918L.003 24l6.22-1.633a11.968 11.968 0 005.808 1.495h.005c6.645 0 12.031-5.386 12.031-12.031C24.062 5.385 18.676 0 12.031 0zm0 21.84c-1.782 0-3.535-.48-5.068-1.39l-.364-.216-3.766.988.998-3.67-.236-.375A9.976 9.976 0 012.052 12.03c0-5.512 4.485-9.997 9.98-9.997 2.671 0 5.184 1.04 7.07 2.928 1.888 1.888 2.928 4.4 2.928 7.07 0 5.51-4.486 9.998-9.998 9.998zm5.485-7.493c-.302-.15-1.782-.88-2.058-.98-.277-.1-.48-.15-.68.15-.203.3-.78 1.05-.956 1.25-.175.2-.35.225-.652.075-1.385-.674-2.45-1.55-3.376-2.91-.237-.346.035-.526.336-.83.15-.15.3-.3.45-.45.15-.15.225-.225.3-.375.075-.15.038-.3-.038-.45-.076-.15-.68-1.65-.933-2.25-.245-.59-.493-.51-.68-.52-.176-.01-.38-.01-.58-.01-.2 0-.527.075-.803.375C4.264 6.84 3.51 7.542 3.51 8.97c0 1.428 1.053 2.805 1.2 3.006.15.203 2.052 3.136 4.972 4.394 1.83.792 2.673.863 3.655.727.848-.117 2.45-1 2.8-1.96.35-.96.35-1.78.246-1.96-.103-.18-.302-.275-.603-.425z"/></svg>
+                    <div class="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:border-green-100 transition-colors duration-300">
+                        <div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">Butuh Bantuan?</h3>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Mengalami kendala teknis? Tim IT kami siap membantu Anda.</p>
+                        <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.551 4.135 1.517 5.918L.003 24l6.22-1.633a11.968 11.968 0 005.808 1.495h.005c6.645 0 12.031-5.386 12.031-12.031C24.062 5.385 18.676 0 12.031 0zm0 21.84c-1.782 0-3.535-.48-5.068-1.39l-.364-.216-3.766.988.998-3.67-.236-.375A9.976 9.976 0 012.052 12.03c0-5.512 4.485-9.997 9.98-9.997 2.671 0 5.184 1.04 7.07 2.928 1.888 1.888 2.928 4.4 2.928 7.07 0 5.51-4.486 9.998-9.998 9.998z"/></svg>
                             Hubungi via WhatsApp
                         </a>
                     </div>
@@ -66,9 +76,12 @@ import MainLayout from '../layouts/MainLayout.astro';
             </div>
             
             <!-- Error State -->
-            <div id="alur-error" class="hidden text-center py-20 bg-red-50 rounded-3xl border border-red-100">
-                <h3 class="text-2xl font-bold text-red-500 mb-2">Gagal Memuat Informasi</h3>
-                <p class="text-slate-600">Terjadi kesalahan saat memuat data alur pendaftaran.</p>
+            <div id="alur-error" class="hidden text-center py-24 bg-white rounded-3xl border border-red-100 shadow-sm mt-8">
+                <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <h3 class="text-3xl font-extrabold text-slate-900 mb-3">Gagal Memuat Informasi</h3>
+                <p class="text-slate-500 max-w-md mx-auto">Terjadi kesalahan saat memuat data alur pendaftaran dari server. Silakan muat ulang halaman.</p>
             </div>
 
         </div>
@@ -94,20 +107,32 @@ import MainLayout from '../layouts/MainLayout.astro';
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = rawHtml;
                 
-                // 1. Ekstrak Gambar Diagram
-                const img = tempDiv.querySelector('img');
-                if (img) {
-                    img.removeAttribute('srcset');
-                    img.removeAttribute('sizes');
-                    img.src = img.src.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
-                    img.className = 'w-full h-auto max-h-[800px] object-contain drop-shadow-sm hover:scale-[1.03] transition-transform duration-500 cursor-zoom-in';
-                    diagramContainer.appendChild(img);
+                // 1. Ekstrak Gambar Diagram (Dengan Validasi Ketat)
+                // Filter tracking pixels (ukuran kecil) atau emoji wordpress
+                const images = Array.from(tempDiv.querySelectorAll('img'));
+                const validImg = images.find(img => {
+                    const src = img.src || '';
+                    const cls = img.className || '';
+                    return !src.includes('data:image') && 
+                           !cls.includes('wp-smiley') && 
+                           !src.includes('avatar') &&
+                           (!img.width || img.width > 50); // Tolak jika ukurannya kurang dari 50px (biasanya tracking pixel)
+                });
+
+                if (validImg) {
+                    validImg.removeAttribute('srcset');
+                    validImg.removeAttribute('sizes');
+                    validImg.src = validImg.src.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
+                    validImg.className = 'w-full h-auto max-h-[800px] object-contain drop-shadow-md hover:scale-[1.02] transition-transform duration-500 cursor-zoom-in rounded-xl';
+                    diagramContainer.appendChild(validImg);
                 } else {
                     diagramContainer.innerHTML = `
-                        <div class="w-full py-16 flex flex-col items-center justify-center text-slate-400">
-                            <svg class="w-16 h-16 mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <p class="text-lg font-medium">Diagram Pendaftaran Belum Tersedia</p>
-                            <p class="text-sm">Admin belum mengunggah gambar diagram alur pendaftaran.</p>
+                        <div class="w-full py-20 flex flex-col items-center justify-center text-slate-400 text-center">
+                            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-6 border border-slate-100">
+                                <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-700 mb-2">Diagram Belum Diunggah</h4>
+                            <p class="text-slate-500 max-w-sm">Admin kampus belum mengunggah gambar diagram alur pendaftaran mahasiswa baru.</p>
                         </div>
                     `;
                 }
@@ -115,15 +140,15 @@ import MainLayout from '../layouts/MainLayout.astro';
                 // 2. Inject Link PDF Lokal (Sesuai file yang diberikan)
                 const pdfUrl = encodeURI('/image/UG PMB Gofeeder (Pendaftar).pdf');
                 pdfContainer.innerHTML = `
-                    <a href="${pdfUrl}" target="_blank" download class="w-full flex items-center justify-center gap-3 py-4 bg-white text-blue-900 hover:bg-blue-50 font-bold rounded-xl shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <a href="${pdfUrl}" target="_blank" download class="w-full flex items-center justify-center gap-3 py-4 bg-white text-blue-900 hover:bg-blue-50 font-bold rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all duration-300 text-lg group">
+                        <svg class="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Unduh File PDF
                     </a>
                 `;
 
                 skeleton.classList.add('hidden');
                 container.classList.remove('hidden');
-                container.classList.add('animate-[fadeIn_0.5s_ease-out_forwards]');
+                container.classList.add('grid', 'animate-[fadeIn_0.5s_ease-out_forwards]');
 
             } catch (e) {
                 console.error(e);
