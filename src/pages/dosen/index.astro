@@ -165,15 +165,28 @@ import Layout from '../../layouts/MainLayout.astro';
                     const img = clone.querySelector('.dosen-img');
                     const fallback = clone.querySelector('.dosen-fallback');
                     
+                    const localImgSrc = `/image/foto-dosen/${dosen.slug}.webp`;
+                    let wpImgSrc = null;
+                    
                     if (dosen._embedded && dosen._embedded['wp:featuredmedia'] && dosen._embedded['wp:featuredmedia'].length > 0) {
-                        img.src = dosen._embedded['wp:featuredmedia'][0].source_url;
+                        wpImgSrc = dosen._embedded['wp:featuredmedia'][0].source_url;
+                    }
+
+                    img.onload = () => {
                         img.classList.remove('hidden');
                         fallback.classList.add('hidden');
-                    } else {
-                        // Jika tidak ada gambar, biarkan fallback (icon default) yang muncul
-                        img.classList.add('hidden');
-                        fallback.classList.remove('hidden');
-                    }
+                    };
+                    
+                    img.onerror = () => {
+                        if (wpImgSrc && img.src !== wpImgSrc) {
+                            img.src = wpImgSrc;
+                        } else {
+                            img.classList.add('hidden');
+                            fallback.classList.remove('hidden');
+                        }
+                    };
+                    
+                    img.src = localImgSrc; // Coba load local image dulu
                     
                     container.appendChild(clone);
                 });
