@@ -22,39 +22,49 @@ import MainLayout from '../layouts/MainLayout.astro';
             </div>
 
             <!-- Kontainer Utama -->
-            <div id="alur-container" class="hidden grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div id="alur-container" class="hidden grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <!-- Kolom Kiri: Diagram Alur -->
-                <div class="lg:col-span-2 bg-white p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col group relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                <!-- Bagian Kiri: PDF Native Viewer -->
+                <div class="lg:col-span-8 bg-white rounded-[2.5rem] p-4 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col h-full min-h-[600px] md:min-h-[800px]">
+                    <div class="flex items-center gap-4 mb-6 md:mb-8 px-2 md:px-4 pt-4 md:pt-0">
+                        <div class="w-2 h-8 bg-blue-500 rounded-full"></div>
+                        <h2 class="text-2xl font-bold text-slate-800">Panduan Pendaftaran</h2>
+                    </div>
                     
-                    <h3 class="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-3 relative z-10">
-                        <span class="w-2 h-8 bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full"></span>
-                        Diagram Pendaftaran
-                    </h3>
-                    
-                    <div id="alur-diagram" class="w-full flex justify-center bg-slate-50/50 rounded-3xl overflow-hidden p-6 md:p-10 relative z-10 border border-slate-100 min-h-[300px] items-center">
-                        <!-- Image goes here -->
+                    <div class="flex-1 rounded-3xl border border-slate-200 overflow-hidden shadow-inner relative w-full h-full">
+                        <!-- Fallback for mobile devices that can't render PDF inline -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-50 p-6 text-center z-0">
+                            <svg class="w-16 h-16 text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <h3 class="text-xl font-bold text-slate-700 mb-2">Penampil PDF Tidak Didukung</h3>
+                            <p class="text-slate-500 mb-6 max-w-sm">Peramban Anda tidak mendukung penampilan PDF secara langsung. Silakan gunakan tombol di sebelah kanan untuk melihatnya.</p>
+                            <a href="/dokumen/panduan-pmb.pdf" target="_blank" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg">Buka Dokumen PDF</a>
+                        </div>
+                        <!-- Native Object Embed -->
+                        <object data="/dokumen/panduan-pmb.pdf#toolbar=0" type="application/pdf" class="absolute inset-0 w-full h-full z-10 bg-white">
+                            <embed src="/dokumen/panduan-pmb.pdf#toolbar=0" type="application/pdf" class="w-full h-full" />
+                        </object>
                     </div>
                 </div>
 
-                <!-- Kolom Kanan: Panduan PDF & Bantuan -->
-                <div class="lg:col-span-1 flex flex-col gap-6 sticky top-24">
+                <!-- Bagian Kanan: Info & Bantuan -->
+                <div class="lg:col-span-4 flex flex-col gap-6 md:gap-8 sticky top-24">
                     
-                    <!-- Box Unduh Panduan -->
-                    <div class="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-40 h-40 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700"></div>
-                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-500 opacity-20 rounded-full translate-y-1/2 -translate-x-1/2 group-hover:scale-110 transition-transform duration-700"></div>
+                    <!-- Box Download PDF -->
+                    <div class="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 rounded-[2.5rem] p-8 shadow-xl border border-blue-800/50 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div>
                         
-                        <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 relative z-10 border border-white/10">
                             <svg class="w-7 h-7 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
                         
                         <h3 class="text-2xl font-bold mb-3 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Buku Panduan</h3>
-                        <p class="text-blue-100/80 mb-8 relative z-10 leading-relaxed text-sm">Unduh dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
+                        <p class="text-blue-100/80 mb-8 relative z-10 leading-relaxed text-sm">Buka atau unduh dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
                         
-                        <div id="alur-pdf-container" class="relative z-10">
-                            <!-- Download button goes here -->
+                        <div class="relative z-10">
+                            <a href="/dokumen/panduan-pmb.pdf" target="_blank" class="w-full flex items-center justify-center gap-3 py-4 bg-white text-blue-900 hover:bg-blue-50 font-bold rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all duration-300 text-lg group">
+                                <svg class="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Buka File PDF
+                            </a>
                         </div>
                     </div>
 
@@ -91,69 +101,17 @@ import MainLayout from '../layouts/MainLayout.astro';
         document.addEventListener('DOMContentLoaded', async () => {
             const skeleton = document.getElementById('alur-skeleton');
             const container = document.getElementById('alur-container');
-            const diagramContainer = document.getElementById('alur-diagram');
-            const pdfContainer = document.getElementById('alur-pdf-container');
-            const errorEl = document.getElementById('alur-error');
 
             try {
-                const response = await fetch('https://wp.pbjt.ac.id/wp-json/wp/v2/pages?_embed&slug=alur-pendaftaran');
-                if (!response.ok) throw new Error('API Error');
-                
-                const pages = await response.json();
-                if (pages.length === 0) throw new Error('Page not found');
-                
-                const page = pages[0];
-                let rawHtml = page.content.rendered;
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = rawHtml;
-                
-                // 1. Ekstrak Gambar Diagram (Dengan Validasi Ketat)
-                // Filter tracking pixels (ukuran kecil) atau emoji wordpress
-                const images = Array.from(tempDiv.querySelectorAll('img'));
-                const validImg = images.find(img => {
-                    const src = img.src || '';
-                    const cls = img.className || '';
-                    return !src.includes('data:image') && 
-                           !cls.includes('wp-smiley') && 
-                           !src.includes('avatar') &&
-                           (!img.width || img.width > 50); // Tolak jika ukurannya kurang dari 50px (biasanya tracking pixel)
-                });
-
-                if (validImg) {
-                    validImg.removeAttribute('srcset');
-                    validImg.removeAttribute('sizes');
-                    validImg.src = validImg.src.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
-                    validImg.className = 'w-full h-auto max-h-[800px] object-contain drop-shadow-md hover:scale-[1.02] transition-transform duration-500 cursor-zoom-in rounded-xl';
-                    diagramContainer.appendChild(validImg);
-                } else {
-                    diagramContainer.innerHTML = `
-                        <div class="w-full py-20 flex flex-col items-center justify-center text-slate-400 text-center">
-                            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-6 border border-slate-100">
-                                <svg class="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <h4 class="text-xl font-bold text-slate-700 mb-2">Diagram Belum Diunggah</h4>
-                            <p class="text-slate-500 max-w-sm">Admin kampus belum mengunggah gambar diagram alur pendaftaran mahasiswa baru.</p>
-                        </div>
-                    `;
-                }
-                
-                // 2. Inject Link PDF Lokal (Sesuai file yang diberikan)
-                const pdfUrl = encodeURI('/image/UG PMB Gofeeder (Pendaftar).pdf');
-                pdfContainer.innerHTML = `
-                    <a href="${pdfUrl}" target="_blank" download class="w-full flex items-center justify-center gap-3 py-4 bg-white text-blue-900 hover:bg-blue-50 font-bold rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all duration-300 text-lg group">
-                        <svg class="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Unduh File PDF
-                    </a>
-                `;
-
                 skeleton.classList.add('hidden');
                 container.classList.remove('hidden');
                 container.classList.add('grid', 'animate-[fadeIn_0.5s_ease-out_forwards]');
-
-            } catch (e) {
-                console.error(e);
+            } catch (error) {
+                console.error('Error fetching Alur Pendaftaran:', error);
+                
+                // Meskipun API gagal, kita tetap tampilkan container statis karena PDF sudah di hardcode
                 skeleton.classList.add('hidden');
-                errorEl.classList.remove('hidden');
+                container.classList.remove('hidden');
             }
         });
     </script>
