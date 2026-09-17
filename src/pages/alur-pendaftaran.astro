@@ -15,39 +15,104 @@ import MainLayout from '../layouts/MainLayout.astro';
                 <p class="text-xl text-slate-500">Panduan Lengkap Pendaftaran Mahasiswa Baru</p>
             </header>
 
-            <!-- Skeleton Loader -->
-            <div id="alur-skeleton" class="flex flex-col md:flex-row gap-8">
-                <div class="w-full md:w-2/3 h-[500px] bg-slate-200 rounded-3xl animate-pulse"></div>
-                <div class="w-full md:w-1/3 h-[200px] bg-slate-200 rounded-3xl animate-pulse"></div>
-            </div>
-
             <!-- Kontainer Utama -->
-            <div id="alur-container" class="hidden grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div id="alur-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-[fadeIn_0.5s_ease-out_forwards]">
                 
-                <!-- Bagian Kiri: PDF Native Viewer -->
-                <div class="lg:col-span-8 bg-white rounded-[2.5rem] p-4 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col h-full min-h-[600px] md:min-h-[800px]">
-                    <div class="flex items-center gap-4 mb-6 md:mb-8 px-2 md:px-4 pt-4 md:pt-0">
-                        <div class="w-2 h-8 bg-blue-500 rounded-full"></div>
-                        <h2 class="text-2xl font-bold text-slate-800">Panduan Pendaftaran</h2>
-                    </div>
+                <!-- Bagian Kiri: PDF Native Viewer & Timeline -->
+                <div class="lg:col-span-8 flex flex-col gap-8">
                     
-                    <div class="flex-1 rounded-3xl border border-slate-200 overflow-hidden shadow-inner relative w-full h-full">
-                        <!-- Fallback for mobile devices that can't render PDF inline -->
-                        <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-50 p-6 text-center z-0">
-                            <svg class="w-16 h-16 text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                            <h3 class="text-xl font-bold text-slate-700 mb-2">Penampil PDF Tidak Didukung</h3>
-                            <p class="text-slate-500 mb-6 max-w-sm">Peramban Anda tidak mendukung penampilan PDF secara langsung. Silakan gunakan tombol di sebelah kanan untuk melihatnya.</p>
-                            <a href="/dokumen/panduan-pmb.pdf" target="_blank" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg">Buka Dokumen PDF</a>
+                    <div class="bg-white rounded-[2.5rem] p-4 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col min-h-[600px] md:min-h-[800px]">
+                        <div class="flex items-center gap-4 mb-6 md:mb-8 px-2 md:px-4 pt-4 md:pt-0">
+                            <div class="w-2 h-8 bg-blue-500 rounded-full"></div>
+                            <h2 class="text-2xl font-bold text-slate-800">Panduan Pendaftaran</h2>
                         </div>
-                        <!-- Native Object Embed -->
-                        <object data="/dokumen/panduan-pmb.pdf#toolbar=0" type="application/pdf" class="absolute inset-0 w-full h-full z-10 bg-white">
-                            <embed src="/dokumen/panduan-pmb.pdf#toolbar=0" type="application/pdf" class="w-full h-full" />
-                        </object>
+                        
+                        <div class="flex-1 rounded-3xl border border-slate-200 overflow-hidden shadow-inner relative w-full h-full">
+                            <!-- Fallback for mobile devices that can't render PDF inline -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-50 p-6 text-center z-0">
+                                <svg class="w-16 h-16 text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <h3 class="text-xl font-bold text-slate-700 mb-2">Penampil PDF Tidak Didukung</h3>
+                                <p class="text-slate-500 mb-6 max-w-sm">Peramban Anda tidak mendukung penampilan PDF secara langsung. Silakan gunakan tombol di sebelah kanan untuk melihatnya.</p>
+                                <a href="/dokumen/panduan-pmb.pdf" target="_blank" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg">Buka Dokumen PDF</a>
+                            </div>
+                            <!-- Native Object Embed -->
+                            <object data="/dokumen/panduan-pmb.pdf#toolbar=0" type="application/pdf" class="absolute inset-0 w-full h-full z-10 bg-white">
+                                <embed src="/dokumen/panduan-pmb.pdf#toolbar=0" type="application/pdf" class="w-full h-full" />
+                            </object>
+                        </div>
+                    </div>
+
+                    <!-- TIMELINE ALUR PENDAFTARAN 6 LANGKAH -->
+                    <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-800">6 Langkah Mudah Mendaftar</h2>
+                        </div>
+                        
+                        <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                            
+                            <!-- Step 1 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-600 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">1</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-blue-50/50 p-5 rounded-2xl border border-blue-100">
+                                    <h3 class="font-bold text-slate-800 text-lg mb-1">Mengisi Formulir Pendaftaran</h3>
+                                    <p class="text-slate-600 text-sm">Membuat akun dan mengisi formulir pendaftaran melalui website: <strong>pmb.pbjt.ac.id</strong></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">2</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                                    <h3 class="font-bold text-slate-800 text-lg mb-1">Upload Berkas & Verifikasi</h3>
+                                    <p class="text-slate-600 text-sm">Upload Fotokopi KK & KTP, Ijazah/SKL, Transkrip Nilai/Rapor, serta Pas Foto 4x6 & 3x4 (Background Merah).</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-pink-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">3</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-pink-50/50 p-5 rounded-2xl border border-pink-100">
+                                    <h3 class="font-bold text-slate-800 text-lg mb-1">Melakukan Pembayaran Biaya Registrasi</h3>
+                                    <p class="text-slate-600 text-sm">Melakukan pembayaran dan mengunggah bukti pembayaran di menu konfirmasi pembayaran.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-orange-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">4</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-orange-50/50 p-5 rounded-2xl border border-orange-100">
+                                    <h3 class="font-bold text-slate-800 text-lg mb-1">Melaksanakan Tes TPA</h3>
+                                    <p class="text-slate-600 text-sm">Tes Potensi Akademik dilaksanakan secara online, jadwal tes akan dikirimkan via WhatsApp.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 5 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-indigo-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">5</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-indigo-50/50 p-5 rounded-2xl border border-indigo-100">
+                                    <h3 class="font-bold text-slate-800 text-lg mb-1">Pengumuman Kelulusan</h3>
+                                    <p class="text-slate-600 text-sm">Pengumuman kelulusan akan disampaikan melalui Grup Chat Calon Mahasiswa Baru.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 6 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-teal-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">6</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-teal-50/50 p-5 rounded-2xl border border-teal-100">
+                                    <h3 class="font-bold text-slate-800 text-lg mb-1">Melakukan Pembayaran Registrasi Ulang</h3>
+                                    <p class="text-slate-600 text-sm">Melakukan pembayaran daftar ulang (di awal) dan mengambil jas almamater.</p>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
 
                 <!-- Bagian Kanan: Info & Bantuan -->
-                <div class="lg:col-span-4 flex flex-col gap-6 md:gap-8 sticky top-24">
+                <div class="lg:col-span-4 flex flex-col gap-6 md:gap-8 lg:sticky lg:top-24">
                     
                     <!-- Box Download PDF -->
                     <div class="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 rounded-[2.5rem] p-8 shadow-xl border border-blue-800/50 relative overflow-hidden group">
@@ -58,7 +123,7 @@ import MainLayout from '../layouts/MainLayout.astro';
                         </div>
                         
                         <h3 class="text-2xl font-bold mb-3 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Buku Panduan</h3>
-                        <p class="text-blue-100/80 mb-8 relative z-10 leading-relaxed text-sm">Buka atau unduh dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
+                        <p class="text-blue-100/80 mb-8 relative z-10 leading-relaxed text-sm">Buka dokumen PDF panduan pendaftaran selengkapnya agar proses registrasi Anda lancar.</p>
                         
                         <div class="relative z-10">
                             <a href="/dokumen/panduan-pmb.pdf" target="_blank" class="w-full flex items-center justify-center gap-3 py-4 bg-white text-blue-900 hover:bg-blue-50 font-bold rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all duration-300 text-lg group">
@@ -68,14 +133,40 @@ import MainLayout from '../layouts/MainLayout.astro';
                         </div>
                     </div>
 
+                    <!-- Jadwal Pendaftaran -->
+                    <div class="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                        <div class="flex items-center gap-3 mb-6">
+                            <svg class="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <h3 class="text-xl font-bold text-slate-800">Jadwal Pendaftaran</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex flex-col pb-3 border-b border-slate-100">
+                                <span class="text-sm font-bold text-blue-600 mb-1">Gelombang 1</span>
+                                <span class="text-slate-600 font-medium">Oktober - Desember 2025</span>
+                            </li>
+                            <li class="flex flex-col pb-3 border-b border-slate-100">
+                                <span class="text-sm font-bold text-blue-600 mb-1">Gelombang 2</span>
+                                <span class="text-slate-600 font-medium">Januari - Maret 2026</span>
+                            </li>
+                            <li class="flex flex-col pb-3 border-b border-slate-100">
+                                <span class="text-sm font-bold text-blue-600 mb-1">Gelombang 3</span>
+                                <span class="text-slate-600 font-medium">April - Juni 2026</span>
+                            </li>
+                            <li class="flex flex-col">
+                                <span class="text-sm font-bold text-blue-600 mb-1">Gelombang 4</span>
+                                <span class="text-slate-600 font-medium">Juli - September 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+
                     <!-- Box Bantuan -->
                     <div class="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:border-green-100 transition-colors duration-300">
                         <div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-slate-800 mb-3">Butuh Bantuan?</h3>
-                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Mengalami kendala teknis? Tim IT kami siap membantu Anda.</p>
-                        <a href="https://wa.me/6281234567890" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1">
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">Mengalami kendala teknis atau pertanyaan registrasi? Hubungi Bagian Keuangan kami.</p>
+                        <a href="https://wa.me/6285742820993" target="_blank" class="flex items-center justify-center gap-2 w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.551 4.135 1.517 5.918L.003 24l6.22-1.633a11.968 11.968 0 005.808 1.495h.005c6.645 0 12.031-5.386 12.031-12.031C24.062 5.385 18.676 0 12.031 0zm0 21.84c-1.782 0-3.535-.48-5.068-1.39l-.364-.216-3.766.988.998-3.67-.236-.375A9.976 9.976 0 012.052 12.03c0-5.512 4.485-9.997 9.98-9.997 2.671 0 5.184 1.04 7.07 2.928 1.888 1.888 2.928 4.4 2.928 7.07 0 5.51-4.486 9.998-9.998 9.998z"/></svg>
                             Hubungi via WhatsApp
                         </a>
@@ -84,37 +175,10 @@ import MainLayout from '../layouts/MainLayout.astro';
                 </div>
                 
             </div>
-            
-            <!-- Error State -->
-            <div id="alur-error" class="hidden text-center py-24 bg-white rounded-3xl border border-red-100 shadow-sm mt-8">
-                <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                </div>
-                <h3 class="text-3xl font-extrabold text-slate-900 mb-3">Gagal Memuat Informasi</h3>
-                <p class="text-slate-500 max-w-md mx-auto">Terjadi kesalahan saat memuat data alur pendaftaran dari server. Silakan muat ulang halaman.</p>
-            </div>
 
         </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const skeleton = document.getElementById('alur-skeleton');
-            const container = document.getElementById('alur-container');
-
-            try {
-                skeleton.classList.add('hidden');
-                container.classList.remove('hidden');
-                container.classList.add('grid', 'animate-[fadeIn_0.5s_ease-out_forwards]');
-            } catch (error) {
-                console.error('Error fetching Alur Pendaftaran:', error);
-                
-                // Meskipun API gagal, kita tetap tampilkan container statis karena PDF sudah di hardcode
-                skeleton.classList.add('hidden');
-                container.classList.remove('hidden');
-            }
-        });
-    </script>
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }

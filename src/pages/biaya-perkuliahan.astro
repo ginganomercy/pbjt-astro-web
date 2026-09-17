@@ -11,198 +11,100 @@ import MainLayout from '../layouts/MainLayout.astro';
                     <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     Kembali ke Info PMB
                 </a>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Rincian Biaya Perkuliahan</h1>
-                <p class="text-xl text-slate-500">Transparan, Terjangkau, dan Berkualitas</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Rincian Biaya Kuliah</h1>
+                <p class="text-xl text-slate-500">Tahun Akademik 2026/2027</p>
             </header>
 
-            <!-- Skeleton Loader -->
-            <div id="biaya-skeleton" class="w-full h-[600px] bg-slate-200 rounded-[2.5rem] animate-pulse"></div>
-
-            <!-- Kontainer Biaya (Invoice Style) -->
-            <div id="biaya-container" class="hidden relative bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-slate-100 overflow-hidden">
+            <!-- Kontainer Biaya -->
+            <div id="biaya-container" class="relative bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-slate-100 overflow-hidden animate-[fadeIn_0.5s_ease-out_forwards]">
                 
                 <!-- Dekorasi Atas -->
                 <div class="h-4 w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400"></div>
                 <div class="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 pointer-events-none"></div>
 
                 <!-- Konten Biaya -->
-                <div class="p-8 md:p-12 relative z-10">
-                    <div id="biaya-content" class="biaya-prose max-w-none">
-                        <!-- Raw WordPress HTML goes here, styled by CSS below -->
+                <div class="p-8 md:p-12 relative z-10 flex flex-col gap-6">
+                    
+                    <div class="bg-blue-50/50 rounded-3xl p-6 md:p-8 border border-blue-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center shrink-0 border border-blue-100">
+                                <span class="text-2xl font-bold text-blue-600">1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800">Biaya Registrasi</h3>
+                                <p class="text-slate-500 text-sm">Pendaftaran awal mahasiswa baru.</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-extrabold text-slate-800">Rp 200.000</span>
+                        </div>
                     </div>
+
+                    <div class="bg-blue-50/50 rounded-3xl p-6 md:p-8 border border-blue-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center shrink-0 border border-blue-100">
+                                <span class="text-2xl font-bold text-blue-600">2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800">Daftar Ulang</h3>
+                                <p class="text-slate-500 text-sm">Minimum pembayaran di awal masuk.</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-2xl font-extrabold text-slate-800">Rp 3.000.000</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 md:p-8 shadow-xl shadow-blue-900/20 text-white flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center shrink-0 border border-white/20 backdrop-blur-sm">
+                                <span class="text-2xl font-bold text-white">3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">UKT (Uang Kuliah Tunggal)</h3>
+                                <p class="text-blue-100 text-sm max-w-sm">Berlaku untuk semua program studi tiap semesternya.</p>
+                            </div>
+                        </div>
+                        <div class="text-right relative z-10">
+                            <span class="text-3xl font-extrabold text-white">Rp 5.550.000</span>
+                            <p class="text-blue-200 text-sm mt-1">/ Tiap Semester</p>
+                        </div>
+                    </div>
+
+                    <!-- Alert Note -->
+                    <div class="mt-4 bg-orange-50 rounded-2xl p-6 border border-orange-100 flex items-start gap-4">
+                        <svg class="w-6 h-6 text-orange-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h4 class="font-bold text-orange-800 mb-1">Catatan Penting</h4>
+                            <p class="text-orange-700/80 text-sm leading-relaxed">
+                                Biaya UKT sudah berstatus bersih (all-in). Nominal tersebut <strong>sudah termasuk</strong> biaya Sumbangan Pengembangan Institusi (SPI), kegiatan LDK (Latihan Dasar Kepemimpinan), KKL (Kuliah Kerja Lapangan), Magang, TA (Tugas Akhir), dan Wisuda.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
                 
-                <!-- Bawah -->
-                <div class="bg-slate-50 p-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p class="text-slate-500 text-sm">Masih punya pertanyaan terkait biaya?</p>
-                    <a href="https://wa.me/6281234567890" target="_blank" class="px-6 py-3 bg-blue-100 text-blue-700 font-bold rounded-xl hover:bg-blue-200 transition-colors flex items-center gap-2">
-                        Hubungi Bagian Keuangan
+                <!-- Bawah (Kontak) -->
+                <div class="bg-slate-50 p-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div>
+                        <h4 class="font-bold text-slate-800 mb-1">Butuh Informasi Pembayaran?</h4>
+                        <p class="text-slate-500 text-sm">Hubungi Bagian Keuangan untuk konfirmasi rekening dan cicilan.</p>
+                    </div>
+                    <a href="https://wa.me/6285742820993" target="_blank" class="px-6 py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-xl transition-all shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:-translate-y-1 flex items-center gap-3 shrink-0">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.551 4.135 1.517 5.918L.003 24l6.22-1.633a11.968 11.968 0 005.808 1.495h.005c6.645 0 12.031-5.386 12.031-12.031C24.062 5.385 18.676 0 12.031 0zm0 21.84c-1.782 0-3.535-.48-5.068-1.39l-.364-.216-3.766.988.998-3.67-.236-.375A9.976 9.976 0 012.052 12.03c0-5.512 4.485-9.997 9.98-9.997 2.671 0 5.184 1.04 7.07 2.928 1.888 1.888 2.928 4.4 2.928 7.07 0 5.51-4.486 9.998-9.998 9.998z"/></svg>
+                        Hubungi Ibu Ismi
                     </a>
                 </div>
-            </div>
-
-            <!-- Error State -->
-            <div id="biaya-error" class="hidden text-center py-20 bg-red-50 rounded-3xl border border-red-100 mt-8">
-                <h3 class="text-2xl font-bold text-red-500 mb-2">Gagal Memuat Informasi</h3>
-                <p class="text-slate-600">Terjadi kesalahan saat menarik data biaya dari server.</p>
             </div>
 
         </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const skeleton = document.getElementById('biaya-skeleton');
-            const container = document.getElementById('biaya-container');
-            const content = document.getElementById('biaya-content');
-            const errorEl = document.getElementById('biaya-error');
-
-            try {
-                const response = await fetch('https://wp.pbjt.ac.id/wp-json/wp/v2/pages?_embed&slug=biaya-perkuliahan');
-                if (!response.ok) throw new Error('API Error');
-                
-                const pages = await response.json();
-                if (pages.length === 0) throw new Error('Page not found');
-                
-                const page = pages[0];
-                content.innerHTML = page.content.rendered;
-
-                skeleton.classList.add('hidden');
-                container.classList.remove('hidden');
-                container.classList.add('animate-[fadeIn_0.5s_ease-out_forwards]');
-
-            } catch (e) {
-                console.error(e);
-                skeleton.classList.add('hidden');
-                errorEl.classList.remove('hidden');
-            }
-        });
-    </script>
-
     <style is:global>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* CUSTOM BIAYA PROSE OVERRIDE */
-        .biaya-prose {
-            font-family: inherit;
-        }
-        
-        /* H2 Main Titles */
-        .biaya-prose h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #0f172a !important; /* Force slate-900 */
-            text-align: left !important;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        /* H3 / Paragraph acting as Section Titles */
-        .biaya-prose p strong {
-            display: inline-block;
-            font-size: 1.25rem;
-            color: #1e40af !important; /* Force blue-800 */
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            background: #eff6ff;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-        }
-
-        /* Ordered Lists (The items) */
-        .biaya-prose ol {
-            list-style: none;
-            counter-reset: biaya-counter;
-            padding-left: 0;
-            margin-bottom: 2rem;
-        }
-
-        .biaya-prose ol > li {
-            position: relative;
-            padding-left: 2.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #334155;
-            background: #f8fafc;
-            padding: 1rem 1rem 1rem 3rem;
-            border-radius: 1rem;
-            border: 1px solid #f1f5f9;
-        }
-
-        .biaya-prose ol > li::before {
-            counter-increment: biaya-counter;
-            content: counter(biaya-counter);
-            position: absolute;
-            left: 1rem;
-            top: 1rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            background: #3b82f6;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.875rem;
-            font-weight: bold;
-        }
-
-        /* Nested Unordered Lists (The details/installments) */
-        .biaya-prose ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .biaya-prose ul > li {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #64748b !important;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .biaya-prose ul > li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #94a3b8;
-        }
-
-        /* Highlight specific lines from WordPress colors */
-        .biaya-prose .has-vivid-cyan-blue-color {
-            color: #0284c7 !important;
-            font-style: italic;
-            background: #f0f9ff;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            display: inline-block;
-            margin-top: 0.25rem;
-        }
-
-        .biaya-prose .has-vivid-red-color {
-            color: #ef4444 !important;
-            background: #fef2f2;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border-left: 4px solid #ef4444;
-            font-size: 0.875rem;
-            margin-top: 2rem;
-        }
-        
-        /* General Paragraphs at the bottom */
-        .biaya-prose > p:last-child, .biaya-prose > p:nth-last-child(2) {
-            font-size: 1rem;
-            color: #475569 !important;
-            line-height: 1.6;
         }
     </style>
 </MainLayout>
