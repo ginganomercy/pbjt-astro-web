@@ -47,7 +47,7 @@ const formatFileName = (str) => {
     return str.replace(/-/g, ' ').replace(/\.pdf$/i, '').toUpperCase();
 };
 
-if (fs.existsSync(baseDir)) {
+if (fs.existsSync(baseDir) && prodi !== 'd3-teknik-informatika') {
     const items = fs.readdirSync(baseDir);
     if (items.length > 0) {
         isEmpty = false;
