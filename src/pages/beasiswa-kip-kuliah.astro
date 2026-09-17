@@ -1,0 +1,198 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const requirements = [
+    "Lulusan SMA/SMK/Sederajat pada tahun berjalan atau maksimal 2 tahun sebelumnya.",
+    "Upload Kartu Keluarga Asli",
+    "Upload Kartu KIP (Bagi yang memiliki)",
+    "Upload KTP Asli",
+    "Upload Ijazah SMA/SMK/MA/Sederajat (Scan Bagian Depan dan Belakang)",
+    "Upload Surat Keterangan Lulus (Bagi yang belum dapat ijazah)",
+    "Upload Raport Asli/Fotokopi Berlegalisir dari Semester 1 sampai Semester 5",
+    "Upload Kartu Peserta dan Formulir Pendaftaran Program KIP-Kuliah (Dapat Download di Sim-Kip)",
+    "Upload Surat Keterangan Tidak Mampu (SKTM)",
+    "Upload Scan Slip Gaji atau Surat Keterangan Penghasilan",
+    "Upload Pas Foto Background Merah",
+    "Foto Rumah Tampak Depan",
+    "Foto Ruang Tamu",
+    "Foto Keluarga",
+    "Sertifikat Prestasi/Piagam Prestasi/Surat Keterangan Prestasi dalam 1 File Pdf (Jika Ada)"
+];
+
+const team = [
+    { name: "Agnes Safitri, A.Md.Kom", role: "Anggota Tim" },
+    { name: "Adinda Dwi Risky Aryaninda, A.Md.Kom", role: "Anggota Tim" },
+    { name: "Rokiman A.Md.Kom", role: "Anggota Tim" }
+];
+---
+
+<MainLayout title="Informasi Beasiswa KIP Kuliah - Politeknik Baja Tegal">
+    <main class="min-h-screen bg-slate-50 pt-24 pb-20">
+        
+        <!-- Hero Section -->
+        <div class="relative bg-slate-900 py-24 px-4 mb-16 overflow-hidden">
+            <div class="absolute inset-0 bg-blue-900/20"></div>
+            <!-- Glow effects -->
+            <div class="absolute -top-32 -right-32 w-[30rem] h-[30rem] bg-amber-500/20 blur-[100px] rounded-full"></div>
+            <div class="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] bg-blue-600/30 blur-[100px] rounded-full"></div>
+            
+            <div class="relative max-w-5xl mx-auto text-center z-10 animate-[fadeIn_0.5s_ease-out_forwards]">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 text-amber-400 font-bold mb-6 border border-amber-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Pendaftaran Telah Dibuka!
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+                    Beasiswa <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-500">KIP Kuliah</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                    Politeknik Baja Tegal menjanjikan kesempatan kuliah gratis hingga lulus bagi putra-putri daerah berprestasi.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Apa itu KIP & Manfaat -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 animate-[fadeIn_0.7s_ease-out_forwards]">
+                
+                <!-- Definisi -->
+                <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-center">
+                    <h2 class="text-3xl font-extrabold text-slate-800 mb-6 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        Apa itu KIP Kuliah?
+                    </h2>
+                    <p class="text-slate-600 leading-loose text-lg">
+                        <strong>KIP Kuliah</strong> (Kartu Indonesia Pintar Kuliah) adalah program bantuan biaya pendidikan dari pemerintah yang ditujukan bagi siswa-siswi berprestasi dari keluarga kurang mampu secara ekonomi. Program ini bertujuan untuk memberikan kesempatan yang lebih luas kepada seluruh anak bangsa agar dapat mengakses pendidikan tinggi yang berkualitas.
+                    </p>
+                </div>
+
+                <!-- Manfaat -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-blue-900/20 text-white relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div>
+                        <div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 relative z-10">
+                            <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 relative z-10">Pembebasan Biaya Kuliah</h3>
+                        <p class="text-blue-100/90 relative z-10 leading-relaxed">Mahasiswa penerima KIP Kuliah dibebaskan dari seluruh biaya pendidikan, termasuk SPP/UKT, dan biaya akademik lainnya (Gratis hingga lulus).</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-amber-500 to-orange-600 rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-orange-900/20 text-white relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700"></div>
+                        <div class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 relative z-10">
+                            <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 relative z-10">Bantuan Biaya Hidup</h3>
+                        <p class="text-amber-100/90 relative z-10 leading-relaxed">Selain dibebaskan dari biaya kuliah, mahasiswa juga akan menerima bantuan biaya hidup setiap bulan yang besarannya disesuaikan dengan wilayah tempat tinggal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Persyaratan Section -->
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-16 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                
+                <h2 class="text-3xl font-extrabold text-slate-800 mb-8 flex items-center gap-4 relative z-10">
+                    <div class="w-12 h-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    </div>
+                    Persyaratan Berkas
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 relative z-10">
+                    {requirements.map((req, index) => (
+                        <div class="flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors group">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-green-500 group-hover:text-white transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <p class="text-slate-600 font-medium leading-relaxed">{req}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <!-- Bentuk Seleksi & Info Prodi -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <!-- Seleksi -->
+                <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                        </div>
+                        Bentuk Seleksi
+                    </h2>
+                    
+                    <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-slate-200">
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-blue-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">1</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2rem)] bg-slate-50 p-4 rounded-xl border border-slate-100 font-bold text-slate-700">Administrasi</div>
+                        </div>
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-amber-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">2</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2rem)] bg-slate-50 p-4 rounded-xl border border-slate-100 font-bold text-slate-700">Test Potensi Akademik</div>
+                        </div>
+                        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-green-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">3</div>
+                            <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2rem)] bg-slate-50 p-4 rounded-xl border border-slate-100 font-bold text-slate-700">Wawancara</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Prodi -->
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.5rem] p-8 md:p-10 shadow-xl relative overflow-hidden flex flex-col justify-center">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
+                    <div class="relative z-10 text-center">
+                        <div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-400 mb-2">Pilihan Kelas & Prodi</h3>
+                        <p class="text-3xl font-extrabold text-white">Kelas Pagi Semua Prodi</p>
+                        <p class="text-slate-400 mt-4 max-w-sm mx-auto text-sm leading-relaxed">Program KIP Kuliah di Politeknik Baja Tegal saat ini dikhususkan bagi mahasiswa kelas pagi untuk seluruh program studi yang tersedia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tim Pengelola KIPK -->
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 relative">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold text-slate-900 mb-4">Tim Pengelola KIP-Kuliah</h2>
+                    <p class="text-slate-500 max-w-2xl mx-auto">Tim dedikasi kami yang akan menyeleksi, mendampingi, dan membimbing seluruh calon penerima beasiswa KIP Kuliah di lingkungan kampus Politeknik Baja Tegal.</p>
+                </div>
+
+                <!-- Koordinator / Ketua -->
+                <div class="max-w-sm mx-auto mb-10">
+                    <div class="bg-blue-50/50 rounded-3xl p-6 border border-blue-100 text-center shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-24 h-24 bg-white rounded-full mx-auto mb-4 border-4 border-blue-200 flex items-center justify-center shadow-inner overflow-hidden">
+                            <svg class="w-12 h-12 text-blue-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">Aziz Azindani, M.Kom</h3>
+                        <span class="inline-block px-4 py-1 bg-blue-600 text-white text-sm font-bold rounded-full">Tim Pengelola / Koordinator</span>
+                    </div>
+                </div>
+
+                <!-- Anggota Tim -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {team.map((member) => (
+                        <div class="bg-slate-50 rounded-3xl p-6 border border-slate-100 text-center hover:bg-white hover:shadow-lg hover:border-slate-200 transition-all group">
+                            <div class="w-20 h-20 bg-slate-200 rounded-full mx-auto mb-4 border-4 border-white flex items-center justify-center group-hover:border-blue-50 transition-colors">
+                                <svg class="w-10 h-10 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800 mb-1 line-clamp-1">{member.name}</h3>
+                            <p class="text-slate-500 text-sm font-medium">{member.role}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <style is:global>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</MainLayout>
