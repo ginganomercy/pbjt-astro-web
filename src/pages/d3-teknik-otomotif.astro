@@ -1,5 +1,5 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
+import ProdiLayout from '../layouts/ProdiLayout.astro';
 import { getPageBySlug } from '../utils/api.js';
 import { parseOtomotifContent } from '../utils/contentParser.js';
 
@@ -12,172 +12,15 @@ const rawContent = page?.content?.rendered || "";
 const { deskripsi, prospek, visi, misi, tujuan } = parseOtomotifContent(rawContent);
 
 // Gambar sertifikat di-hardcode agar aman
-const akreditasiImg = "https://wp.pbjt.ac.id/wp-content/uploads/2026/09/akreditasi-otomotif.jpg";
+const akreditasiImg = "/image/uploads/akreditasi-otomotif.jpg";
 ---
 
-<MainLayout title={`${title} - Politeknik Baja Tegal`}>
-    <main class="min-h-screen bg-slate-50">
-        
-        <div class="relative bg-slate-900 pt-32 pb-40 overflow-hidden">
-            <div class="absolute inset-0 bg-blue-900/20"></div>
-            <div class="relative max-w-7xl mx-auto px-4 text-center">
-                <span class="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold mb-6 border border-blue-500/30">
-                    Program Studi
-                </span>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6" set:html={title}></h1>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
-                <!-- Kiri: Konten -->
-                <div class="lg:col-span-2 space-y-8">
-                    <!-- Deskripsi -->
-                    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 md:p-10 transition-shadow hover:shadow-md">
-                        <div class="prose prose-slate prose-lg max-w-none prose-p:leading-relaxed" set:html={deskripsi}></div>
-                    </div>
-
-                    <!-- Visi & Misi Box -->
-                    {(visi || misi) && (
-                    <div class="bg-gradient-to-br from-blue-50 to-white rounded-[2rem] shadow-sm border border-blue-100 p-8 md:p-10 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-8 opacity-5">
-                            <svg class="w-32 h-32 text-blue-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                        </div>
-                        
-                        {visi && (
-                        <div class="mb-8 relative z-10">
-                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
-                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                Visi Program Studi
-                            </h3>
-                            <div class="text-lg text-slate-700 italic border-l-4 border-blue-400 pl-4 py-1" set:html={visi}></div>
-                        </div>
-                        )}
-
-                        {misi && (
-                        <div class="relative z-10 mb-8">
-                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
-                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                                Misi Program Studi
-                            </h3>
-                            <div class="pl-2" set:html={misi}></div>
-                        </div>
-                        )}
-                        
-                        {tujuan && (
-                        <div class="relative z-10">
-                            <h3 class="text-xl font-bold text-blue-900 flex items-center mb-4">
-                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                                Tujuan Program Studi
-                            </h3>
-                            <div class="pl-2" set:html={tujuan}></div>
-                        </div>
-                        )}
-                    </div>
-                    )}
-
-                </div>
-
-                <!-- Kanan: Sertifikat Akreditasi (Hardcode) -->
-                <div class="lg:col-span-1">
-                    <div class="bg-slate-900 rounded-3xl p-6 sticky top-28 shadow-xl border border-slate-800">
-                        <div class="text-center mb-6">
-                            <h3 class="text-xl font-bold text-white mb-2">Akreditasi Resmi</h3>
-                            <p class="text-slate-400 text-sm">Sertifikat Akreditasi Program Studi</p>
-                        </div>
-                        
-                        <div class="relative w-full aspect-[3/4] bg-white rounded-2xl overflow-hidden cursor-pointer group shadow-inner" onclick={`window.open('${akreditasiImg}', '_blank')`}>
-                            <img 
-                                src={akreditasiImg} 
-                                alt={`Akreditasi`}
-                                class="absolute inset-0 w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                            />
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                                <div class="opacity-0 group-hover:opacity-100 bg-white text-slate-900 px-4 py-2 rounded-lg text-sm font-semibold shadow-lg flex items-center transition-opacity">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
-                                    Lihat Penuh
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href={akreditasiImg} download target="_blank" class="mt-6 w-full flex justify-center items-center px-4 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition-colors">
-                            Unduh Sertifikat
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            
-            <!-- Bawah: Prospek Kerja (Full Width) -->
-            {prospek && (
-            <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 md:p-10 transition-shadow hover:shadow-md mt-8">
-                <div class="flex items-center space-x-4 mb-2 pb-6 border-b border-slate-100">
-                    <div class="w-12 h-12 bg-green-50 text-green-500 rounded-2xl flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Prospek Kerja (Karir)</h2>
-                        <p class="text-slate-500 text-sm">Peluang karir dan profesi yang menanti lulusan prodi ini.</p>
-                    </div>
-                </div>
-                <div class="prospek-premium" set:html={prospek}></div>
-            </div>
-            )}
-            
-        </div>
-    </main>
-</MainLayout>
-
-<style is:global>
-    /* 
-      HIERARCHICAL CSS INJECTION
-      Mengubah tag murni bawaan WordPress menjadi desain Premium tanpa menyentuh HTML menggunakan Regex 
-    */
-    .prospek-premium > ul {
-        display: grid;
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-        gap: 1.5rem;
-        margin-top: 1rem;
-        list-style: none;
-        padding: 0;
-    }
-    
-    @media (min-width: 768px) {
-        .prospek-premium > ul {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-    
-    @media (min-width: 1024px) {
-        .prospek-premium > ul {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-    }
-
-    .prospek-premium > ul > li {
-        background-color: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 1.5rem;
-        padding: 1.5rem;
-        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        transition: box-shadow 0.2s;
-    }
-
-    .prospek-premium > ul > li:hover {
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    }
-
-    /* Deskripsi (Inner List) */
-    .prospek-premium > ul > li ul {
-        list-style-type: none;
-        padding-left: 0;
-        margin-top: 0.5rem;
-    }
-
-    .prospek-premium > ul > li ul li {
-        color: #475569;
-        font-size: 1rem;
-        line-height: 1.625;
-    }
-</style>
+<ProdiLayout 
+    title={title}
+    deskripsi={deskripsi}
+    prospek={prospek}
+    visi={visi}
+    misi={misi}
+    tujuan={tujuan}
+    akreditasiImg={akreditasiImg}
+/>

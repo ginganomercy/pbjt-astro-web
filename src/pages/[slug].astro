@@ -1,27 +1,54 @@
 ---
+import MainLayout from '../layouts/MainLayout.astro';
+import pagesData from '../data/pages.json';
+
 export async function getStaticPaths() {
-    // Semua slug asli dari database WordPress (hasil analisis SQL dump)
-    const slugs = [
-        'tentang-pbjt', 'profil-politeknik-baja-tegal', 'struktur-politeknik-baja-tegal',
-        'biro', 'akreditasi', 'perguruan-tinggi',
-        'program-studi', 'd3-teknik-informatika', 'd3-teknik-otomotif',
-        'd3-teknik-mesin', 'd3-teknik-elektronika-industri', 'mikrotik-academy',
-        'informasi-training', 'galeri-training',
-        'bem', 'rohis', 'racana', 'bajapala', 'badminton', 'futsal',
-        'paduan-suara', 'forum-studi-ilmiah-fosil', 'hmti',
-        'pmb', 'alur-pendaftaran', 'biaya-perkuliahan',
-        'beasiswa', 'beasiswa-kip-kuliah', 'beasiswa-yayasan',
-        'daftar-alumni', 'siakad', 'kuliah-online', 'lowongan',
-        'magang', 'internasional', 'beranda', 'berita'
-    ];
-    return slugs.map(slug => ({ params: { slug } }));
+    return pagesData.map((page) => ({
+        params: { slug: page.slug },
+        props: { page }
+    }));
 }
 
-const { slug } = Astro.params;
-import MainLayout from '../layouts/MainLayout.astro';
+const { page } = Astro.props;
+
+// Ekstrak Caption dari konten untuk dijadikan Alt Text
+let altText = page.title.rendered; // Default alt text
+let rawContent = page.content.rendered || '';
+
+// Cari teks yang diawali dengan strip, en-dash, atau em-dash
+const captionRegex = /<p>\s*[-–—](.*?)\s*<\/p>/i;
+const match = rawContent.match(captionRegex);
+if (match && match[1]) {
+    altText = match[1].replace(/<[^>]*>?/gm, '').trim(); 
+    rawContent = rawContent.replace(captionRegex, '');
+} else {
+    // Fallback jika tidak ada tag <p>
+    const rawCaptionRegex = /[-–—]\s*(Sertifikat Akreditasi.*?)(?=<|$)/i;
+    const rawMatch = rawContent.match(rawCaptionRegex);
+    if (rawMatch && rawMatch[1]) {
+        altText = rawMatch[1].replace(/<[^>]*>?/gm, '').trim();
+        rawContent = rawContent.replace(rawCaptionRegex, '');
+    }
+}
+
+// Ekstrak Gambar Unggulan (Featured Image) jika ada
+let featuredImageHtml = '';
+if (page._embedded && page._embedded['wp:featuredmedia'] && page._embedded['wp:featuredmedia'].length > 0) {
+    const imgUrl = page._embedded['wp:featuredmedia'][0].source_url;
+    featuredImageHtml = `
+    <div class="mt-10 mb-8 rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-3 w-fit mx-auto">
+        <img src="${imgUrl}" alt="${altText}" title="${altText}" class="max-w-full h-auto max-h-[600px] object-contain hover:scale-105 transition-transform duration-700 rounded-2xl" />
+    </div>`;
+}
+
+// Bersihkan konten dari hardcoded dimensions & srcset
+let cleanContent = rawContent.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
+cleanContent = cleanContent.replace(/srcset="[^"]*"/gi, '');
+cleanContent = cleanContent.replace(/sizes="[^"]*"/gi, '');
+cleanContent = cleanContent.replace(/hidden/g, ''); // Unhide PDF embeds
 ---
 
-<MainLayout title="Memuat... - Politeknik Baja Tegal">
+<MainLayout title={`${page.title.rendered} - Politeknik Baja Tegal`}>
 
     <!-- Latar Belakang Putih Bersih Penuh -->
     <main class="py-16 bg-white min-h-screen">
@@ -29,105 +56,16 @@ import MainLayout from '../layouts/MainLayout.astro';
             
             <!-- Header Judul Elegan (Rata Kiri, Bersih) -->
             <header id="page-header" class="mb-12 border-b border-slate-100 pb-8">
-                <!-- Skeleton Header -->
-                <div class="h-12 bg-slate-200 rounded w-2/3 md:w-1/2 animate-pulse"></div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight" set:html={page.title.rendered}></h1>
+                <Fragment set:html={featuredImageHtml} />
             </header>
 
             <!-- Area Konten Tanpa Bingkai (Seamless) -->
-            <div id="page-content" class="prose prose-lg prose-slate prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-headings:text-slate-900 mx-auto max-w-none break-words overflow-x-auto leading-relaxed prose-hr:my-10 prose-hr:border-slate-200 prose-hr:border-t-2">
-                <!-- Skeleton Content -->
-                <div class="space-y-6">
-                    <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
-                    <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
-                    <div class="h-4 bg-slate-200 rounded w-4/5 animate-pulse"></div>
-                    <div class="h-4 bg-slate-200 rounded w-full animate-pulse"></div>
-                    <div class="h-4 bg-slate-200 rounded w-3/4 animate-pulse"></div>
-                </div>
+            <div id="page-content" class="prose prose-lg prose-slate prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-headings:text-slate-900 mx-auto max-w-none break-words overflow-x-auto leading-relaxed prose-hr:my-10 prose-hr:border-slate-200 prose-hr:border-t-2 animate-[fadeIn_0.5s_ease-out_forwards]" set:html={cleanContent}>
             </div>
             
         </article>
     </main>
-
-
-    <!-- Client-Side Fetch Logic -->
-    <script define:vars={{ slug }}>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const header = document.getElementById('page-header');
-            const content = document.getElementById('page-content');
-            
-            try {
-                const response = await fetch(`https://wp.pbjt.ac.id/wp-json/wp/v2/pages?_embed&slug=${slug}`);
-                if(!response.ok) throw new Error('API Error');
-                
-                const pages = await response.json();
-                
-                if (pages.length === 0) {
-                    document.title = "Halaman Tidak Ditemukan - PBJT";
-                    header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4 border-l-4 border-red-500 pl-4">404 - Halaman Tidak Ditemukan</h1>`;
-                    content.innerHTML = `<p class="text-slate-600 text-lg">Maaf, halaman dengan URL '/${slug}' belum dibuat di WordPress Anda. Silakan buat Page baru di Dashboard WP dengan judul tersebut.</p>`;
-                    return;
-                }
-                
-                const page = pages[0];
-                
-                // SPRINT 27: Ekstrak Caption dari konten untuk dijadikan Alt Text
-                let altText = page.title.rendered; // Default alt text
-                let rawContent = page.content.rendered;
-                
-                // Cari teks yang diawali dengan strip, en-dash, atau em-dash
-                // Menangani variasi strip: - (hyphen), – (en-dash), — (em-dash)
-                const captionRegex = /<p>\s*[-–—](.*?)\s*<\/p>/i;
-                const match = rawContent.match(captionRegex);
-                if (match && match[1]) {
-                    altText = match[1].replace(/<[^>]*>?/gm, '').trim(); // Bersihkan dari tag HTML jika ada
-                    rawContent = rawContent.replace(captionRegex, ''); // Hapus tulisan dari konten visual
-                } else {
-                    // Fallback jika tidak ada tag <p>
-                    const rawCaptionRegex = /[-–—]\s*(Sertifikat Akreditasi.*?)(?=<|$)/i;
-                    const rawMatch = rawContent.match(rawCaptionRegex);
-                    if (rawMatch && rawMatch[1]) {
-                        altText = rawMatch[1].replace(/<[^>]*>?/gm, '').trim();
-                        rawContent = rawContent.replace(rawCaptionRegex, '');
-                    }
-                }
-                
-                // Ekstrak Gambar Unggulan (Featured Image) jika ada
-                let featuredImageHtml = '';
-                if (page._embedded && page._embedded['wp:featuredmedia'] && page._embedded['wp:featuredmedia'].length > 0) {
-                    const imgUrl = page._embedded['wp:featuredmedia'][0].source_url;
-                    // Gunakan w-fit mx-auto agar bingkai abu-abu pas memeluk ukuran gambar (tidak melebar)
-                    featuredImageHtml = `
-                    <div class="mt-10 mb-8 rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-slate-50 p-3 w-fit mx-auto">
-                        <img src="${imgUrl}" alt="${altText}" title="${altText}" class="max-w-full h-auto max-h-[600px] object-contain hover:scale-105 transition-transform duration-700 rounded-2xl" />
-                    </div>`;
-                }
-
-                // Update Header
-                header.innerHTML = `
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 leading-tight border-l-4 border-blue-500 pl-6 py-2 tracking-tight">${page.title.rendered}</h1>
-                    ${featuredImageHtml}
-                `;
-                
-                // Update Content
-                let cleanContent = rawContent.replace(/-\d+x\d+(?=\.(jpg|jpeg|png|webp|gif))/gi, '');
-                cleanContent = cleanContent.replace(/srcset="[^"]*"/gi, '');
-                cleanContent = cleanContent.replace(/sizes="[^"]*"/gi, '');
-                
-                content.innerHTML = cleanContent;
-                content.classList.add('animate-[fadeIn_0.5s_ease-out_forwards]');
-                
-                // 3. Tampilkan PDF (Hapus atribut hidden dari File Block)
-                content.querySelectorAll('.wp-block-file__embed').forEach(pdf => {
-                    pdf.removeAttribute('hidden');
-                });
-                
-            } catch(e) {
-                console.error(e);
-                header.innerHTML = `<h1 class="text-4xl font-bold text-red-500 mb-4 border-l-4 border-red-500 pl-4">Gagal Memuat</h1>`;
-                content.innerHTML = `<p class="text-red-500 text-lg">Terjadi kesalahan saat menarik data dari server. Pastikan API tidak terblokir.</p>`;
-            }
-        });
-    </script>
 
     <style is:global>
         @keyframes fadeIn {

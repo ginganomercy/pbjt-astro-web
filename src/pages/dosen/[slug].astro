@@ -1,12 +1,9 @@
 ---
 import Layout from '../../layouts/MainLayout.astro';
-import { getDosen, getDosenBySlug } from '../../utils/api.js';
+import dosenList from '../../data/dosen.json';
 
-// 1. Dapatkan daftar semua rute (slug) saat build time
+// 1. Dapatkan daftar semua rute (slug) saat build time dari JSON lokal
 export async function getStaticPaths() {
-    const dosenList = await getDosen(100);
-    
-    // Kembalikan array parameter untuk masing-masing dosen
     return dosenList.map((dosen) => ({
         params: { slug: dosen.slug },
         props: { dosen },
@@ -15,14 +12,8 @@ export async function getStaticPaths() {
 
 // 2. Akses data dosen yang di-pass dari getStaticPaths
 const { slug } = Astro.params;
-let { dosen } = Astro.props;
+const { dosen } = Astro.props;
 
-// Jika untuk alasan tertentu dosen prop tidak ada, kita fetch manual berdasarkan slug
-if (!dosen) {
-    dosen = await getDosenBySlug(slug);
-}
-
-// Jika tetap tidak ditemukan, arahkan ke 404
 if (!dosen) {
     return Astro.redirect('/404');
 }
@@ -34,7 +25,7 @@ const content = dosen.content.rendered;
 const mediaArray = dosen._embedded?.['wp:featuredmedia'];
 const imageUrl = mediaArray && mediaArray.length > 0 
   ? mediaArray[0].source_url 
-  : '/placeholder-dosen.jpg';
+  : `/image/foto-dosen/${dosen.slug}.webp`; // Use local fallback with slug
 ---
 
 <Layout title={`${title} - Profil Dosen PBJT`}>

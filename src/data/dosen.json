@@ -1,0 +1,912 @@
+[
+  {
+    "id": 731,
+    "date": "2025-08-22T10:18:22",
+    "date_gmt": "2025-08-22T03:18:22",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=731"
+    },
+    "modified": "2025-12-16T11:09:06",
+    "modified_gmt": "2025-12-16T04:09:06",
+    "slug": "ahmad-rifai",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/ahmad-rifai/",
+    "title": {
+      "rendered": "Ahmad Rifai"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-731",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/731",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=731"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 717,
+    "date": "2025-08-20T09:51:17",
+    "date_gmt": "2025-08-20T02:51:17",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=717"
+    },
+    "modified": "2025-12-16T10:13:47",
+    "modified_gmt": "2025-12-16T03:13:47",
+    "slug": "heru-rohadi-m-t",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/heru-rohadi-m-t/",
+    "title": {
+      "rendered": "Heru Rohadi, M.T"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-717",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/717",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=717"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 715,
+    "date": "2025-08-20T09:36:35",
+    "date_gmt": "2025-08-20T02:36:35",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=715"
+    },
+    "modified": "2025-12-16T10:09:15",
+    "modified_gmt": "2025-12-16T03:09:15",
+    "slug": "septian-tri-kusuma-s-t",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/septian-tri-kusuma-s-t/",
+    "title": {
+      "rendered": "Septian Trimusuma, S.T, M.T"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-715",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/715",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=715"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 595,
+    "date": "2025-02-28T09:31:03",
+    "date_gmt": "2025-02-28T02:31:03",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=595"
+    },
+    "modified": "2025-03-04T21:10:39",
+    "modified_gmt": "2025-03-04T14:10:39",
+    "slug": "robiatul-adawiyah-m-pd",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/robiatul-adawiyah-m-pd/",
+    "title": {
+      "rendered": "Robiatul Adawiyah, M.Pd"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-595",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/595",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=595"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 596,
+    "date": "2025-02-27T09:43:46",
+    "date_gmt": "2025-02-27T02:43:46",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=596"
+    },
+    "modified": "2025-03-04T21:11:39",
+    "modified_gmt": "2025-03-04T14:11:39",
+    "slug": "ayu-ningrum-p-s-pd",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/ayu-ningrum-p-s-pd/",
+    "title": {
+      "rendered": "Ayu Ningrum P., S.Pd"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-596",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/596",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=596"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 594,
+    "date": "2025-02-27T09:12:18",
+    "date_gmt": "2025-02-27T02:12:18",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=594"
+    },
+    "modified": "2025-12-16T13:22:46",
+    "modified_gmt": "2025-12-16T06:22:46",
+    "slug": "ilham-akhsani-s-tr-kom",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/ilham-akhsani-s-tr-kom/",
+    "title": {
+      "rendered": "Ilham Akhsani, M.Kom"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-594",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/594",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=594"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 593,
+    "date": "2025-02-27T09:10:52",
+    "date_gmt": "2025-02-27T02:10:52",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=593"
+    },
+    "modified": "2025-02-27T09:10:54",
+    "modified_gmt": "2025-02-27T02:10:54",
+    "slug": "budi-pribowo-s-st",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/budi-pribowo-s-st/",
+    "title": {
+      "rendered": "Budi Pribowo, S.ST"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-593",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/593",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=593"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 590,
+    "date": "2025-02-27T08:57:23",
+    "date_gmt": "2025-02-27T01:57:23",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=590"
+    },
+    "modified": "2025-12-16T11:15:39",
+    "modified_gmt": "2025-12-16T04:15:39",
+    "slug": "agung-nugroho-m-t",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/agung-nugroho-m-t/",
+    "title": {
+      "rendered": "Agung Nugroho, M.T"
+    },
+    "content": {
+      "rendered": "",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-590",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/590",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=590"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 589,
+    "date": "2025-02-27T08:49:25",
+    "date_gmt": "2025-02-27T01:49:25",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=589"
+    },
+    "modified": "2025-12-16T11:22:16",
+    "modified_gmt": "2025-12-16T04:22:16",
+    "slug": "ismi-kusumaningroem-m-pd",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/ismi-kusumaningroem-m-pd/",
+    "title": {
+      "rendered": "Ismi Kusumaningroem, M.Pd, M.Kom"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">Kepala BAUK Politeknik Baja Tegal</p>\n",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-589",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/589",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=589"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 582,
+    "date": "2025-02-25T14:21:01",
+    "date_gmt": "2025-02-25T07:21:01",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=582"
+    },
+    "modified": "2025-12-16T11:20:19",
+    "modified_gmt": "2025-12-16T04:20:19",
+    "slug": "aziz-azindani-m-kom",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/aziz-azindani-m-kom/",
+    "title": {
+      "rendered": "Aziz Azindani, M.Kom"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">Kepala Program Studi Teknik Informatika</p>\n\n\n\n<p class=\"wp-block-paragraph\"></p>\n",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-582",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/582",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=582"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 581,
+    "date": "2025-02-25T14:15:31",
+    "date_gmt": "2025-02-25T07:15:31",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=581"
+    },
+    "modified": "2025-12-16T13:27:02",
+    "modified_gmt": "2025-12-16T06:27:02",
+    "slug": "atiek-nurindriani-m-pd",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/atiek-nurindriani-m-pd/",
+    "title": {
+      "rendered": "Atiek Nurindriani, M.Pd"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">Ketua LPM &amp; LPPM Politeknik Baja Tegal</p>\n",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-581",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/581",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=581"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 579,
+    "date": "2025-02-25T14:08:13",
+    "date_gmt": "2025-02-25T07:08:13",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=579"
+    },
+    "modified": "2025-03-04T21:17:51",
+    "modified_gmt": "2025-03-04T14:17:51",
+    "slug": "ria-candra-dewi",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/ria-candra-dewi/",
+    "title": {
+      "rendered": "Ria Candra Dewi, M.Pd"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">Wakil Direktur 3 Bidang Kemahasiswaan dan Kerjasama</p>\n",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-579",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/579",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=579"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 577,
+    "date": "2025-02-25T10:18:56",
+    "date_gmt": "2025-02-25T03:18:56",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=577"
+    },
+    "modified": "2025-12-16T13:25:37",
+    "modified_gmt": "2025-12-16T06:25:37",
+    "slug": "lily-budinurani-m-pd",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/lily-budinurani-m-pd/",
+    "title": {
+      "rendered": "Lily Budinurani, M.Pd"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">Wakil Direktur 2 Bidang Keuangan dan Sarana Prasarana</p>\n",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-577",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/577",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=577"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 572,
+    "date": "2025-02-25T10:01:34",
+    "date_gmt": "2025-02-25T03:01:34",
+    "guid": {
+      "rendered": "https://wp.pbjt.ac.id/?post_type=dosen&#038;p=572"
+    },
+    "modified": "2025-03-04T21:20:53",
+    "modified_gmt": "2025-03-04T14:20:53",
+    "slug": "slamet-riyadi-m-t",
+    "status": "publish",
+    "type": "dosen",
+    "link": "https://wp.pbjt.ac.id/dosen/slamet-riyadi-m-t/",
+    "title": {
+      "rendered": "Slamet Riyadi, M.T"
+    },
+    "content": {
+      "rendered": "\n<p class=\"wp-block-paragraph\">Direktur Politeknik Baja Tegal</p>\n",
+      "protected": false
+    },
+    "template": "",
+    "class_list": [
+      "post-572",
+      "dosen",
+      "type-dosen",
+      "status-publish",
+      "hentry"
+    ],
+    "jetpack_sharing_enabled": true,
+    "jetpack_likes_enabled": true,
+    "_links": {
+      "self": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen/572",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/dosen"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/types/dosen"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://wp.pbjt.ac.id/wp-json/wp/v2/media?parent=572"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  }
+]

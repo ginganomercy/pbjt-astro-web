@@ -1,13 +1,13 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import pagesData from '../data/pages.json';
 
 // SPRINT 25: Fetch Dynamic Content for Mikrotik Academy
 let pdfUrl = "#";
 let galleryImages = [];
 
 try {
-    const res = await fetch("https://wp.pbjt.ac.id/wp-json/wp/v2/pages?slug=mikrotik-academy");
-    const data = await res.json();
+    const data = pagesData.filter(p => p.slug === "mikrotik-academy");
     
     if (data && data.length > 0) {
         const content = data[0].content.rendered;
