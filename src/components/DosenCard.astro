@@ -3,18 +3,12 @@ import { getFeaturedImage } from '../utils/api.js';
 
 const { dosen } = Astro.props;
 
-// Safely extract data
 const title = dosen?.title?.rendered || 'Nama Tidak Tersedia';
 const slug = dosen?.slug || '#';
-// Jika WordPress menyimpan data khusus seperti NIDN, Jabatan dll, biasanya ada di meta atau ACF.
-// Untuk sekarang kita hanya ambil basic data
-const excerpt = dosen?.excerpt?.rendered?.replace(/<[^>]+>/g, '') || 'Dosen Politeknik Baja Tegal';
 
-// Cari gambar
-const mediaArray = dosen?._embedded?.['wp:featuredmedia'];
-const imageUrl = mediaArray && mediaArray.length > 0 
-  ? mediaArray[0].source_url 
-  : '/placeholder-dosen.jpg'; // Pastikan Anda menambahkan placeholder di folder public/
+const fallbackImg = '/image/foto-dosen/default-avatar.svg';
+const primaryImg = `/image/foto-dosen/${slug}.webp`;
+const imageUrl = getFeaturedImage(dosen, primaryImg);
 ---
 
 <a href={`/dosen/${slug}`} class="group block h-full">
@@ -26,6 +20,7 @@ const imageUrl = mediaArray && mediaArray.length > 0
                 src={imageUrl} 
                 alt={title} 
                 loading="lazy"
+                onerror={`this.onerror=null; this.src='${fallbackImg}';`}
                 class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
             />
             <!-- Gradient Overlay for aesthetics -->
@@ -40,7 +35,3 @@ const imageUrl = mediaArray && mediaArray.length > 0
         
     </div>
 </a>
-
-<style>
-    /* Styling tambahan untuk estetika jika belum ada Tailwind utility yang cocok */
-</style>
