@@ -1,272 +1,656 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import pagesData from '../data/pages.json';
-
-const page = pagesData.find(p => p.slug === 'profil-politeknik-baja-tegal');
-
-let rawHtml = '';
-if (page) {
-    rawHtml = page.content.rendered;
-    // Hilangkan tag H1 ganda jika pengguna telanjur mengetik judul di dalam konten
-    rawHtml = rawHtml.replace(/<h1[^>]*>.*?<\/h1>/gi, '');
-    
-    // FIX TEKS TEMBUS: Ganti Non-Breaking Space (&nbsp;) dengan spasi biasa
-    rawHtml = rawHtml.replace(/&nbsp;/g, ' ');
-}
 ---
 
-<MainLayout title="Profil Politeknik Baja Tegal">
+<MainLayout title="Profil Politeknik Baja Tegal - Sejarah, Visi, Misi & Yayasan">
     
     <!-- Hero Banner Premium -->
-    <section class="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-900">
-        <!-- Abstract Background -->
+    <section class="relative pt-32 pb-24 lg:pt-36 lg:pb-28 overflow-hidden bg-slate-900">
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px]"></div>
-            <div class="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-cyan-500/20 blur-[100px]"></div>
-            <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
+            <div class="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-cyan-500/15 blur-[100px]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
         </div>
         
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-            <span class="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 font-semibold text-sm tracking-wider mb-6">TENTANG KAMPUS</span>
-            <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                Profil Politeknik <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Baja Tegal</span>
+            <span class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 font-semibold text-xs md:text-sm tracking-wider uppercase mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                Profil Resmi Institusi
+            </span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+                Profil Politeknik <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300">Baja Tegal</span>
             </h1>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
                 Menjadi Pendidikan Tinggi Vokasi untuk menghasilkan lulusan yang beriman, bertaqwa, trampil, beretos kerja tinggi dan berdaya saing global.
             </p>
+            
+            <!-- Quick Stat Bar -->
+            <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center">
+                    <span class="block text-2xl md:text-3xl font-extrabold text-white">2014</span>
+                    <span class="text-xs text-blue-200 mt-1 uppercase tracking-wider font-medium">Tahun Berdiri</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center">
+                    <span class="block text-lg md:text-xl font-extrabold text-cyan-300">SK 579/E/O/2014</span>
+                    <span class="text-xs text-blue-200 mt-1 uppercase tracking-wider font-medium">Izin Mendiknas</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center">
+                    <span class="block text-2xl md:text-3xl font-extrabold text-amber-300">4 Jurusan</span>
+                    <span class="text-xs text-blue-200 mt-1 uppercase tracking-wider font-medium">Terakreditasi BAIK</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center">
+                    <span class="block text-base md:text-lg font-extrabold text-white">YPBP Tegal</span>
+                    <span class="text-xs text-blue-200 mt-1 uppercase tracking-wider font-medium">Naungan Yayasan</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Elevated Content Area -->
-    <main class="relative bg-slate-50 min-h-screen pb-24 -mt-12">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+    <!-- Content Area with Sticky Navigation -->
+    <main class="relative bg-slate-50 min-h-screen py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            {page ? (
-                <!-- Content Container -->
-                <div id="profil-container" class="w-full bg-white rounded-3xl p-6 md:p-12 lg:p-16 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] border border-slate-100 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                    <div id="profil-content" class="profil-custom-prose max-w-none" set:html={rawHtml}>
+            <!-- Breadcrumb Navigation -->
+            <nav class="flex text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="/" class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-slate-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span class="text-slate-400">Profil</span>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-slate-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span class="text-slate-800 font-semibold">Profil Politeknik Baja Tegal</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Left Column: Sticky Table of Contents (4 Kolom di Desktop) -->
+                <aside class="hidden lg:block lg:col-span-4 sticky top-28 space-y-6">
+                    <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 text-slate-900 font-bold">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+                            <span>Daftar Isi Profil</span>
+                        </div>
+                        <nav class="space-y-1.5 text-sm font-medium">
+                            <a href="#tentang-kampus" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                <span>Profil & Akreditasi</span>
+                            </a>
+                            <a href="#sejarah-kampus" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                                <span>Sejarah Yayasan & Kampus</span>
+                            </a>
+                            <a href="#sekolah-binaan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+                                <span>Sekolah Binaan Yayasan</span>
+                            </a>
+                            <a href="#pengurus-yayasan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span>Susunan Pengurus Yayasan</span>
+                            </a>
+                            <a href="#biodata-legalitas" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                <span>Biodata & Legalitas Yayasan</span>
+                            </a>
+                            <a href="#visi-misi" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                                <span>Visi & Misi</span>
+                            </a>
+                            <a href="#tujuan-strategis" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                                <span>Tujuan Strategis</span>
+                            </a>
+                            <a href="#sasaran-strategis" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/80 transition-colors">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                <span>Sasaran Strategis</span>
+                            </a>
+                        </nav>
                     </div>
+
+                    <!-- Contact & CTA Card -->
+                    <div class="bg-gradient-to-br from-slate-900 to-blue-950 rounded-3xl p-6 text-white shadow-lg border border-slate-800">
+                        <span class="text-xs uppercase font-bold tracking-wider text-amber-400">Penerimaan Mahasiswa</span>
+                        <h4 class="text-lg font-bold mt-1">Siap Bergabung dengan PBJT?</h4>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">Pendaftaran mahasiswa baru dibuka dengan berbagai pilihan jalur beasiswa KIP Kuliah dan reguler.</p>
+                        <div class="mt-4 flex flex-col gap-2">
+                            <a href="/pmb" class="inline-flex justify-center items-center py-2.5 px-4 bg-primary hover:bg-blue-600 text-white font-semibold rounded-xl text-sm transition-all shadow-md">
+                                Daftar PMB Online
+                            </a>
+                            <a href="/alur-pendaftaran" class="inline-flex justify-center items-center py-2 px-4 bg-white/10 hover:bg-white/20 text-slate-200 font-medium rounded-xl text-xs transition-all">
+                                Lihat Alur Pendaftaran
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Column: Main Content (8 Kolom) -->
+                <div class="lg:col-span-8 space-y-12">
+                    
+                    <!-- SECTION 1: PROFIL TENTANG POLITEKNIK BAJA TEGAL -->
+                    <section id="tentang-kampus" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-blue-600 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Profil Tentang Politeknik Baja Tegal</h2>
+                        </div>
+                        
+                        <div class="text-slate-700 text-base md:text-lg leading-relaxed space-y-5 text-justify">
+                            <p class="first-letter:text-5xl first-letter:font-extrabold first-letter:text-primary first-letter:mr-3 first-letter:float-left">
+                                <strong class="text-slate-900">Politeknik Baja Tegal</strong> adalah perguruan tinggi swasta yang berlokasi di wilayah Kabupaten Tegal tepatnya di Kecamatan Dukuhwaru. Alamat Politeknik Baja Tegal adalah di <strong class="text-slate-900">Jl. Raya Slawi – Jatibarang, km. 4 Dukuhwaru</strong>.
+                            </p>
+                            <p>
+                                Politeknik Baja Tegal berdiri tahun <strong class="text-slate-900 font-bold">2014</strong> yang dilegalkan melalui surat keputusan Mendiknas <strong class="text-blue-700 font-semibold">No. 579/E/O/2014</strong> tentang Izin Operasional Pendirian Politeknik Baja Tegal.
+                            </p>
+                            <p>
+                                Politeknik Baja Tegal memiliki 4 prodi unggulan yaitu:
+                            </p>
+                            
+                            <!-- 4 Prodi Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                    <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0 shadow-sm">1</span>
+                                    <span class="font-semibold text-slate-800 text-sm md:text-base">D3 Teknik Informatika</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                    <span class="w-8 h-8 rounded-xl bg-cyan-600 text-white font-bold flex items-center justify-center text-sm shrink-0 shadow-sm">2</span>
+                                    <span class="font-semibold text-slate-800 text-sm md:text-base">D3 Teknik Otomotif</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                    <span class="w-8 h-8 rounded-xl bg-teal-600 text-white font-bold flex items-center justify-center text-sm shrink-0 shadow-sm">3</span>
+                                    <span class="font-semibold text-slate-800 text-sm md:text-base">D3 Teknik Elektronika Industri</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                                    <span class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold flex items-center justify-center text-sm shrink-0 shadow-sm">4</span>
+                                    <span class="font-semibold text-slate-800 text-sm md:text-base">D3 Teknik Mesin</span>
+                                </div>
+                            </div>
+
+                            <p class="pt-3">
+                                Masing – masing Program Studi telah mendapatkan pengakuan akreditasi program studi dari BAN-PT:
+                            </p>
+
+                            <!-- Status Akreditasi BAN-PT -->
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-sm">
+                                    <span class="font-semibold text-slate-800">1. D3 Teknik Informatika</span>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white uppercase tracking-wider">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        Terakreditasi BAIK
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-sm">
+                                    <span class="font-semibold text-slate-800">2. D3 Teknik Otomotif</span>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white uppercase tracking-wider">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        Terakreditasi BAIK
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-sm">
+                                    <span class="font-semibold text-slate-800">3. D3 Teknik Elektronika Industri</span>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-600 text-white uppercase tracking-wider">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        Terakreditasi BAIK proses
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-sm">
+                                    <span class="font-semibold text-slate-800">4. D3 Teknik Mesin</span>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white uppercase tracking-wider">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        Terakreditasi BAIK
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p class="pt-2">
+                                Politeknik Baja Tegal berada di bawah naungan <strong class="text-slate-900 font-bold">Yayasan Pendidikan Bhakti Praja Tegal</strong>. Yayasan Pendidikan Bhakti Praja Tegal adalah yayasan pendidikan yang didirikan pada tanggal <strong class="text-slate-900">18 Agustus 1985</strong> dan telah memiliki 10 buah SMK, dan 3 buah SMP.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 2: SEJARAH POLITEKNIK BAJA TEGAL & YAYASAN -->
+                    <section id="sejarah-kampus" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-indigo-600 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Sejarah Politeknik Baja Tegal</h2>
+                        </div>
+                        
+                        <div class="text-slate-700 text-base md:text-lg leading-relaxed space-y-6 text-justify">
+                            <div class="p-5 rounded-2xl bg-indigo-50/60 border border-indigo-100 font-semibold text-indigo-900 flex items-center gap-3">
+                                <svg class="w-6 h-6 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                <span>Mengenal Yayasan Pendidikan Bhakti Praja Tegal</span>
+                            </div>
+
+                            <p>
+                                <span class="font-bold text-slate-900">a.</span> Yayasan Pendidikan Bhakti Praja Tegal berdiri sejak tanggal <strong class="text-slate-900">11 Maret 1985</strong>, disyahkan oleh Akta Notaris Ratna Sintawati Tantu Djojo, SH. nomor 26 tanggal 11 Maret 1985.
+                            </p>
+
+                            <p>
+                                Selanjutnya dasar hukum Yayasan Pendidikan Bhakti Praja Tegal bahwa setiap 5 tahun sekali diadakan perubahan personil Pengurus dikarenakan mengundurkan diri atau meninggal dunia. Dengan adanya Undang-Undang RI nomor 16 tahun 2001 Tentang Yayasan dan Undang-Undang RI nomor 28 tahun 2004 Tentang Perubahan Atas Undang-Undang RI nomor 16 tahun 2001 Tentang Yayasan, dan sebagai petunjuk operasional Undang-Undang tersebut terbitlah Peraturan Pemerintah nomor 2 tahun 2013 Tentang Perubahan Atas Peraturan Pemerintah nomor 63 tahun 2008 Tentang Pelaksanaan Undang-Undang Tentang Yayasan.
+                            </p>
+
+                            <p>
+                                Sehubungan dengan adanya Undang-Undang tersebut dan aturan pelaksanaan Undang-Undang RI dimaksud, maka Yayasan Pendidikan Bhakti Praja Tegal juga mengikuti perubahan aturan yang berlaku, oleh karena itu pada tahun 2008 Pengurus Yayasan Pendidikan Bhakti Praja Tegal mengajukan perubahan susunan Pengurus meliputi :
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 my-4">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Organ Yayasan 1</span>
+                                    <h4 class="font-bold text-slate-800 text-sm mt-1">Pembina Yayasan</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Ketua dan 2 anggota</p>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Organ Yayasan 2</span>
+                                    <h4 class="font-bold text-slate-800 text-sm mt-1">Pengurus Yayasan</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Ketua, Wakil Ketua, Sekretaris dan Bendahara</p>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Organ Yayasan 3</span>
+                                    <h4 class="font-bold text-slate-800 text-sm mt-1">Pengawas Yayasan</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Ketua dan 2 anggota</p>
+                                </div>
+                            </div>
+
+                            <p>
+                                Sehingga susunan Pengurus telah sesuai Undang-Undang Yayasan yang berlaku, dimana dalam dasar hukum Yayasan telah disyahkan oleh Menteri Hukum dan Hak Azazi Manusia RI <strong class="text-slate-900 font-semibold">Nomor SK.AHU 2973.AH 01.02 Tahun 2008 Tanggal 7 Juli 2008</strong>.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 3: SEKOLAH BINAAN YAYASAN -->
+                    <section id="sekolah-binaan" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-sky-600 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Lembaga Sekolah Naungan Yayasan</h2>
+                        </div>
+                        
+                        <div class="text-slate-700 text-base md:text-lg leading-relaxed space-y-6 text-justify">
+                            <p>
+                                <span class="font-bold text-slate-900">b.</span> Yayasan Pendidikan Bhakti Praja Tegal selama ini dalam operasionalnya mengelola dan memiliki lembaga pendidikan/sekolah TK, SMP, SMA dan SMK Bhakti Praja yang lokasinya tersebar di wilayah Kabupaten Tegal, antara lain :
+                            </p>
+
+                            <!-- Daftar 11 Sekolah Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">1</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMK Bhakti Praja Dukuhwaru</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Dukuhwaru</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">2</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMK Bhakti Praja Slawi</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Pangkah</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">3</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMK Bhakti Praja Talang</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Talang</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">4</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMK Bhakti Praja Adiwerna</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Adiwerna</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">5</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMK Bhakti Praja Margasari</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Margasari</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">6</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMK Bhakti Praja Suradadi</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Suradadi</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs shrink-0">7</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMA Bhakti Praja Adiwerna</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Adiwerna</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-teal-100 text-teal-700 font-bold flex items-center justify-center text-xs shrink-0">8</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMP Bhakti Praja Margasari</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Margasari</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-teal-100 text-teal-700 font-bold flex items-center justify-center text-xs shrink-0">9</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMP Bhakti Praja Kedungbanteng</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Kedungbanteng</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-lg bg-teal-100 text-teal-700 font-bold flex items-center justify-center text-xs shrink-0">10</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMP Bhakti Praja Pangkah</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Pangkah</div>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 md:col-span-2">
+                                    <span class="w-7 h-7 rounded-lg bg-teal-100 text-teal-700 font-bold flex items-center justify-center text-xs shrink-0">11</span>
+                                    <div>
+                                        <div class="font-semibold text-slate-800 text-sm">SMP Bhakti Praja Suradadi</div>
+                                        <div class="text-xs text-slate-500">di Kecamatan Suradadi</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="pt-2">
+                                Sekolah-sekolah tersebut diatas saat ini berjalan baik dan berkembang menjadi pilihan warga masyarakat menyekolahkan putra putrinya jika tidak diterima di sekolah negeri, pilihan kedua di sekolah Bhakti Praja banyak lulus dan SMA/SMK Bhakti Praja yang diterima bekerja di perusahaan, PNS, TKI, wirausaha, dan yang melanjutkan ke perguruan tinggi. Namun Yayasan belum memiliki sebuah perguruan tinggi sebagai penampungan lulusan SMA dan SMK Bahkti Praja.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 4: SUSUNAN PENGURUS YAYASAN -->
+                    <section id="pengurus-yayasan" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-amber-500 rounded-full"></div>
+                            <div>
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Susunan Pengurus Yayasan</h2>
+                                <p class="text-sm text-slate-500 mt-0.5">Yayasan Pendidikan Bhakti Praja Tegal Periode Tahun 2018 s/d 2023</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-slate-700 text-base md:text-lg mb-6">
+                            <span class="font-bold text-slate-900">c.</span> Sedang susunan Pengurus Yayasan Pendidikan Bhakti Praja Tegal periode tahun 2018 s/d 2023 adalah sebagai berikut :
+                        </p>
+
+                        <!-- Executive Responsive Table & Cards -->
+                        <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+                            <table class="w-full text-left border-collapse min-w-[500px]">
+                                <thead>
+                                    <tr class="bg-slate-100/80 border-b border-slate-200 text-slate-700 text-xs uppercase tracking-wider font-bold">
+                                        <th class="py-3.5 px-5">Struktur Organ</th>
+                                        <th class="py-3.5 px-5">Jabatan</th>
+                                        <th class="py-3.5 px-5">Nama Pejabat</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 text-sm md:text-base text-slate-800">
+                                    <!-- Pembina -->
+                                    <tr class="hover:bg-blue-50/50 transition-colors bg-white">
+                                        <td class="py-3.5 px-5 font-bold text-blue-700" rowspan="2">Pembina</td>
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Ketua</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Drs. Sunyoto, MM.</td>
+                                    </tr>
+                                    <tr class="hover:bg-blue-50/50 transition-colors bg-white">
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Anggota</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Drs. H. Sartono, MM.</td>
+                                    </tr>
+
+                                    <!-- Pengurus -->
+                                    <tr class="hover:bg-indigo-50/50 transition-colors bg-slate-50/50">
+                                        <td class="py-3.5 px-5 font-bold text-indigo-700" rowspan="4">Pengurus</td>
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Ketua</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Ir. H. Suhartono, MM.</td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50 transition-colors bg-slate-50/50">
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Wakil Ketua</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Drs. H. Bahrudin</td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50 transition-colors bg-slate-50/50">
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Sekretaris</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">H. Bambang Pranowo, M.Pd</td>
+                                    </tr>
+                                    <tr class="hover:bg-indigo-50/50 transition-colors bg-slate-50/50">
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Bendahara</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Sudori, SE</td>
+                                    </tr>
+
+                                    <!-- Pengawas -->
+                                    <tr class="hover:bg-teal-50/50 transition-colors bg-white">
+                                        <td class="py-3.5 px-5 font-bold text-teal-700" rowspan="3">Pengawas</td>
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Ketua</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Drs. H. Nurcholis BM</td>
+                                    </tr>
+                                    <tr class="hover:bg-teal-50/50 transition-colors bg-white">
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Anggota</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Drs. Marwanto, MM.</td>
+                                    </tr>
+                                    <tr class="hover:bg-teal-50/50 transition-colors bg-white">
+                                        <td class="py-3.5 px-5 font-medium text-slate-600">Anggota</td>
+                                        <td class="py-3.5 px-5 font-semibold text-slate-900">Drs. H. Agus Subagyo, MM.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 5: BIODATA, LEGALITAS HUKUM & LANDASAN OPERASIONAL -->
+                    <section id="biodata-legalitas" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-emerald-500 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Biodata & Legalitas Yayasan</h2>
+                        </div>
+                        
+                        <div class="space-y-6 text-slate-700 text-base md:text-lg leading-relaxed text-justify">
+                            <p class="font-bold text-slate-900">
+                                d. Biodata Yayasan Pendidikan Bhakti Praja Tegal
+                            </p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="text-xs font-bold uppercase text-slate-500">1. Nama Lembaga</span>
+                                    <p class="font-bold text-slate-900 text-sm mt-1">Yayasan Pendidikan Bhakti Praja Tegal</p>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="text-xs font-bold uppercase text-slate-500">2. Alamat</span>
+                                    <p class="font-medium text-slate-900 text-sm mt-1">Jl. Jend. A. Yani No. 54 Procot, Slawi</p>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="text-xs font-bold uppercase text-slate-500">3. Email Resmi</span>
+                                    <p class="mt-1">
+                                        <a href="mailto:ypbptegal@gmail.com" class="text-primary hover:underline font-semibold text-sm">ypbptegal@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">4. Legalitas Hukum</h4>
+                                <p class="text-sm md:text-base leading-relaxed text-slate-700">
+                                    Akta Notaris Suradi, SH. Nomor 29 tanggal 16 Juni 2008 yang telah disahkan oleh SK Menkumham Nomor SK.AHU 2973.AH 01.02 Tahun 2008 tanggal 7 Juli 2008. Terakhir diperbaharui Akta Notaris Endang Widiyastuti, SH., M.Kn. Nomor 3 tanggal 17 Oktober 2018 yang telah disyahkan Kemenkumham RI Nomor AHU-AH.01.06-0011739 tanggal 25 Oktober 2018.
+                                </p>
+                            </div>
+
+                            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">5. Landasan Operasional Yayasan :</h4>
+                                <ul class="space-y-2 text-sm md:text-base text-slate-700">
+                                    <li class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span><strong>a.</strong> AD/ART Yayasan.</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span><strong>b.</strong> Statuta Penyelenggara Pendidikan Yayasan Pendidikan Bhakti Praja Tegal.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 6: VISI & MISI -->
+                    <section id="visi-misi" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-teal-500 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Visi & Misi</h2>
+                        </div>
+                        
+                        <!-- Box Visi Highlight -->
+                        <div class="bg-gradient-to-br from-blue-900 via-slate-900 to-indigo-950 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden mb-8">
+                            <div class="absolute -right-8 -top-8 w-40 h-40 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                            <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 mb-3">Visi Institusi</span>
+                            <h3 class="text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed text-slate-100">
+                                “Menjadi Pendidikan Tinggi Vokasi untuk menghasilkan lulusan yang beriman, bertaqwa, trampil, beretos kerja tinggi dan berdaya saing global.”
+                            </h3>
+                        </div>
+
+                        <!-- Box Misi -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-2 font-bold text-slate-900 text-lg">
+                                <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                <h3>MISI Politeknik Baja Tegal</h3>
+                            </div>
+                            <p class="text-slate-600 text-sm">Misi Politeknik Baja Tegal adalah:</p>
+
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0 shadow-sm">1</span>
+                                    <p class="text-slate-700 text-base leading-relaxed pt-0.5">
+                                        Memberikan kesempatan belajar seluas-luasnya bagi masyarakat kabupaten Tegal dan dari luar kabupaten Tegal.
+                                    </p>
+                                </div>
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0 shadow-sm">2</span>
+                                    <p class="text-slate-700 text-base leading-relaxed pt-0.5">
+                                        Meningkatkan kualitas sumber daya manusia yang berwawasan iman dan taqwa, ilmu pengetahuan dan teknologi.
+                                    </p>
+                                </div>
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center text-sm shrink-0 shadow-sm">3</span>
+                                    <p class="text-slate-700 text-base leading-relaxed pt-0.5">
+                                        Menyiapkan tenaga profesional yang terlatih dan berdaya saing global.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 7: TUJUAN STRATEGIS -->
+                    <section id="tujuan-strategis" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-cyan-500 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Tujuan Strategis</h2>
+                        </div>
+                        
+                        <p class="text-slate-700 text-base md:text-lg leading-relaxed text-justify mb-6">
+                            Semangat mewujudkan visi dan misi memerlukan kejelasan arah tujuan pengembangan, peningkatan kapasitas dan penguatan program serta kegiatan. Tujuan ini akan menjadi outcome dari pelaksanaan tugas dan fungsi tridharma perguruan tinggi dalam penyelenggaraan Politeknik Baja Tegal, yang dirumuskan sebagai berikut:
+                        </p>
+
+                        <!-- 8 Tujuan Grid -->
+                        <div class="space-y-3.5">
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">1</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terselenggaranya proses peningkatan mutu pendidikan dan pengajaran yang didukung fasilitas akademik yang dapat dijadikan andalan proyeksi perkembangan jangka pendek, jangka menengah dan jangka panjang.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">2</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terselenggaranya bentuk penelitian terapan yang bemutu dan bermanfaat untuk meningkatkan produktivitas dalam proses produksi, perkembangan teknologi dan ilmu pengetahuan.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">3</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terselenggaranya bentuk Pengabdian Kepada Masyarakat yang bermanfaat secara langsung dan dapat meningkatkan kesejahteraan masyarakat.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">4</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terselenggaranya program peningkatan mutu dan pengembangan sumber daya manusia melalui peningkatan pendidikan formal/non formal, pengetahuan umum dan pengalaman lapangan, dalam rangka menghasilkan lulusan yang relevan dengan kebutuhan masyarakat dan industri, serta tuntutan pasar global.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">5</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terselenggaranya pengembangan di bidang teknologi dan penelitian terapan, serta keunggulan keterampilan, serta kerjasama dengan industri/lembaga pemerintah maupun swasta dari dalam negeri dan luar negeri.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">6</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terselenggaranya Sistem Informasi Manajemen (SIM) yang berorientasi kepada otonomi Perguruan Tinggi.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">7</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terciptanya sistem pendidikan yang terbuka dan dinamis, serta budaya kerja perusahaan yang inovatif berdasarkan perkembangan industri, ilmu pengetahuan dan teknologi.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-300 transition-all shadow-sm">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shrink-0">8</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Terciptanya struktur organisasi yang dinamis, efektif dan efisien disesuaikan dengan tuntutan perkembangan Politeknik.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 8: SASARAN STRATEGIS -->
+                    <section id="sasaran-strategis" class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-2.5 h-8 bg-purple-600 rounded-full"></div>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Sasaran Strategis</h2>
+                        </div>
+                        
+                        <p class="text-slate-700 text-base md:text-lg leading-relaxed text-justify mb-6">
+                            Politeknik Baja Tegal sebagai penyelenggara pendidikan tinggi vokasi menetapkan sasaran strategis sebagai penjabaran dari tujuan strategis khususnya dalam bidang teknologi, ekonomi dan bisnis, yaitu:
+                        </p>
+
+                        <!-- 5 Sasaran Cards -->
+                        <div class="space-y-3.5">
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-purple-50/50 hover:bg-purple-50 border border-purple-100 transition-all">
+                                <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center text-sm shrink-0">1</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Meningkatnya kualitas lulusan berbasis kompetensi, pengembangan program pembelajaran, program studi baru serta daya saing di tingkat nasional dan atau internasional.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-purple-50/50 hover:bg-purple-50 border border-purple-100 transition-all">
+                                <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center text-sm shrink-0">2</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Meningkatnya publikasi karya ilmiah dan karya kreatif-inovatif sivitas akademika.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-purple-50/50 hover:bg-purple-50 border border-purple-100 transition-all">
+                                <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center text-sm shrink-0">3</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Meningkatnya aktivitas berbasis rencana strategis dan jumlah mitra yang memanfaatkan karya kreatif-inovatif sivitas akademika.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-purple-50/50 hover:bg-purple-50 border border-purple-100 transition-all">
+                                <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center text-sm shrink-0">4</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Meningkatnya kualitas layanan berbasis evaluasi bidang akademik dan non-akademik secara berkelanjutan.
+                                </p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-purple-50/50 hover:bg-purple-50 border border-purple-100 transition-all">
+                                <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold flex items-center justify-center text-sm shrink-0">5</span>
+                                <p class="text-slate-700 text-sm md:text-base leading-relaxed pt-0.5">
+                                    Meningkatnya kepakaran dan peran dosen terhadap pemangku kepentingan (stakeholders).
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
                 </div>
-            ) : (
-                <!-- Error State -->
-                <div id="profil-error" class="text-center py-20 bg-red-50 rounded-3xl border border-red-100 shadow-sm">
-                    <svg class="w-16 h-16 text-red-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                    <h3 class="text-2xl font-bold text-red-600 mb-2">Oops! Gagal Memuat Data</h3>
-                    <p class="text-red-500/80">Halaman belum tersedia atau belum dibuat.</p>
-                </div>
-            )}
+            </div>
         </div>
     </main>
-
-    <!-- CSS Override Premium untuk WordPress HTML -->
-    <style is:global>
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 
-        ==================================================
-        PROFIL CUSTOM PROSE - DANDANAN HTML WORDPRESS
-        ================================================== 
-        */
-        .profil-custom-prose {
-            font-family: inherit;
-            color: #334155;
-            line-height: 1.8;
-            font-size: 1.125rem;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        /* ----- HEADINGS (H2, H3) ----- */
-        .profil-custom-prose h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #0f172a !important; /* Timpa style warna bawaan WP */
-            text-align: left !important;
-            margin-top: 3.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        /* Garis bawah biru elegan untuk H2 */
-        .profil-custom-prose h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #2563eb, #06b6d4);
-            border-radius: 2px;
-        }
-
-        .profil-custom-prose h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* ----- PARAGRAPHS ----- */
-        .profil-custom-prose p {
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        /* Menyoroti paragraf pertama sebagai Lead/Intro */
-        .profil-custom-prose > p:first-of-type {
-            font-size: 1.25rem;
-            color: #475569;
-            line-height: 1.9;
-            font-weight: 500;
-        }
-
-        /* ----- LISTS (Visi, Misi, Tujuan) ----- */
-        .profil-custom-prose ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .profil-custom-prose ul > li {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 1rem;
-            background: #f8fafc;
-            padding: 1rem 1rem 1rem 3rem;
-            border-radius: 0.75rem;
-            border: 1px solid #f1f5f9;
-            transition: all 0.3s ease;
-        }
-        
-        .profil-custom-prose ul > li:hover {
-            background: #fff;
-            border-color: #bfdbfe;
-            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
-        }
-
-        /* Ikon Centang Custom untuk Bullet */
-        .profil-custom-prose ul > li::before {
-            content: "✓";
-            position: absolute;
-            left: 1rem;
-            top: 1.1rem;
-            color: #3b82f6;
-            font-weight: 900;
-        }
-
-        .profil-custom-prose ol {
-            list-style: none;
-            counter-reset: custom-counter;
-            padding-left: 0;
-            margin-top: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .profil-custom-prose ol > li {
-            position: relative;
-            padding-left: 3.5rem;
-            margin-bottom: 1rem;
-            background: #ffffff;
-            padding: 1.25rem 1.25rem 1.25rem 4rem;
-            border-radius: 1rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .profil-custom-prose ol > li:hover {
-            border-color: #93c5fd;
-            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Angka di dalam lingkaran biru (Badge) */
-        .profil-custom-prose ol > li::before {
-            counter-increment: custom-counter;
-            content: counter(custom-counter);
-            position: absolute;
-            left: 1.25rem;
-            top: 1.25rem;
-            width: 2rem;
-            height: 2rem;
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.875rem;
-            font-weight: 800;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
-        }
-
-        /* ----- TABEL (Struktur Yayasan dll) ----- */
-        .profil-custom-prose figure.wp-block-table {
-            margin: 3rem 0;
-            overflow-x: auto;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e2e8f0;
-        }
-
-        .profil-custom-prose table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            background: #ffffff;
-            min-width: 600px;
-        }
-
-        .profil-custom-prose th,
-        .profil-custom-prose td {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        /* Gaya Khusus Header Tabel jika ada */
-        .profil-custom-prose thead th {
-            background-color: #f8fafc;
-            font-weight: 700;
-            color: #1e293b;
-            text-transform: uppercase;
-            font-size: 0.875rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Zebra striping untuk Baris */
-        .profil-custom-prose tbody tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-        
-        .profil-custom-prose tbody tr:hover {
-            background-color: #f0f9ff;
-        }
-
-        .profil-custom-prose td:first-child {
-            font-weight: 600;
-            color: #0f172a;
-            width: 25%;
-        }
-
-        /* ----- SEPARATOR (HR) ----- */
-        .profil-custom-prose hr {
-            display: none; /* Sembunyikan garis bawaan WP karena H2 kita sudah punya garis bawah */
-        }
-        
-        .profil-custom-prose .wp-block-spacer {
-            height: 2rem !important; /* Normalisasi spacer raksasa dari WP */
-        }
-        
-        /* Highlight teks penting / bold */
-        .profil-custom-prose strong {
-            color: #0f172a;
-            font-weight: 700;
-        }
-    </style>
 </MainLayout>

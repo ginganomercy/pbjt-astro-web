@@ -1,0 +1,438 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const baakStaff = [
+    {
+        nama: "Meita Sarah Sati, S.Pd.",
+        jabatan: "Ka. BAAK",
+        role: "Kepala Bagian Administrasi Akademik & Kemahasiswaan",
+        foto: "/image/foto-dosen/default-avatar.svg",
+        isLeader: true,
+    },
+    {
+        nama: "Adinda Dwi Risky Aryaninda, A.Md.Kom",
+        jabatan: "Staff BAAK",
+        role: "Staf Administrasi Akademik & Sistem Informasi",
+        foto: "/image/foto-dosen/default-avatar.svg",
+        isLeader: false,
+    },
+    {
+        nama: "Agnes Safitri, A.Md.Kom",
+        jabatan: "Staff BAAK",
+        role: "Staf Kemahasiswaan & Layanan Perkuliahan",
+        foto: "/image/foto-dosen/default-avatar.svg",
+        isLeader: false,
+    }
+];
+
+const baukStaff = [
+    {
+        nama: "Ismi K., M.Pd.",
+        fullName: "Ismi Kusumaningroem, M.Pd.",
+        jabatan: "Ka. BAUK",
+        role: "Kepala Bagian Administrasi Umum & Keuangan",
+        foto: "/image/foto-dosen/ismi-kusumaningroem-m-pd.webp",
+        isLeader: true,
+    }
+];
+
+const baakTugas = [
+    "Bagian Administrasi Akdemik, Kemahasiswaan, Perencanaan dan Sistem Informasi mempunyai tugas memberikan layanan di bidang administrasi akademik, kemahasiswaan, perencanaan dan sistem informasi di lingkungan Politeknik Baja Tegal.",
+    "Bagian Administrasi Akademik, Kemahasiswaan, Perencanaan dan Sistem Informasi dipimpin oleh seorang kepala yang diangkat diantara tenaga administrasi di lingkungan Politeknik Baja Tegal oleh Direktur.",
+    "Dalam melaksanakan tugas sehari-hari Kepala Bagian Administrasi Akademik, Kemahasiswaan, Perencanaan dan Sistem Informasi bertanggung jawab langsung kepada Direktur dan pembinaannya dilakukan oleh Wakil direktur I.",
+    "Kepala Bagian Administrasi Akademik, Kemahasiswaan, Perencanaan dan Sistem Informasi diangkat dan diberhentikan oleh Direktur, dengan masa tugas jabatan 4 (empat) tahun dan dapat diangkat kembali, dengan ketentuan tidak boleh lebih dari dua kali masa jabatan berturut-turut.",
+    "Ketentuan lain mengenai Kepala Bagian Administrasi Akademik, Kemahasiswaan, Perencanaan dan Sistem Informasi diatur oleh Direktur"
+];
+
+const baakFungsi = [
+    {
+        title: "Administrasi Akademik",
+        desc: "Melaksanakan administrasi akademik secara terpadu meliputi registrasi, jadwal, kurikulum, dan nilai."
+    },
+    {
+        title: "Administrasi Kemahasiswaan",
+        desc: "Melaksanakan administrasi kemahasiswaan, kegiatan ormawa, beasiswa KIP Kuliah, dan prestasi mahasiswa."
+    },
+    {
+        title: "Perencanaan & SI",
+        desc: "Melaksanakan administrasi perencanaan program institusi dan pengelolaan sistem informasi akademik kampus."
+    }
+];
+
+const baukTugas = [
+    "Bagian Administrasi Umum, Keuangan dan Kepegawaian mempunyai tugas memberikan layanan di bidang administrasi ketatausahaan, kerumahtanggaan, perlengkapan dan kepegawaian di lingkungan Politeknik Baja Tegal.",
+    "Bagian Administrasi Umum, Keuangan dan Kepegawaian dipimpin langsung oleh seorang Kepala yang diangkat diantara tenaga administrasi di lingkungan Politeknik Baja Tegal oleh Direktur.",
+    "Dalam melaksanakan tugas sehari-hari Kepala Bagian Administrasi Umum, Keuangan dan Kepegawaian bertangung jawab langsung kepada Direktur dan pembinaannya dilakukan oleh Wakil direktur II",
+    "Kepala Bagian Administrasi Umum, Keuangan dan Kepegawaian diangkat dan diberhentikan oleh Direktur dengan masa tugas jabatan 4 (empat) tahun dan dapat diangkat kembali dengan ketentuan tidak lebih dari dua kali masa jabatan berturut-turut.",
+    "Ketentuan lain mengenai Kepala Bagian Administrasi Umum, Keuangan dan Kepegawaian diatur oleh Direktur."
+];
+
+const baukFungsi = [
+    {
+        title: "Administrasi Umum",
+        desc: "Melaksanakan administrasi umum dan tata kelola sarana prasarana institusi."
+    },
+    {
+        title: "Administrasi Keuangan",
+        desc: "Melaksanakan pengelolaan anggaran, pembukuan, dan pembayaran administrasi perkuliahan."
+    },
+    {
+        title: "Administrasi Kepegawaian",
+        desc: "Melaksanakan pembinaan SDM dosen dan tenaga kependidikan secara berkelanjutan."
+    }
+];
+
+const baukSubbagian = [
+    {
+        title: "Sub bagian Umum",
+        tugas: "mempunyai tugas melakukan administrasi surat menyurat, kearsipan, kerumahtanggaan, perlengkapan, ketatalaksanaan dan hubungan masyarakat.",
+        color: "bg-blue-50 border-blue-200 text-blue-700"
+    },
+    {
+        title: "Sub bagian Keuangan",
+        tugas: "mempunyai tugas melakukan administrasi keuangan.",
+        color: "bg-emerald-50 border-emerald-200 text-emerald-700"
+    },
+    {
+        title: "Sub bagian Kepegawaian",
+        tugas: "mempunyai tugas melakukan administrasi kepegawaian.",
+        color: "bg-indigo-50 border-indigo-200 text-indigo-700"
+    }
+];
+
+const subbagianRules = [
+    "Sub bagian Umum, Sub bagian Keuangan dan Sub bagian Kepegawaian dipimpin langsung oleh seorang Kepala yang diangkat diantara tenaga administrasi di lingkungan Politeknik Baja Tegal oleh Direktur.",
+    "Dalam melaksanakan tugas sehari-hari masing-masing Kepala Sub Bagian bertanggung jawab langsung kepada atasan langsung.",
+    "Masing-masing Kepala Sub Bagian diangkat dan diberhentikan oleh Direktur, dengan masa tugas jabatan 4 (empat) tahun dan dapat diangkat kembali dengan ketentuan tidak lebih dari dua kali masa jabatan berturut-turut.",
+    "Ketentuan lain mengenai Kepala Sub Bagian Umum, sub bagian Keuangan dan sub bagian Kepegawaian diatur oleh Direktur."
+];
+---
+
+<MainLayout title="Biro Politeknik Baja Tegal - BAAK & BAUK">
+    
+    <!-- Hero Banner -->
+    <section class="relative pt-32 pb-24 lg:pt-36 lg:pb-28 overflow-hidden bg-slate-900">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px]"></div>
+            <div class="absolute bottom-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-teal-500/15 blur-[100px]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <span class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 font-semibold text-xs md:text-sm tracking-wider uppercase mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                Pusat Pelayanan & Tata Usaha
+            </span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
+                Biro Administrasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300">PBJT</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+                Unit pelaksana teknis penyelenggara administrasi akademik, pembinaan kemahasiswaan, tata laksana umum, keuangan, serta kepegawaian Politeknik Baja Tegal.
+            </p>
+
+            <!-- Dual Tab Shortcut Bar -->
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="#baak" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm backdrop-blur-md transition-all shadow-md hover:scale-105">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                    <span>BAAK (Akademik & Kemahasiswaan)</span>
+                </a>
+                <a href="#bauk" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm backdrop-blur-md transition-all shadow-md hover:scale-105">
+                    <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+                    <span>BAUK (Umum, Keuangan & Kepegawaian)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Area -->
+    <main class="relative bg-slate-50 min-h-screen py-16 -mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            
+            <!-- Breadcrumbs -->
+            <nav class="flex text-sm text-slate-500" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="/" class="hover:text-primary transition-colors flex items-center gap-1.5 font-medium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            Beranda
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-slate-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span class="text-slate-400">Tata Pamong</span>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-slate-400 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            <span class="text-slate-800 font-semibold">Biro (BAAK & BAUK)</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- ========================================== -->
+            <!-- 1. BAAK SECTION                            -->
+            <!-- ========================================== -->
+            <section id="baak" class="bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-100">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">Biro 01</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+                            BAAK
+                        </h2>
+                        <p class="text-base font-semibold text-blue-700 mt-1">
+                            (BIRO ADMINISTRASI AKADEMIK DAN KEMAHASISWAAN)
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-slate-50 text-slate-600 rounded-xl border border-slate-200">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        <span>Pembinaan oleh Wakil Direktur I</span>
+                    </div>
+                </div>
+
+                <!-- Personalia BAAK Grid -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                        <span>Personalia Jajaran BAAK</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {baakStaff.map((staff) => (
+                            <div class={`p-6 rounded-2xl border transition-all duration-300 ${staff.isLeader ? 'bg-gradient-to-br from-blue-50/70 to-white border-blue-200 shadow-sm' : 'bg-slate-50/60 border-slate-200'}`}>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <img 
+                                        src={staff.foto} 
+                                        alt={staff.nama}
+                                        class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm shrink-0" 
+                                    />
+                                    <div>
+                                        <span class={`inline-block text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${staff.isLeader ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-700'}`}>
+                                            {staff.jabatan}
+                                        </span>
+                                        <h4 class="font-extrabold text-slate-900 text-base mt-1">
+                                            {staff.nama}
+                                        </h4>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+                                    {staff.role}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- 3 Fungsi Utama BAAK -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                        <span>Fungsi Bagian Administrasi Akademik, Kemahasiswaan, Perencanaan dan Sistem Informasi</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {baakFungsi.map((item, idx) => (
+                            <div class="p-5 rounded-2xl bg-blue-50/50 border border-blue-100">
+                                <span class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-xs mb-3 shadow-xs">
+                                    {idx + 1}
+                                </span>
+                                <h4 class="font-bold text-slate-900 text-sm mb-1">{item.title}</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Tugas Pokok BAAK (5 Poin Sesuai Asli) -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                        <span>Tugas Pokok dan Ketentuan Jabatan BAAK</span>
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        {baakTugas.map((tugas, idx) => (
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-blue-200 transition-all">
+                                <span class="w-7 h-7 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                    {idx + 1}
+                                </span>
+                                <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                    {tugas}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ========================================== -->
+            <!-- 2. BAUK SECTION                            -->
+            <!-- ========================================== -->
+            <section id="bauk" class="bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 scroll-mt-28">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-100">
+                    <div>
+                        <span class="text-xs font-extrabold uppercase tracking-widest text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">Biro 02</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">
+                            BAUK
+                        </h2>
+                        <p class="text-base font-semibold text-teal-700 mt-1">
+                            (BIRO ADMINISTRASI UMUM DAN KEUANGAN)
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 bg-slate-50 text-slate-600 rounded-xl border border-slate-200">
+                        <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        <span>Pembinaan oleh Wakil Direktur II</span>
+                    </div>
+                </div>
+
+                <!-- Personalia BAUK Grid -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+                        <span>Personalia Jajaran BAUK</span>
+                    </h3>
+                    
+                    <div class="max-w-md">
+                        {baukStaff.map((staff) => (
+                            <div class="p-6 rounded-2xl bg-gradient-to-br from-teal-50/70 to-white border border-teal-200 shadow-sm">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <img 
+                                        src={staff.foto} 
+                                        alt={staff.nama}
+                                        onerror="this.onerror=null; this.src='/image/foto-dosen/default-avatar.svg';"
+                                        class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm shrink-0" 
+                                    />
+                                    <div>
+                                        <span class="inline-block text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-600 text-white">
+                                            {staff.jabatan}
+                                        </span>
+                                        <h4 class="font-extrabold text-slate-900 text-lg mt-1">
+                                            {staff.nama}
+                                        </h4>
+                                        <p class="text-xs text-slate-500 font-medium">{staff.fullName}</p>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                                    {staff.role}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- 3 Fungsi Utama BAUK -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+                        <span>Fungsi Bagian Administrasi Umum, Keuangan dan Kepegawaian :</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {baukFungsi.map((item, idx) => (
+                            <div class="p-5 rounded-2xl bg-teal-50/50 border border-teal-100">
+                                <span class="w-7 h-7 rounded-lg bg-teal-600 text-white font-bold flex items-center justify-center text-xs mb-3 shadow-xs">
+                                    {idx + 1}
+                                </span>
+                                <h4 class="font-bold text-slate-900 text-sm mb-1">{item.title}</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- 3 Subbagian BAUK -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+                        <span>Bagian Administrasi Umum, Keuangan dan Kepegawaian terdiri atas :</span>
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        {baukSubbagian.map((sub, idx) => (
+                            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                                <div class="flex items-center gap-2.5 mb-3">
+                                    <span class="w-6 h-6 rounded-md bg-slate-900 text-white font-bold flex items-center justify-center text-xs">
+                                        {idx + 1}
+                                    </span>
+                                    <h4 class="font-extrabold text-slate-900 text-base">{sub.title}</h4>
+                                </div>
+                                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                                    {sub.tugas}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Tugas Pokok BAUK (5 Poin Sesuai Asli) -->
+                <div class="mb-12">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+                        <span>Tugas Pokok dan Fungsi BAUK</span>
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        {baukTugas.map((tugas, idx) => (
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-teal-200 transition-all">
+                                <span class="w-7 h-7 rounded-xl bg-teal-600 text-white font-bold flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                    {idx + 1}
+                                </span>
+                                <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                    {tugas}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Ketentuan Subbagian BAUK (4 Poin Sesuai Asli) -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+                        <span>Ketentuan Pengangkatan & Tata Kerja Kepala Sub Bagian :</span>
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        {subbagianRules.map((rule, idx) => (
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-teal-200 transition-all">
+                                <span class="w-7 h-7 rounded-xl bg-slate-800 text-white font-bold flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                    {idx + 1}
+                                </span>
+                                <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                    {rule}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Quick Helpdesk & Info Box -->
+            <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-3xl p-8 md:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-2 text-center md:text-left">
+                    <span class="text-xs uppercase font-extrabold tracking-widest text-cyan-400">Pusat Layanan Mahasiswa</span>
+                    <h3 class="text-2xl md:text-3xl font-extrabold">Butuh Bantuan Administrasi Kampus?</h3>
+                    <p class="text-slate-300 text-sm max-w-xl">
+                        Pelayanan BAAK dan BAUK bertempat di Kampus Politeknik Baja Tegal, Jl. Raya Slawi - Jatibarang Km. 4 Dukuhwaru, Tegal. Senin – Jumat pada jam operasional kampus.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 shrink-0">
+                    <a href="https://wa.me/6287817441113" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl text-sm transition-all shadow-lg hover:scale-105">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+                        <span>WhatsApp Helpdesk</span>
+                    </a>
+                    <a href="/pmb" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold rounded-2xl text-sm transition-all">
+                        <span>Penerimaan Mahasiswa</span>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</MainLayout>
