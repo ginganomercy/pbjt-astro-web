@@ -3,7 +3,36 @@ import MainLayout from '../layouts/MainLayout.astro';
 import pagesData from '../data/pages.json';
 
 export async function getStaticPaths() {
-    return pagesData.map((page) => ({
+    const existingExplicitPages = new Set([
+        'akreditasi',
+        'alur-pendaftaran',
+        'beasiswa-kip-kuliah',
+        'biaya-perkuliahan',
+        'd3-teknik-elektronika-industri',
+        'd3-teknik-informatika',
+        'd3-teknik-mesin',
+        'd3-teknik-otomotif',
+        'mikrotik-academy',
+        'pmb',
+        'profil-politeknik-baja-tegal',
+        'dosen',
+        'berita',
+        'fasilitas',
+        'kegiatan-ukm',
+        'sample-page',
+        'beranda',
+    ]);
+
+    const validPages = pagesData.filter((page) => {
+        if (!page.slug) return false;
+        // Abaikan slug yang sudah dibuatkan file halaman statis tersendiri atau halaman sampah
+        if (existingExplicitPages.has(page.slug)) return false;
+        // Abaikan slug duplicate hasil import WordPress lama (*-2)
+        if (/-2$/.test(page.slug)) return false;
+        return true;
+    });
+
+    return validPages.map((page) => ({
         params: { slug: page.slug },
         props: { page }
     }));

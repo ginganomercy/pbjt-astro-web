@@ -60,7 +60,7 @@ import dosenList from '../../data/dosen.json';
                             <div class="bg-white rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 h-[420px] border border-slate-100 flex flex-col relative group-hover:-translate-y-2">
                                 <!-- Foto Dosen -->
                                 <div class="h-64 overflow-hidden relative bg-gradient-to-br from-slate-100 to-slate-200">
-                                    <img src={primaryImg} alt={dosen.title.rendered} class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 z-10" onerror={`this.onerror=null; this.src='/image/foto-dosen/${dosen.slug}.webp';`} />
+                                    <img src={primaryImg} alt={dosen.title.rendered} class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 z-10" onerror={`this.onerror=null; this.src='/image/foto-dosen/default-avatar.svg';`} />
                                     <!-- Gradient overlay for text legibility if needed later -->
                                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"></div>
                                 </div>

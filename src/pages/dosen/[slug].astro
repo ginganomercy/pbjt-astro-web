@@ -56,6 +56,7 @@ const imageUrl = mediaArray && mediaArray.length > 0
                             src={imageUrl} 
                             alt={title}
                             class="absolute inset-0 w-full h-full object-cover object-top"
+                            onerror="this.onerror=null; this.src='/image/foto-dosen/default-avatar.svg';"
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent md:hidden"></div>
                     </div>

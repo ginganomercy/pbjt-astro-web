@@ -33,7 +33,7 @@ try {
 
 // Pastikan selalu ada 9 slot terisi agar skeleton grid tidak rusak
 while (galleryImages.length < 9) {
-    galleryImages.push("/placeholder.jpg");
+    galleryImages.push("/image/placeholder-gallery.svg");
 }
 ---
 
@@ -104,7 +104,7 @@ while (galleryImages.length < 9) {
                         <h2 class="text-3xl font-bold text-primary-dark mb-8">Galeri Training MikroTik</h2>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                             {galleryImages.slice(0, 9).map((url, index) => (
-                                <img src={url} alt={`Galeri ${index + 1}`} class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.src='/placeholder.jpg'"/>
+                                <img src={url} alt={`Galeri ${index + 1}`} class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-300 shadow-sm border border-slate-100 cursor-pointer" onerror="this.onerror=null; this.src='/image/placeholder-gallery.svg';"/>
                             ))}
                         </div>
                     </div>

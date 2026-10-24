@@ -47,13 +47,12 @@ const formatFileName = (str) => {
     return str.replace(/-/g, ' ').replace(/\.pdf$/i, '').toUpperCase();
 };
 
-if (fs.existsSync(baseDir) && prodi !== 'd3-teknik-informatika') {
+if (fs.existsSync(baseDir)) {
     const items = fs.readdirSync(baseDir);
     if (items.length > 0) {
-        isEmpty = false;
-        
         if (dokumen === 'rps') {
             const terms = ['ganjil', 'genap'];
+            let totalFiles = 0;
             terms.forEach(term => {
                 const termDir = path.join(baseDir, term);
                 if (fs.existsSync(termDir)) {
@@ -64,7 +63,8 @@ if (fs.existsSync(baseDir) && prodi !== 'd3-teknik-informatika') {
                     semesters.forEach(sem => {
                         const semDir = path.join(termDir, sem);
                         const files = fs.readdirSync(semDir).filter(f => f.endsWith('.pdf'));
-                        if(files.length > 0) {
+                        if (files.length > 0) {
+                            totalFiles += files.length;
                             fileStructure[term][sem] = files.map(f => ({
                                 name: formatFileName(f),
                                 url: encodeURI(`/dokumen/${prodi}/rps/${term}/${sem}/${f}`)
@@ -73,12 +73,16 @@ if (fs.existsSync(baseDir) && prodi !== 'd3-teknik-informatika') {
                     });
                 }
             });
+            isEmpty = totalFiles === 0;
         } else if (dokumen === 'modul') {
             const files = items.filter(f => f.endsWith('.pdf'));
-            fileList = files.map(f => ({
-                name: formatFileName(f),
-                url: encodeURI(`/dokumen/${prodi}/modul/${f}`)
-            }));
+            if (files.length > 0) {
+                fileList = files.map(f => ({
+                    name: formatFileName(f),
+                    url: encodeURI(`/dokumen/${prodi}/modul/${f}`)
+                }));
+                isEmpty = false;
+            }
         }
     }
 }
